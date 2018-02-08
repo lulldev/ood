@@ -7,8 +7,10 @@ using namespace std;
 
 struct IFlyBehavior
 {
-	virtual ~IFlyBehavior(){};
+	virtual ~IFlyBehavior() {};
 	virtual void Fly() = 0;
+    virtual void SetFlyCount(int flyCount) = 0;
+    virtual int GetFlyCount() = 0;
 };
 
 class FlyWithWings : public IFlyBehavior
@@ -16,14 +18,33 @@ class FlyWithWings : public IFlyBehavior
 public:
 	void Fly() override
 	{
-		cout << "I'm flying with wings!!" << endl;
+        ++m_flyCount;
+		cout << "I'm flying with wings!! Flight no = " << m_flyCount <<endl;
 	}
+
+    void SetFlyCount(int count) override
+    {
+        m_flyCount = count;
+    }
+
+    int GetFlyCount() override
+    {
+        return m_flyCount;
+    }
+private:
+    int m_flyCount = 0;
 };
 
 class FlyNoWay : public IFlyBehavior
 {
 public:
 	void Fly() override {}
+    void SetFlyCount(int count) override {}
+
+    int GetFlyCount() override
+    {
+        return 0;
+    }
 };
 
 struct IQuackBehavior
@@ -175,7 +196,7 @@ class DeckoyDuck : public Duck
 {
 public:
 	DeckoyDuck()
-            : Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<NoDance>())
+            : Duck(make_unique<FlyNoWay>(), make_unique<QuackBehavior>(), make_unique<NoDance>())
 	{
 	}
 	void Display() const override
@@ -188,7 +209,7 @@ class RubberDuck : public Duck
 {
 public:
 	RubberDuck()
-            : Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<NoDance>())
+            : Duck(make_unique<FlyNoWay>(), make_unique<QuackBehavior>(), make_unique<NoDance>())
 	{
 	}
 	void Display() const override
@@ -201,7 +222,7 @@ class ModelDuck : public Duck
 {
 public:
 	ModelDuck()
-            : Duck(make_unique<FlyWithWings>(), make_unique<QuackBehavior>(), make_unique<NoDance>())
+            : Duck(make_unique<FlyNoWay>(), make_unique<QuackBehavior>(), make_unique<NoDance>())
 	{
 	}
 	void Display() const override
@@ -228,19 +249,29 @@ int main()
 {
 	MallardDuck mallarDuck;
 	PlayWithDuck(mallarDuck);
+	PlayWithDuck(mallarDuck);
+	PlayWithDuck(mallarDuck);
 
 	RedheadDuck redheadDuck;
+	PlayWithDuck(redheadDuck);
+	PlayWithDuck(redheadDuck);
 	PlayWithDuck(redheadDuck);
 
 	RubberDuck rubberDuck;
 	PlayWithDuck(rubberDuck);
+	PlayWithDuck(rubberDuck);
+	PlayWithDuck(rubberDuck);
 
 	DeckoyDuck deckoyDuck;
+	PlayWithDuck(deckoyDuck);
+	PlayWithDuck(deckoyDuck);
 	PlayWithDuck(deckoyDuck);
 
 	ModelDuck modelDuck;
 	PlayWithDuck(modelDuck);
 	modelDuck.SetFlyBehavior(make_unique<FlyWithWings>());
+	PlayWithDuck(modelDuck);
+	PlayWithDuck(modelDuck);
 	PlayWithDuck(modelDuck);
 
     return 0;
