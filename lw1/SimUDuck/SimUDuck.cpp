@@ -10,6 +10,7 @@ struct IFlyBehavior
 	virtual ~IFlyBehavior(){};
 	virtual void Fly() = 0;
 };
+
 class FlyWithWings : public IFlyBehavior
 {
 public:
@@ -39,6 +40,7 @@ public:
 		cout << "Quack Quack!!!" << endl;
 	}
 };
+
 class SqueakBehavior : public IQuackBehavior
 {
 public:
@@ -119,6 +121,7 @@ public:
 		cout << "I'm redhead duck" << endl;
 	}
 };
+
 class DeckoyDuck : public Duck
 {
 public:
@@ -132,6 +135,7 @@ public:
 	}
 	void Dance() override {}
 };
+
 class RubberDuck : public Duck
 {
 public:
@@ -174,7 +178,7 @@ void PlayWithDuck(Duck& duck)
 	cout << endl;
 }
 
-void main()
+int main()
 {
 	MallardDuck mallarDuck;
 	PlayWithDuck(mallarDuck);
@@ -192,4 +196,6 @@ void main()
 	PlayWithDuck(modelDuck);
 	modelDuck.SetFlyBehavior(make_unique<FlyWithWings>());
 	PlayWithDuck(modelDuck);
+
+    return 0;
 }
