@@ -21,11 +21,6 @@ public:
         cout << "I'm flying with wings!! Flight no = " << m_flyCount << endl;
     }
 
-    void SetFlyCount(int count)
-    {
-        m_flyCount = count;
-    }
-
 private:
     int m_flyCount = 0;
 };
