@@ -10,10 +10,6 @@ struct IFlyBehavior
     virtual ~IFlyBehavior() = default;
 
     virtual void Fly() = 0;
-
-    virtual void SetFlyCount(int flyCount) = 0;
-
-    virtual int GetFlyCount() = 0;
 };
 
 class FlyWithWings : public IFlyBehavior
@@ -25,14 +21,9 @@ public:
         cout << "I'm flying with wings!! Flight no = " << m_flyCount << endl;
     }
 
-    void SetFlyCount(int count) override
+    void SetFlyCount(int count)
     {
         m_flyCount = count;
-    }
-
-    int GetFlyCount() override
-    {
-        return m_flyCount;
     }
 
 private:
@@ -44,15 +35,6 @@ class FlyNoWay : public IFlyBehavior
 public:
     void Fly() override
     {
-    }
-
-    void SetFlyCount(int count) override
-    {
-    }
-
-    int GetFlyCount() override
-    {
-        return 0;
     }
 };
 
