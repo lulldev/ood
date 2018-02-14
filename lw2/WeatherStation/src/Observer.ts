@@ -1,15 +1,15 @@
-interface IObserver {
-  observerId: Number;
-  Update(data : any);
+export interface IObserver {
+  observerId: number;
+  Update(data : any) : void;
 }
 
-interface IObservable {
+export interface IObservable {
   RegisterObserver(observer: IObserver) : void;
   NotifyObservers() : void;
-  RemoveObserver(observerId: Number) : void;
+  RemoveObserver(observerId: number) : void;
 }
 
-abstract class CObservable implements IObservable {
+export abstract class CObservable implements IObservable {
 
   observers: Array<IObserver>;
 
@@ -24,7 +24,7 @@ abstract class CObservable implements IObservable {
     });
   }
 
-  RemoveObserver(observerId: Number) : void {
+  RemoveObserver(observerId: number) : void {
     this.observers.forEach((observer, index) => {
       if (observer.observerId === observerId) {
         this.observers.slice(index, 1);
