@@ -1,4 +1,4 @@
-import { IObserver, CObservable } from './Observer';
+import { CObserver, CObservable } from './Observer';
 
 export interface SWeatherInfo {
   temperature: number;
@@ -6,9 +6,9 @@ export interface SWeatherInfo {
   pressure: number;
 }
 
-export class CDisplay implements IObserver {
+export class CDisplay extends CObserver {
 
-  observerId: number;
+  _observerId: number;
 
   Update(data : SWeatherInfo) : void {
     const currentData = `
@@ -21,9 +21,9 @@ Current Pressure ${data.humidity}`;
 
 }
 
-export class CStatsDisplay implements IObserver {
+export class CStatsDisplay extends CObserver {
 
-  observerId: number;
+  _observerId: number;
   private minTemperature: number = Infinity;
   private maxTemperature: number = -Infinity;
   private accTemperature: number = 0;
