@@ -1,27 +1,27 @@
 import { IObserver, CObservable } from './Observer';
 
-interface SWeatherInfo {
+export interface SWeatherInfo {
   temperature: number;
   humidity: number;
   pressure: number;
 }
 
-class CDisplay implements IObserver {
+export class CDisplay implements IObserver {
 
   observerId: number;
 
   Update(data : SWeatherInfo) : void {
-    const currentData =
-      `Current Temp ${data.temperature}\n
-       Current Hum ${data.humidity}\n
-       Current Pressure ${data.humidity}\n`;
+    const currentData = `
+Current Temp ${data.temperature}
+Current Hum ${data.humidity}
+Current Pressure ${data.humidity}`;
 
     console.log(currentData);
   }
 
 }
 
-class CStatsDisplay implements IObserver {
+export class CStatsDisplay implements IObserver {
 
   observerId: number;
   private minTemperature: number = Infinity;
@@ -44,18 +44,18 @@ class CStatsDisplay implements IObserver {
     this.accTemperature += data.temperature;
     ++this.countAcc;
 
-    const currentData =
-      `Max Temp ${this.maxTemperature}\n
-       Min Temp ${this.minTemperature}\n
-       Averge Temp ${this.accTemperature / this.countAcc}\n
-       ---------------------------------\n`;
+    const currentData = `
+Max Temp ${this.maxTemperature}
+Min Temp ${this.minTemperature}
+Averge Temp ${this.accTemperature / this.countAcc}
+---------------------------------`;
 
     console.log(currentData);
 
   }
 }
 
-class CWeatherData extends CObservable {
+export class CWeatherData extends CObservable {
 
   private temperature : number = 0.0;
   private humidity : number = 0.0;

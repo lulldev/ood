@@ -11,7 +11,7 @@ export interface IObservable {
 
 export abstract class CObservable implements IObservable {
 
-  observers: Array<IObserver>;
+  observers: Array<IObserver> = [];
 
   RegisterObserver(observer: IObserver) : void {
     this.observers.push(observer);

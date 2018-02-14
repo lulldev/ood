@@ -17,6 +17,7 @@
     "typescript": "~2.7.1"
   },
   "scripts": {
+    "execute": "npm run build && node build/src/app.js",
     "clean": "rimraf coverage build tmp",
     "build": "tsc -p tsconfig.release.json",
     "watch": "tsc -w -p tsconfig.release.json",
