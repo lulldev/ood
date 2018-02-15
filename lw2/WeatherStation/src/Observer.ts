@@ -5,6 +5,7 @@ export interface IObserver {
 export abstract class CObserver implements IObserver {
 
   private _observerId: number;
+  private _priority: number;
 
   set observerId(observerId: number) {
     this._observerId = observerId;
@@ -14,12 +15,19 @@ export abstract class CObserver implements IObserver {
     return this._observerId;
   }
 
+  set priority(observerId: number) {
+    this._priority = observerId;
+  }
+
+  get priority() {
+    return this._priority;
+  }
+
   public abstract Update(data : any) : void;
 }
 
-
 export interface IObservable {
-  RegisterObserver(observer: CObserver): void;
+  RegisterObserver(observer: CObserver, priority: number): void;
   NotifyObservers(): void;
   RemoveObserver(observer: IObserver): void;
 }
@@ -28,13 +36,19 @@ export abstract class CObservable implements IObservable {
 
   private observers: Array<CObserver> = [];
 
-  public RegisterObserver(observer: CObserver) : void {
+  public RegisterObserver(observer: CObserver, priority: number) : void {
     observer.observerId = this.GetNewObserverId();
+    observer.priority = priority;
     this.observers.push(observer);
   }
 
   public NotifyObservers() : void {
     const data : any = this.GetChangedData();
+
+    // priority sort
+    this.observers = this.observers.sort((a: CObserver, b: CObserver) => {
+      return (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0); });
+
     this.observers.forEach((observer) => {
       observer.Update(data);
     });
@@ -46,6 +60,10 @@ export abstract class CObservable implements IObservable {
         this.observers.slice(index, 1);
       }
     });
+  }
+
+  public GetObserversList(): Array<CObserver> {
+    return this.observers;
   }
 
   private GetNewObserverId() : number {

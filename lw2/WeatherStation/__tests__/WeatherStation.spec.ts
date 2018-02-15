@@ -1,19 +1,37 @@
-/*
-import { SWeatherInfo, CDisplay, CStatsDisplay, CWeatherData } from '../src/WeatherStation';
+import { CDisplay, CStatsDisplay, CWeatherData } from '../src/WeatherStation';
 
 describe('Weather Stations', () => {
 
-  const wd : CWeatherData;
-
-  beforeAll(() => {
-    wd = new CWeatherData();
-  });
-
-  it('delays the greeting by 2 seconds', () => {
+  it('Notify observers with priority', () => {
     const wd : CWeatherData = new CWeatherData();
-    // expect((<jest.Mock<void>> setTimeout).mock.calls.length).toBe(1);
-    // expect((<jest.Mock<void>> setTimeout).mock.calls[0][1]).toBe(Delays.Long);
+
+    const display : CDisplay = new CDisplay();
+    const statsDisplay : CStatsDisplay = new CStatsDisplay();
+
+    wd.RegisterObserver(statsDisplay, 100);
+    wd.RegisterObserver(display, 200);
+
+    let observersList = wd.GetObserversList();
+
+    expect(observersList[0].priority).toBe(100);
+    expect(observersList[1].priority).toBe(200);
+
+    wd.SetMeasurements(3, 0.7, 760);
+    observersList = wd.GetObserversList();
+
+    expect(observersList[0].priority).toBe(200);
+    expect(observersList[1].priority).toBe(100);
+
+    wd.RemoveObserver(statsDisplay);
+
+    const statsDisplay2 : CStatsDisplay = new CStatsDisplay();
+    wd.RegisterObserver(statsDisplay2, 500);
+
+    wd.SetMeasurements(3, 0.7, 760);
+    observersList = wd.GetObserversList();
+
+    expect(observersList[0].priority).toBe(500);
+    expect(observersList[1].priority).toBe(200);
   });
 
 });
-*/
