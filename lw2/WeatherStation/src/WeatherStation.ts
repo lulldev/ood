@@ -8,8 +8,6 @@ export interface SWeatherInfo {
 
 export class CDisplay extends CObserver {
 
-  _observerId: number;
-
   Update(data : SWeatherInfo) : void {
     const currentData = `
 Current Temp ${data.temperature}
@@ -23,7 +21,6 @@ Current Pressure ${data.humidity}`;
 
 export class CStatsDisplay extends CObserver {
 
-  _observerId: number;
   private minTemperature: number = Infinity;
   private maxTemperature: number = -Infinity;
   private accTemperature: number = 0;

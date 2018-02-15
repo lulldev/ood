@@ -1,11 +1,10 @@
 export interface IObserver {
-  _observerId: number;
   Update(data : any) : void;
 }
 
 export abstract class CObserver implements IObserver {
 
-  _observerId: number;
+  private _observerId: number;
 
   set observerId(observerId: number) {
     this._observerId = observerId;
@@ -27,21 +26,21 @@ export interface IObservable {
 
 export abstract class CObservable implements IObservable {
 
-  observers: Array<CObserver> = [];
+  private observers: Array<CObserver> = [];
 
-  RegisterObserver(observer: CObserver) : void {
+  public RegisterObserver(observer: CObserver) : void {
     observer.observerId = this.GetNewObserverId();
     this.observers.push(observer);
   }
 
-  NotifyObservers() : void {
+  public NotifyObservers() : void {
     const data : any = this.GetChangedData();
     this.observers.forEach((observer) => {
       observer.Update(data);
     });
   }
 
-  RemoveObserver(observer: CObserver): void {
+  public RemoveObserver(observer: CObserver): void {
     this.observers.forEach((currentObserver, index) => {
       if (currentObserver.observerId === observer.observerId) {
         this.observers.slice(index, 1);
