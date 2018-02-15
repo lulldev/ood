@@ -1,4 +1,5 @@
 import { CObserver, CObservable } from './Observer';
+import { ucFirst } from './Utils';
 
 export interface SWeatherInfo {
   temperature: number;
@@ -12,7 +13,7 @@ export class CDisplay extends CObserver {
     const currentData = `
 Current Temp ${data.temperature}
 Current Hum ${data.humidity}
-Current Pressure ${data.humidity}`;
+Current Pressure ${data.pressure}`;
 
     console.log(currentData);
   }
@@ -24,31 +25,50 @@ export class CStatsDisplay extends CObserver {
   private minTemperature: number = Infinity;
   private maxTemperature: number = -Infinity;
   private accTemperature: number = 0;
-  private countAcc: number = 0;
+  private countTemperatureAcc: number = 0;
 
-  Update(data : SWeatherInfo) : void {
+  private minHumidity: number = Infinity;
+  private maxHumidity: number = -Infinity;
+  private accHumidity: number = 0;
+  private countHumidityAcc: number = 0;
 
-    if (this.minTemperature > data.temperature)
-    {
-      this.minTemperature = data.temperature;
-    }
+  private minPressure: number = Infinity;
+  private maxPressure: number = -Infinity;
+  private accPressure: number = 0;
+  private countPressureAcc: number = 0;
 
-    if (this.maxTemperature < data.temperature)
-    {
-      this.maxTemperature = data.temperature;
-    }
+  private CalculateBasicStat(data : SWeatherInfo) : any {
+    for (let key in data) {
+      const minKey = `min${ucFirst(key)}`;
+      const maxKey = `max${ucFirst(key)}`;
+      const accKey = `acc${ucFirst(key)}`;
+      const countAccKey = `count${ucFirst(key)}Acc`;
 
-    this.accTemperature += data.temperature;
-    ++this.countAcc;
+      if (this[minKey] > data[key])
+      {
+        this[minKey] = data[key];
+      }
 
-    const currentData = `
-Max Temp ${this.maxTemperature}
-Min Temp ${this.minTemperature}
-Averge Temp ${this.accTemperature / this.countAcc}
+      if (this[maxKey] < data[key])
+      {
+        this[maxKey] = data[key];
+      }
+
+      this[accKey] += data[key];
+      ++this[countAccKey];
+
+      const currentData = `
+Max ${key} ${this[maxKey]}
+Min ${key} ${this[minKey]}
+Averge ${key} ${this[accKey] / this[countAccKey]}
 ---------------------------------`;
 
-    console.log(currentData);
+      console.log(currentData);
+    }
+  }
 
+  Update(data : SWeatherInfo) : void {
+    this.CalculateBasicStat(data);
   }
 }
 
