@@ -2,7 +2,7 @@ import { CDisplay, CStatsDisplay, CWeatherData } from '../src/WeatherStation';
 
 describe('Weather Stations', () => {
 
-  it('Notify observers with priority', () => {
+  it('Notify observers in the right order', () => {
     const wd : CWeatherData = new CWeatherData();
 
     const display : CDisplay = new CDisplay();
