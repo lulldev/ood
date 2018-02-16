@@ -72,6 +72,22 @@ Averge ${key} ${this[accKey] / this[countAccKey]}
   }
 }
 
+export class CrashDisplay extends CObserver {
+
+  private wd;
+
+  public setWd(wd: CWeatherData) {
+    this.wd = wd;
+  }
+
+  Update(data : SWeatherInfo) : void {
+    console.log('Im crash your program!');
+    this.wd.RemoveObserver(this);
+    console.log(data);
+  }
+
+}
+
 export class CWeatherData extends CObservable {
 
   private temperature : number = 0.0;

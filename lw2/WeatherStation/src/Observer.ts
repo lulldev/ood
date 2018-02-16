@@ -57,7 +57,7 @@ export abstract class CObservable implements IObservable {
   public RemoveObserver(observer: CObserver): void {
     this.observers.forEach((currentObserver, index) => {
       if (currentObserver.observerId === observer.observerId) {
-        this.observers.slice(index, 1);
+        this.observers.splice(index, 1);
       }
     });
   }
@@ -73,7 +73,7 @@ export abstract class CObservable implements IObservable {
     const lastObserver : CObserver = this.observers.reduce(function(prev, current) {
       return (prev.observerId > current.observerId) ? prev : current
     });
-    return ++lastObserver.observerId;
+    return lastObserver.observerId + 1;
   }
 
   protected abstract GetChangedData() : any;

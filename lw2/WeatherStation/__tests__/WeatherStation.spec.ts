@@ -1,4 +1,4 @@
-import { CDisplay, CStatsDisplay, CWeatherData } from '../src/WeatherStation';
+import { CDisplay, CrashDisplay, CStatsDisplay, CWeatherData } from '../src/WeatherStation';
 
 describe('Weather Stations', () => {
 
@@ -32,6 +32,26 @@ describe('Weather Stations', () => {
 
     expect(observersList[0].priority).toBe(500);
     expect(observersList[1].priority).toBe(200);
+  });
+
+  it('No unbehavior moments in notifications', () => {
+    const wd : CWeatherData = new CWeatherData();
+    const display1 : CDisplay = new CDisplay();
+    const display2 : CDisplay = new CDisplay();
+    const crashDisplay : CrashDisplay = new CrashDisplay();
+
+    wd.RegisterObserver(display1, 200);
+    wd.RegisterObserver(display2, 200);
+    wd.RegisterObserver(crashDisplay, 100);
+    crashDisplay.setWd(wd);
+
+    wd.SetMeasurements(3, 0.7, 760);
+    let observersList = wd.GetObserversList();
+    expect(observersList.length).toBe(2);
+
+    wd.SetMeasurements(3, 0.7, 760);
+    observersList = wd.GetObserversList();
+    expect(observersList.length).toBe(2);
   });
 
 });
