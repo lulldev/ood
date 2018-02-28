@@ -1,4 +1,5 @@
-import {Display, CrashDisplay, StatsDisplay, WeatherData} from '../src/WeatherStation';
+import {Display, CrashDisplay, StatsDisplay} from '../src/WeatherStation';
+import {WeatherData} from '../src/WeatherData';
 
 describe('Weather Stations', () => {
 
