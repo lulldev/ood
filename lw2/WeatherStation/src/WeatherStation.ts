@@ -1,6 +1,13 @@
 import {Observable, IObserver} from './Observer';
 import {ucFirst} from './Utils';
 
+interface IStatType {
+  min: number;
+  max: number;
+  counter: number;
+  acc: number
+}
+
 export interface WeatherInfo {
   temperature: number;
   humidity: number;
@@ -22,53 +29,34 @@ Current Pressure ${data.pressure}`;
 
 export class StatsDisplay implements IObserver {
 
-  private minTemperature: number = Infinity;
-  private maxTemperature: number = -Infinity;
-  private accTemperature: number = 0;
-  private countTemperatureAcc: number = 0;
+  private temperature: IStatType = {min: Infinity, max: -Infinity, counter: 0, acc: 0};
+  private humidity: IStatType = {min: Infinity, max: -Infinity, counter: 0, acc: 0};
+  private pressure: IStatType = {min: Infinity, max: -Infinity, counter: 0, acc: 0};
 
-  private minHumidity: number = Infinity;
-  private maxHumidity: number = -Infinity;
-  private accHumidity: number = 0;
-  private countHumidityAcc: number = 0;
+  private CalculateBasicStat(param: { valueType: string, value: number }): void {
 
-  private minPressure: number = Infinity;
-  private maxPressure: number = -Infinity;
-  private accPressure: number = 0;
-  private countPressureAcc: number = 0;
-
-  private CalculateBasicStat(data: WeatherInfo): string {
-    let currentData = '';
-
-    for (let key in data) {
-      const minKey = `min${ucFirst(key)}`;
-      const maxKey = `max${ucFirst(key)}`;
-      const accKey = `acc${ucFirst(key)}`;
-      const countAccKey = `count${ucFirst(key)}Acc`;
-
-      if (this[minKey] > data[key]) {
-        this[minKey] = data[key];
-      }
-
-      if (this[maxKey] < data[key]) {
-        this[maxKey] = data[key];
-      }
-
-      this[accKey] += data[key];
-      ++this[countAccKey];
-
-      currentData = `
-Max ${key} ${this[maxKey]}
-Min ${key} ${this[minKey]}
-Averge ${key} ${this[accKey] / this[countAccKey]}
----------------------------------`;
-      console.log(currentData);
+    if (this[param.valueType].min > param.value) {
+      this[param.valueType].min = param.value;
     }
-    return currentData;
+
+    if (this[param.valueType].max < param.value) {
+      this[param.valueType].max = param.value;
+    }
+
+    this[param.valueType].acc += param.value;
+    ++this[param.valueType].counter;
+
+    console.log(`
+Max ${param.valueType} ${this[param.valueType].max}
+Min ${param.valueType} ${this[param.valueType].min}
+Averge ${param.valueType} ${this[param.valueType].acc / this[param.valueType].counter}
+---------------------------------`);
   }
 
   Update(data: WeatherInfo): void {
-    this.CalculateBasicStat(data);
+    this.CalculateBasicStat({valueType: 'temperature', value: data.temperature});
+    this.CalculateBasicStat({valueType: 'humidity', value: data.humidity});
+    this.CalculateBasicStat({valueType: 'pressure', value: data.pressure});
   }
 }
 
