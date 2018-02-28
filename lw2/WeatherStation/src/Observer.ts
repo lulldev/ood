@@ -43,5 +43,9 @@ export abstract class Observable implements IObservable {
     this.log += `${some}\n`;
   }
 
+  public GetLog(): string {
+    return this.log;
+  }
+
   protected abstract GetChangedData(): any;
 }

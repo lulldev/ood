@@ -110,10 +110,6 @@ export class WeatherData extends Observable {
     this.NotifyObservers();
   }
 
-  public GetLog(): string {
-    return this.log;
-  }
-
   public SetMeasurements(temperature: number, humidity: number, pressure: number): void {
     this.temperature = temperature;
     this.humidity = humidity;
