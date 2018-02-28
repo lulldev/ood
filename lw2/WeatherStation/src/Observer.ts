@@ -10,7 +10,7 @@ export interface IObservable {
   RemoveObserver(observer: IObserver): void;
 }
 
-export abstract class CObservable implements IObservable {
+export abstract class Observable implements IObservable {
 
   private observerList: { observer: IObserver, priority: number }[] = [];
 

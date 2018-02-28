@@ -1,15 +1,15 @@
-import {CObservable, IObserver} from './Observer';
+import {Observable, IObserver} from './Observer';
 import {ucFirst} from './Utils';
 
-export interface SWeatherInfo {
+export interface WeatherInfo {
   temperature: number;
   humidity: number;
   pressure: number;
 }
 
-export class CDisplay implements IObserver {
+export class Display implements IObserver {
 
-  Update(data: SWeatherInfo): void {
+  Update(data: WeatherInfo): void {
     const currentData = `
 Current Temp ${data.temperature}
 Current Hum ${data.humidity}
@@ -20,7 +20,7 @@ Current Pressure ${data.pressure}`;
 
 }
 
-export class CStatsDisplay implements IObserver {
+export class StatsDisplay implements IObserver {
 
   private minTemperature: number = Infinity;
   private maxTemperature: number = -Infinity;
@@ -37,7 +37,7 @@ export class CStatsDisplay implements IObserver {
   private accPressure: number = 0;
   private countPressureAcc: number = 0;
 
-  private CalculateBasicStat(data: SWeatherInfo): any {
+  private CalculateBasicStat(data: WeatherInfo): any {
     for (let key in data) {
       const minKey = `min${ucFirst(key)}`;
       const maxKey = `max${ucFirst(key)}`;
@@ -65,7 +65,7 @@ Averge ${key} ${this[accKey] / this[countAccKey]}
     }
   }
 
-  Update(data: SWeatherInfo): void {
+  Update(data: WeatherInfo): void {
     this.CalculateBasicStat(data);
   }
 }
@@ -74,11 +74,11 @@ export class CrashDisplay implements IObserver {
 
   private wd;
 
-  public setWd(wd: CWeatherData) {
+  public setWd(wd: WeatherData) {
     this.wd = wd;
   }
 
-  Update(data: SWeatherInfo): void {
+  Update(data: WeatherInfo): void {
     console.log('Im crash your program!');
     this.wd.RemoveObserver(this); // todo: test delete nex object
     console.log(data);
@@ -86,7 +86,7 @@ export class CrashDisplay implements IObserver {
 
 }
 
-export class CWeatherData extends CObservable {
+export class WeatherData extends Observable {
 
   private temperature: number = 0.0;
   private humidity: number = 0.0;
@@ -115,7 +115,7 @@ export class CWeatherData extends CObservable {
     this.MeasurementsChanged();
   }
 
-  protected GetChangedData(): SWeatherInfo {
+  protected GetChangedData(): WeatherInfo {
     return {
       temperature: this.GetTemperature(),
       humidity: this.GetHumidity(),

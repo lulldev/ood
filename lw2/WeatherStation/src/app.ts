@@ -1,8 +1,8 @@
-import { CDisplay, CStatsDisplay, CWeatherData } from './WeatherStation';
+import { Display, StatsDisplay, WeatherData } from './WeatherStation';
 
-const wd : CWeatherData = new CWeatherData();
-const display : CDisplay = new CDisplay();
-const statsDisplay : CStatsDisplay = new CStatsDisplay();
+const wd : WeatherData = new WeatherData();
+const display : Display = new Display();
+const statsDisplay : StatsDisplay = new StatsDisplay();
 
 wd.RegisterObserver(display, 200);
 wd.RegisterObserver(statsDisplay, 100);
