@@ -1,29 +1,33 @@
-import { Display, CrashDisplay, StatsDisplay, WeatherData } from '../src/WeatherStation';
+import {Display, CrashDisplay, StatsDisplay, WeatherData} from '../src/WeatherStation';
 
 describe('Weather Stations', () => {
 
   it('Notify observers in the right order', () => {
-    const wd : WeatherData = new WeatherData();
+    const wd: WeatherData = new WeatherData();
 
-    const display : Display = new Display();
-    const statsDisplay : StatsDisplay = new StatsDisplay();
+    const display: Display = new Display();
+    const statsDisplay: StatsDisplay = new StatsDisplay();
 
     wd.RegisterObserver(statsDisplay, 100);
     wd.RegisterObserver(display, 200);
     wd.SetMeasurements(3, 0.7, 760);
 
-    // test
-    console.log(wd.GetLog());
+    expect(wd.GetLog()).toEqual(
+      'Notification for Display with 200 priority\n' +
+      'Notification for StatsDisplay with 100 priority\n'
+    );
 
-    const statsDisplay2 : StatsDisplay = new StatsDisplay();
+    const statsDisplay2: StatsDisplay = new StatsDisplay();
     wd.RegisterObserver(statsDisplay2, 500);
     wd.SetMeasurements(2, 0.7, 760);
 
-    console.log(wd.GetLog());
-
-
-    // test
-
+    expect(wd.GetLog()).toEqual(
+      'Notification for Display with 200 priority\n' +
+      'Notification for StatsDisplay with 100 priority\n' +
+      'Notification for StatsDisplay with 500 priority\n' +
+      'Notification for Display with 200 priority\n' +
+      'Notification for StatsDisplay with 100 priority\n'
+    );
   });
 
   /*it('No unbehavior moments in notifications', () => {
@@ -47,10 +51,10 @@ describe('Weather Stations', () => {
   });*/
 
   it('test', () => {
-    const wd : WeatherData = new WeatherData();
-    const display1 : Display = new Display();
-    const display2 : Display = new Display();
-    const crashDisplay : CrashDisplay = new CrashDisplay();
+    const wd: WeatherData = new WeatherData();
+    const display1: Display = new Display();
+    const display2: Display = new Display();
+    const crashDisplay: CrashDisplay = new CrashDisplay();
 
     // todo check object test expect(display1).toEqual(display2);
     // console.log(display1 == display2);

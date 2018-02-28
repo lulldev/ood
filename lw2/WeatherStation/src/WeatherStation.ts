@@ -9,14 +9,13 @@ export interface WeatherInfo {
 
 export class Display implements IObserver {
 
-  Update(data: WeatherInfo): string {
-    const currentData = `
+  Update(data: WeatherInfo): void {
+    const currentData = `    
 Current Temp ${data.temperature}
 Current Hum ${data.humidity}
 Current Pressure ${data.pressure}`;
 
     console.log(currentData);
-    return currentData;
   }
 
 }
@@ -68,8 +67,8 @@ Averge ${key} ${this[accKey] / this[countAccKey]}
     return currentData;
   }
 
-  Update(data: WeatherInfo): string {
-    return this.CalculateBasicStat(data);
+  Update(data: WeatherInfo): void {
+    this.CalculateBasicStat(data);
   }
 }
 
@@ -81,11 +80,10 @@ export class CrashDisplay implements IObserver {
     this.wd = wd;
   }
 
-  Update(data: WeatherInfo): string {
+  Update(data: WeatherInfo): void {
     console.log('Im crash your program!');
     this.wd.RemoveObserver(this); // todo: test delete nex object
     console.log(data);
-    return 'crash';
   }
 
 }

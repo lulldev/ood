@@ -1,5 +1,5 @@
 export interface IObserver {
-  Update(data: any): string;
+  Update(data: any): void;
 }
 
 export interface IObservable {
@@ -25,8 +25,9 @@ export abstract class Observable implements IObservable {
   public NotifyObservers(): void {
     const data: any = this.GetChangedData();
     this.observerList.forEach((currentObserver) => {
-      const updatedData = currentObserver.observer.Update(data);
-      this.WriteLog(updatedData);
+      currentObserver.observer.Update(data);
+      this.WriteLog(
+`Notification for ${currentObserver.observer.constructor.name} with ${currentObserver.priority} priority`);
     });
   }
 
@@ -39,7 +40,7 @@ export abstract class Observable implements IObservable {
   }
 
   private WriteLog(some: any): void {
-    this.log += some;
+    this.log += `${some}\n`;
   }
 
   protected abstract GetChangedData(): any;
