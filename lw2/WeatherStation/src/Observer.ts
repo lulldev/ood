@@ -1,80 +1,39 @@
 export interface IObserver {
-  Update(data : any) : void;
-}
-
-export abstract class CObserver implements IObserver {
-
-  private _observerId: number;
-  private _priority: number;
-
-  set observerId(observerId: number) {
-    this._observerId = observerId;
-  }
-
-  get observerId() {
-    return this._observerId;
-  }
-
-  set priority(observerId: number) {
-    this._priority = observerId;
-  }
-
-  get priority() {
-    return this._priority;
-  }
-
-  public abstract Update(data : any) : void;
+  Update(data: any): void;
 }
 
 export interface IObservable {
-  RegisterObserver(observer: CObserver, priority: number): void;
+  RegisterObserver(observer: IObserver, priority: number): void;
+
   NotifyObservers(): void;
+
   RemoveObserver(observer: IObserver): void;
 }
 
 export abstract class CObservable implements IObservable {
 
-  private observers: Array<CObserver> = [];
+  private observerList: { observer: IObserver, priority: number }[] = [];
 
-  public RegisterObserver(observer: CObserver, priority: number) : void {
-    observer.observerId = this.GetNewObserverId();
-    observer.priority = priority;
-    this.observers.push(observer);
+  public RegisterObserver(observer: IObserver, priority: number): void {
+    this.observerList.push({observer: observer, priority: priority});
+    this.observerList = this.observerList.sort((a: { observer: IObserver, priority: number }, b: { observer: IObserver, priority: number }) => {
+      return (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0); });
   }
 
-  public NotifyObservers() : void {
-    const data : any = this.GetChangedData();
-
-    // priority sort
-    this.observers = this.observers.sort((a: CObserver, b: CObserver) => {
-      return (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0); });
-
-    this.observers.forEach((observer) => {
-      observer.Update(data);
+  public NotifyObservers(): void {
+    const data: any = this.GetChangedData();
+    this.observerList.forEach((currentObserver) => {
+      currentObserver.observer.Update(data);
     });
   }
 
-  public RemoveObserver(observer: CObserver): void {
-    this.observers.forEach((currentObserver, index) => {
-      if (currentObserver.observerId === observer.observerId) {
-        this.observers.splice(index, 1);
+  public RemoveObserver(observer: IObserver): void {
+    this.observerList.forEach((currentObserver, index) => {
+      if (currentObserver.observer === observer) {
+        this.observerList.splice(index, 1);
       }
     });
   }
 
-  public GetObserversList(): Array<CObserver> {
-    return this.observers;
-  }
-
-  private GetNewObserverId() : number {
-    if (this.observers.length === 0) {
-      return 1;
-    }
-    const lastObserver : CObserver = this.observers.reduce(function(prev, current) {
-      return (prev.observerId > current.observerId) ? prev : current
-    });
-    return lastObserver.observerId + 1;
-  }
-
-  protected abstract GetChangedData() : any;
+  protected abstract GetChangedData(): any;
 }

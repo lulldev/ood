@@ -54,4 +54,14 @@ describe('Weather Stations', () => {
     expect(observersList.length).toBe(2);
   });
 
+  it('test', () => {
+    const wd : CWeatherData = new CWeatherData();
+    const display1 : CDisplay = new CDisplay();
+    const display2 : CDisplay = new CDisplay();
+    const crashDisplay : CrashDisplay = new CrashDisplay();
+
+    // todo check object test expect(display1).toEqual(display2);
+    // console.log(display1 == display2);
+
+  });
 });

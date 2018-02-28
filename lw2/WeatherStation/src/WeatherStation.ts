@@ -1,5 +1,5 @@
-import { CObserver, CObservable } from './Observer';
-import { ucFirst } from './Utils';
+import {CObservable, IObserver} from './Observer';
+import {ucFirst} from './Utils';
 
 export interface SWeatherInfo {
   temperature: number;
@@ -7,9 +7,9 @@ export interface SWeatherInfo {
   pressure: number;
 }
 
-export class CDisplay extends CObserver {
+export class CDisplay implements IObserver {
 
-  Update(data : SWeatherInfo) : void {
+  Update(data: SWeatherInfo): void {
     const currentData = `
 Current Temp ${data.temperature}
 Current Hum ${data.humidity}
@@ -20,7 +20,7 @@ Current Pressure ${data.pressure}`;
 
 }
 
-export class CStatsDisplay extends CObserver {
+export class CStatsDisplay implements IObserver {
 
   private minTemperature: number = Infinity;
   private maxTemperature: number = -Infinity;
@@ -37,20 +37,18 @@ export class CStatsDisplay extends CObserver {
   private accPressure: number = 0;
   private countPressureAcc: number = 0;
 
-  private CalculateBasicStat(data : SWeatherInfo) : any {
+  private CalculateBasicStat(data: SWeatherInfo): any {
     for (let key in data) {
       const minKey = `min${ucFirst(key)}`;
       const maxKey = `max${ucFirst(key)}`;
       const accKey = `acc${ucFirst(key)}`;
       const countAccKey = `count${ucFirst(key)}Acc`;
 
-      if (this[minKey] > data[key])
-      {
+      if (this[minKey] > data[key]) {
         this[minKey] = data[key];
       }
 
-      if (this[maxKey] < data[key])
-      {
+      if (this[maxKey] < data[key]) {
         this[maxKey] = data[key];
       }
 
@@ -67,12 +65,12 @@ Averge ${key} ${this[accKey] / this[countAccKey]}
     }
   }
 
-  Update(data : SWeatherInfo) : void {
+  Update(data: SWeatherInfo): void {
     this.CalculateBasicStat(data);
   }
 }
 
-export class CrashDisplay extends CObserver {
+export class CrashDisplay implements IObserver {
 
   private wd;
 
@@ -80,9 +78,9 @@ export class CrashDisplay extends CObserver {
     this.wd = wd;
   }
 
-  Update(data : SWeatherInfo) : void {
+  Update(data: SWeatherInfo): void {
     console.log('Im crash your program!');
-    this.wd.RemoveObserver(this);
+    this.wd.RemoveObserver(this); // todo: test delete nex object
     console.log(data);
   }
 
@@ -90,34 +88,34 @@ export class CrashDisplay extends CObserver {
 
 export class CWeatherData extends CObservable {
 
-  private temperature : number = 0.0;
-  private humidity : number = 0.0;
-  private pressure : number = 760.0;
+  private temperature: number = 0.0;
+  private humidity: number = 0.0;
+  private pressure: number = 760.0;
 
-  public GetTemperature() : number {
+  public GetTemperature(): number {
     return this.temperature;
   }
 
-  public GetHumidity() : number {
+  public GetHumidity(): number {
     return this.humidity;
   }
 
-  public GetPressure() : number {
+  public GetPressure(): number {
     return this.pressure;
   }
 
-  public MeasurementsChanged() : void {
+  public MeasurementsChanged(): void {
     this.NotifyObservers();
   }
 
-  SetMeasurements(temperature : number, humidity : number, pressure : number) : void {
+  SetMeasurements(temperature: number, humidity: number, pressure: number): void {
     this.temperature = temperature;
     this.humidity = humidity;
     this.pressure = pressure;
     this.MeasurementsChanged();
   }
 
-  protected GetChangedData() : SWeatherInfo {
+  protected GetChangedData(): SWeatherInfo {
     return {
       temperature: this.GetTemperature(),
       humidity: this.GetHumidity(),
