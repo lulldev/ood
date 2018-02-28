@@ -1,5 +1,5 @@
 export interface IObserver {
-  Update(data: any): void;
+  Update(data: any): string;
 }
 
 export interface IObservable {
@@ -13,17 +13,20 @@ export interface IObservable {
 export abstract class Observable implements IObservable {
 
   private observerList: { observer: IObserver, priority: number }[] = [];
+  protected log: string = '';
 
   public RegisterObserver(observer: IObserver, priority: number): void {
     this.observerList.push({observer: observer, priority: priority});
     this.observerList = this.observerList.sort((a: { observer: IObserver, priority: number }, b: { observer: IObserver, priority: number }) => {
-      return (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0); });
+      return (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0);
+    });
   }
 
   public NotifyObservers(): void {
     const data: any = this.GetChangedData();
     this.observerList.forEach((currentObserver) => {
-      currentObserver.observer.Update(data);
+      const updatedData = currentObserver.observer.Update(data);
+      this.WriteLog(updatedData);
     });
   }
 
@@ -33,6 +36,10 @@ export abstract class Observable implements IObservable {
         this.observerList.splice(index, 1);
       }
     });
+  }
+
+  private WriteLog(some: any): void {
+    this.log += some;
   }
 
   protected abstract GetChangedData(): any;

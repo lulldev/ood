@@ -9,13 +9,14 @@ export interface WeatherInfo {
 
 export class Display implements IObserver {
 
-  Update(data: WeatherInfo): void {
+  Update(data: WeatherInfo): string {
     const currentData = `
 Current Temp ${data.temperature}
 Current Hum ${data.humidity}
 Current Pressure ${data.pressure}`;
 
     console.log(currentData);
+    return currentData;
   }
 
 }
@@ -37,7 +38,9 @@ export class StatsDisplay implements IObserver {
   private accPressure: number = 0;
   private countPressureAcc: number = 0;
 
-  private CalculateBasicStat(data: WeatherInfo): any {
+  private CalculateBasicStat(data: WeatherInfo): string {
+    let currentData = '';
+
     for (let key in data) {
       const minKey = `min${ucFirst(key)}`;
       const maxKey = `max${ucFirst(key)}`;
@@ -55,18 +58,18 @@ export class StatsDisplay implements IObserver {
       this[accKey] += data[key];
       ++this[countAccKey];
 
-      const currentData = `
+      currentData = `
 Max ${key} ${this[maxKey]}
 Min ${key} ${this[minKey]}
 Averge ${key} ${this[accKey] / this[countAccKey]}
 ---------------------------------`;
-
       console.log(currentData);
     }
+    return currentData;
   }
 
-  Update(data: WeatherInfo): void {
-    this.CalculateBasicStat(data);
+  Update(data: WeatherInfo): string {
+    return this.CalculateBasicStat(data);
   }
 }
 
@@ -78,10 +81,11 @@ export class CrashDisplay implements IObserver {
     this.wd = wd;
   }
 
-  Update(data: WeatherInfo): void {
+  Update(data: WeatherInfo): string {
     console.log('Im crash your program!');
     this.wd.RemoveObserver(this); // todo: test delete nex object
     console.log(data);
+    return 'crash';
   }
 
 }
@@ -108,7 +112,11 @@ export class WeatherData extends Observable {
     this.NotifyObservers();
   }
 
-  SetMeasurements(temperature: number, humidity: number, pressure: number): void {
+  public GetLog(): string {
+    return this.log;
+  }
+
+  public SetMeasurements(temperature: number, humidity: number, pressure: number): void {
     this.temperature = temperature;
     this.humidity = humidity;
     this.pressure = pressure;

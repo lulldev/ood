@@ -1,43 +1,35 @@
-import { CDisplay, CrashDisplay, CStatsDisplay, CWeatherData } from '../src/WeatherStation';
+import { Display, CrashDisplay, StatsDisplay, WeatherData } from '../src/WeatherStation';
 
 describe('Weather Stations', () => {
 
   it('Notify observers in the right order', () => {
-    const wd : CWeatherData = new CWeatherData();
+    const wd : WeatherData = new WeatherData();
 
-    const display : CDisplay = new CDisplay();
-    const statsDisplay : CStatsDisplay = new CStatsDisplay();
+    const display : Display = new Display();
+    const statsDisplay : StatsDisplay = new StatsDisplay();
 
     wd.RegisterObserver(statsDisplay, 100);
     wd.RegisterObserver(display, 200);
-
-    let observersList = wd.GetObserversList();
-
-    expect(observersList[0].priority).toBe(100);
-    expect(observersList[1].priority).toBe(200);
-
     wd.SetMeasurements(3, 0.7, 760);
-    observersList = wd.GetObserversList();
 
-    expect(observersList[0].priority).toBe(200);
-    expect(observersList[1].priority).toBe(100);
+    // test
+    console.log(wd.GetLog());
 
-    wd.RemoveObserver(statsDisplay);
-
-    const statsDisplay2 : CStatsDisplay = new CStatsDisplay();
+    const statsDisplay2 : StatsDisplay = new StatsDisplay();
     wd.RegisterObserver(statsDisplay2, 500);
+    wd.SetMeasurements(2, 0.7, 760);
 
-    wd.SetMeasurements(3, 0.7, 760);
-    observersList = wd.GetObserversList();
+    console.log(wd.GetLog());
 
-    expect(observersList[0].priority).toBe(500);
-    expect(observersList[1].priority).toBe(200);
+
+    // test
+
   });
 
-  it('No unbehavior moments in notifications', () => {
-    const wd : CWeatherData = new CWeatherData();
-    const display1 : CDisplay = new CDisplay();
-    const display2 : CDisplay = new CDisplay();
+  /*it('No unbehavior moments in notifications', () => {
+    const wd : WeatherData = new WeatherData();
+    const display1 : Display = new Display();
+    const display2 : Display = new Display();
     const crashDisplay : CrashDisplay = new CrashDisplay();
 
     wd.RegisterObserver(display1, 200);
@@ -52,12 +44,12 @@ describe('Weather Stations', () => {
     wd.SetMeasurements(3, 0.7, 760);
     observersList = wd.GetObserversList();
     expect(observersList.length).toBe(2);
-  });
+  });*/
 
   it('test', () => {
-    const wd : CWeatherData = new CWeatherData();
-    const display1 : CDisplay = new CDisplay();
-    const display2 : CDisplay = new CDisplay();
+    const wd : WeatherData = new WeatherData();
+    const display1 : Display = new Display();
+    const display2 : Display = new Display();
     const crashDisplay : CrashDisplay = new CrashDisplay();
 
     // todo check object test expect(display1).toEqual(display2);
