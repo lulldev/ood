@@ -47,5 +47,9 @@ export abstract class Observable implements IObservable {
     return this.log;
   }
 
+  public ClearLog(): void {
+    this.log = '';
+  }
+
   protected abstract GetChangedData(): any;
 }

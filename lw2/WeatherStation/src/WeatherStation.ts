@@ -74,15 +74,19 @@ Averge ${key} ${this[accKey] / this[countAccKey]}
 
 export class CrashDisplay implements IObserver {
 
-  private wd;
+  private wd: WeatherData;
+  private nextInitializedObserver: IObserver;
+  private isDeleteSelf: boolean = false;
 
-  public setWd(wd: WeatherData) {
+  constructor(wd: WeatherData, nextInitializedObserver: IObserver, isDeleteSelf: boolean) {
     this.wd = wd;
+    this.nextInitializedObserver = nextInitializedObserver;
+    this.isDeleteSelf = isDeleteSelf;
   }
 
   Update(data: WeatherInfo): void {
     console.log('Im crash your program!');
-    this.wd.RemoveObserver(this); // todo: test delete nex object
+    this.wd.RemoveObserver(this.isDeleteSelf ? this : this.nextInitializedObserver);
     console.log(data);
   }
 

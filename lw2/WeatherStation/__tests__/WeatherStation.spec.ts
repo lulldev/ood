@@ -19,26 +19,72 @@ describe('Weather Stations', () => {
 
     const statsDisplay2: StatsDisplay = new StatsDisplay();
     wd.RegisterObserver(statsDisplay2, 500);
+
+    wd.ClearLog();
     wd.SetMeasurements(2, 0.7, 760);
 
     expect(wd.GetLog()).toEqual(
-      'Notification for Display with 200 priority\n' +
-      'Notification for StatsDisplay with 100 priority\n' +
       'Notification for StatsDisplay with 500 priority\n' +
       'Notification for Display with 200 priority\n' +
       'Notification for StatsDisplay with 100 priority\n'
     );
   });
 
-  it('No unbehavior moments in notifications', () => {
-    const wd : WeatherData = new WeatherData();
-    const display1 : Display = new Display();
-    const display2 : Display = new Display();
-    const crashDisplay : CrashDisplay = new CrashDisplay();
+  describe('Unbehavior moments in notifications', () => {
+
+    it('Stable work if remove self', () => {
+      const wd: WeatherData = new WeatherData();
+      const display1: Display = new Display();
+      const display2: Display = new Display();
+      const crashDisplay: CrashDisplay = new CrashDisplay(wd, display1, true);
+
+      wd.RegisterObserver(display1, 200);
+      wd.RegisterObserver(display2, 200);
+      wd.RegisterObserver(crashDisplay, 100);
+
+      wd.SetMeasurements(2, 0.7, 760);
+
+      expect(wd.GetLog()).toEqual(
+        'Notification for Display with 200 priority\n' +
+        'Notification for Display with 200 priority\n' +
+        'Notification for CrashDisplay with 100 priority\n'
+      );
+
+      wd.ClearLog();
+      wd.SetMeasurements(2, 0.7, 760);
+
+      expect(wd.GetLog()).toEqual(
+        'Notification for Display with 200 priority\n' +
+        'Notification for Display with 200 priority\n'
+      );
+    });
+  });
+
+  it('Stable work if remove next observer', () => {
+    const wd: WeatherData = new WeatherData();
+    const display1: Display = new Display();
+    const display2: Display = new Display();
+    const crashDisplay: CrashDisplay = new CrashDisplay(wd, display2, false);
 
     wd.RegisterObserver(display1, 200);
     wd.RegisterObserver(display2, 200);
     wd.RegisterObserver(crashDisplay, 100);
-    crashDisplay.setWd(wd);
+
+    wd.SetMeasurements(2, 0.7, 760);
+
+    expect(wd.GetLog()).toEqual(
+      'Notification for Display with 200 priority\n' +
+      'Notification for Display with 200 priority\n' +
+      'Notification for CrashDisplay with 100 priority\n'
+    );
+
+    wd.ClearLog();
+    wd.SetMeasurements(1, 0.7, 760);
+
+    expect(wd.GetLog()).toEqual(
+      'Notification for Display with 200 priority\n' +
+      'Notification for CrashDisplay with 100 priority\n'
+    );
   });
 });
+
