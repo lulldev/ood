@@ -1,3 +1,5 @@
+import {WeatherData, WeatherDataType} from "./WeatherData";
+
 export interface IObserver {
   Update(data: any): void;
 }
@@ -24,10 +26,12 @@ export abstract class Observable implements IObservable {
 
   public NotifyObservers(): void {
     const data: any = this.GetChangedData();
+    data.wdType = this.GetWDType();
+
     this.observerList.forEach((currentObserver) => {
       currentObserver.observer.Update(data);
       this.WriteLog(
-`Notification for ${currentObserver.observer.constructor.name} with ${currentObserver.priority} priority`);
+`Notification for ${currentObserver.observer.constructor.name} with ${currentObserver.priority} priority${data.wdType !== 'simple' ? `, type = ${data.wdType}` : ''}`);
     });
   }
 
@@ -52,4 +56,5 @@ export abstract class Observable implements IObservable {
   }
 
   protected abstract GetChangedData(): any;
+  protected abstract GetWDType(): WeatherDataType;
 }

@@ -32,6 +32,10 @@ export class WeatherData extends Observable {
     return this.pressure;
   }
 
+  protected GetWDType(): WeatherDataType {
+    return this.wdType;
+  }
+
   public MeasurementsChanged(): void {
     this.NotifyObservers();
   }

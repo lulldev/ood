@@ -1,5 +1,6 @@
 import { Display, StatsDisplay } from './WeatherStation';
 import {WeatherData} from './WeatherData';
+import {WeatherStationDuo} from "./WeatherStationDuo";
 
 const wd : WeatherData = new WeatherData();
 const display : Display = new Display();
@@ -14,3 +15,16 @@ wd.RemoveObserver(statsDisplay);
 
 wd.SetMeasurements({temperature: 5, humidity: 0.9, pressure: 760});
 wd.SetMeasurements({temperature: 6, humidity: 0.9, pressure: 760});
+
+const wsd: WeatherStationDuo = new WeatherStationDuo();
+
+wsd.RegisterObserver('in', display, 100);
+wsd.RegisterObserver('in', statsDisplay, 200);
+
+wsd.RegisterObserver('out', display, 200);
+wsd.RegisterObserver('out', statsDisplay, 100);
+
+wsd.SetMeasurements('in', {temperature: 5, humidity: 0.9, pressure: 760});
+wsd.SetMeasurements('out', {temperature: 15, humidity: 2.9, pressure: 800});
+
+
