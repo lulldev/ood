@@ -1,5 +1,7 @@
 import {Observable} from "./Observer";
 
+export type WeatherDataType = 'in'|'out'|'simple';
+
 export interface WeatherInfo {
   temperature: number;
   humidity: number;
@@ -11,6 +13,12 @@ export class WeatherData extends Observable {
   private temperature: number = 0.0;
   private humidity: number = 0.0;
   private pressure: number = 760.0;
+  private wdType: WeatherDataType;
+
+  constructor(wdType: WeatherDataType = 'simple') {
+    super();
+    this.wdType = wdType;
+  }
 
   public GetTemperature(): number {
     return this.temperature;
@@ -28,10 +36,10 @@ export class WeatherData extends Observable {
     this.NotifyObservers();
   }
 
-  public SetMeasurements(temperature: number, humidity: number, pressure: number): void {
-    this.temperature = temperature;
-    this.humidity = humidity;
-    this.pressure = pressure;
+  public SetMeasurements(weatherData: WeatherInfo): void {
+    this.temperature = weatherData.temperature;
+    this.humidity = weatherData.humidity;
+    this.pressure = weatherData.pressure;
     this.MeasurementsChanged();
   }
 

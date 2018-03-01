@@ -8,9 +8,9 @@ const statsDisplay : StatsDisplay = new StatsDisplay();
 wd.RegisterObserver(display, 200);
 wd.RegisterObserver(statsDisplay, 100);
 
-wd.SetMeasurements(3, 0.7, 760);
-wd.SetMeasurements(4, 0.8, 761);
+wd.SetMeasurements({temperature: 3, humidity: 0.9, pressure: 760});
+wd.SetMeasurements({temperature: 4, humidity: 0.9, pressure: 760});
 wd.RemoveObserver(statsDisplay);
 
-wd.SetMeasurements(10, 0.8, 761);
-wd.SetMeasurements(-10, 0.8, 761);
+wd.SetMeasurements({temperature: 5, humidity: 0.9, pressure: 760});
+wd.SetMeasurements({temperature: 6, humidity: 0.9, pressure: 760});

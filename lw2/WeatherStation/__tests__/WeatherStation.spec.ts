@@ -1,7 +1,7 @@
 import {Display, CrashDisplay, StatsDisplay} from '../src/WeatherStation';
 import {WeatherData} from '../src/WeatherData';
 
-describe('Weather Stations', () => {
+describe('Simple Weather Station', () => {
 
   it('Notify observers in the right order', () => {
     const wd: WeatherData = new WeatherData();
@@ -11,7 +11,7 @@ describe('Weather Stations', () => {
 
     wd.RegisterObserver(statsDisplay, 100);
     wd.RegisterObserver(display, 200);
-    wd.SetMeasurements(3, 0.7, 760);
+    wd.SetMeasurements({temperature: 3, humidity: 0.7, pressure: 760});
 
     expect(wd.GetLog()).toEqual(
       'Notification for Display with 200 priority\n' +
@@ -22,7 +22,7 @@ describe('Weather Stations', () => {
     wd.RegisterObserver(statsDisplay2, 500);
 
     wd.ClearLog();
-    wd.SetMeasurements(2, 0.7, 760);
+    wd.SetMeasurements({temperature: 2, humidity: 0.7, pressure: 760});
 
     expect(wd.GetLog()).toEqual(
       'Notification for StatsDisplay with 500 priority\n' +
@@ -43,7 +43,7 @@ describe('Weather Stations', () => {
       wd.RegisterObserver(display2, 200);
       wd.RegisterObserver(crashDisplay, 100);
 
-      wd.SetMeasurements(2, 0.7, 760);
+      wd.SetMeasurements({temperature: 3, humidity: 0.7, pressure: 760});
 
       expect(wd.GetLog()).toEqual(
         'Notification for Display with 200 priority\n' +
@@ -52,7 +52,7 @@ describe('Weather Stations', () => {
       );
 
       wd.ClearLog();
-      wd.SetMeasurements(2, 0.7, 760);
+      wd.SetMeasurements({temperature: 2, humidity: 0.9, pressure: 760});
 
       expect(wd.GetLog()).toEqual(
         'Notification for Display with 200 priority\n' +
@@ -71,7 +71,7 @@ describe('Weather Stations', () => {
     wd.RegisterObserver(display2, 200);
     wd.RegisterObserver(crashDisplay, 100);
 
-    wd.SetMeasurements(2, 0.7, 760);
+    wd.SetMeasurements({temperature: 2, humidity: 0.9, pressure: 760});
 
     expect(wd.GetLog()).toEqual(
       'Notification for Display with 200 priority\n' +
@@ -80,7 +80,7 @@ describe('Weather Stations', () => {
     );
 
     wd.ClearLog();
-    wd.SetMeasurements(1, 0.7, 760);
+    wd.SetMeasurements({temperature: 1, humidity: 0.9, pressure: 760});
 
     expect(wd.GetLog()).toEqual(
       'Notification for Display with 200 priority\n' +
