@@ -1,0 +1,137 @@
+import {IBeverage} from "./IBeverage";
+
+class CondimentDecorator implements IBeverage {
+
+  private beverage: IBeverage;
+
+  constructor(beverage: IBeverage) {
+    this.beverage = beverage;
+  }
+
+  public GetDescription(): string {
+    return `${this.beverage.GetDescription()}, ${this.GetCondimentDescription()}`;
+  }
+
+  public GetCost(): number {
+    return this.beverage.GetCost() + this.GetCondimentCost();
+  }
+
+  public GetCondimentDescription(): string {
+    return '';
+  }
+
+  public GetCondimentCost(): number {
+    return 0;
+  }
+}
+
+class Cinnamon extends CondimentDecorator {
+
+  constructor(beverage: IBeverage) {
+    super(beverage);
+  }
+
+  public GetCondimentCost(): number {
+    return 20;
+  }
+
+  public GetCondimentDescription(): string {
+    return 'Cinnamon';
+  }
+}
+
+class Lemon extends CondimentDecorator {
+
+  private quantity: number;
+
+  constructor(beverage: IBeverage, quantity: number = 1) {
+    super(beverage);
+    this.quantity = quantity;
+  }
+
+  public GetCondimentCost(): number {
+    return 10 * this.quantity;
+  }
+
+  public GetCondimentDescription(): string {
+    return `Lemin x ${this.quantity}`;
+  }
+}
+
+type IceCubeType = 'Dry'|'Water';
+
+class IceCubes extends CondimentDecorator {
+
+  private quantity: number;
+  private iceCubeType: IceCubeType;
+
+  constructor(beverage: IBeverage, quantity: number = 1, iceCubeType: IceCubeType = 'Water') {
+    super(beverage);
+    this.quantity = quantity;
+    this.iceCubeType = iceCubeType;
+  }
+
+  public GetCondimentCost(): number {
+    return (this.iceCubeType === 'Dry' ? 10 : 5) * this.quantity;
+  }
+
+  public GetCondimentDescription(): string {
+    return `${this.iceCubeType} ice cubes x ${this.quantity}`;
+  }
+}
+
+type SyrupType = 'Chocolate'|'Maple';
+
+class Syrop extends CondimentDecorator {
+
+  private syropType: SyrupType;
+
+  constructor(beverage: IBeverage, syropType: SyrupType) {
+    super(beverage);
+    this.syropType = syropType;
+  }
+
+  public GetCondimentCost(): number {
+    return 15;
+  }
+
+  public GetCondimentDescription(): string {
+    return `${this.syropType} syrop`;
+  }
+}
+
+class ChocolateCrumbs extends CondimentDecorator {
+
+  private mass: number;
+
+  constructor(beverage: IBeverage, mass: number) {
+    super(beverage);
+    this.mass = mass;
+  }
+
+  public GetCondimentCost(): number {
+    return 2 * this.mass;
+  }
+
+  public GetCondimentDescription(): string {
+    return `Chocolate crumbs ${this.mass} g.`;
+  }
+}
+
+class CoconutFlakes extends CondimentDecorator {
+
+  private mass: number;
+
+  constructor(beverage: IBeverage, mass: number) {
+    super(beverage);
+    this.mass = mass;
+  }
+
+  public GetCondimentCost(): number {
+    return this.mass * 1;
+  }
+
+  public GetCondimentDescription(): string {
+    return `Coconut flakes ${this.mass} g.`;
+  }
+}
