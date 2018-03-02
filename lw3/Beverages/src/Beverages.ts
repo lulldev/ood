@@ -2,6 +2,7 @@ import {IBeverage} from "./IBeverage";
 
 export type PortionType = 'Standart'|'Double';
 export type TeaGradeType = 'Puer'|'Oolong'|'Green'|'Da Hong Pao';
+export type MilkShakePortionType = 'Small'|'Middle'|'Big';
 
 export class Beverage implements IBeverage {
 
@@ -33,38 +34,38 @@ export class Coffee extends Beverage {
 
 export class Capuccino extends Beverage {
 
-  private type;
+  private portionType;
 
   constructor(type: PortionType) {
     super('Capuccino');
-    this.type = type;
+    this.portionType = type;
 
   }
 
   public GetCost(): number {
-    return this.type === 'Standart' ? 80 : 110;
+    return this.portionType === 'Standart' ? 80 : 110;
   }
 
   public GetDescription(): string {
-    return `${this.type} capuccino`;
+    return `${this.portionType} capuccino`;
   }
 }
 
 export class Latte extends Beverage {
 
-  private type;
+  private portionType;
 
-  constructor(type: PortionType) {
+  constructor(portionType: PortionType) {
     super('Latte');
-    this.type = type;
+    this.portionType = portionType;
   }
 
   public GetCost(): number {
-    return this.type === 'Standart' ? 90 : 130;
+    return this.portionType === 'Standart' ? 90 : 130;
   }
 
   public GetDescription(): string {
-    return `${this.type} latte`;
+    return `${this.portionType} latte`;
   }
 }
 
@@ -88,11 +89,23 @@ export class Tea extends Beverage {
 
 export class Milkshake extends Beverage {
 
-  constructor() {
+  private portionType: MilkShakePortionType;
+
+  constructor(portionType: MilkShakePortionType) {
     super('Milkshake');
+    this.portionType = portionType;
   }
 
   public GetCost(): number {
-    return 80;
+    const milkPrice: object = {
+      'Small': 50,
+      'Middle': 60,
+      'Big': 80,
+    };
+    return milkPrice[this.portionType];
+  }
+
+  public GetDescription(): string {
+    return `${this.portionType} milkshake`;
   }
 }
