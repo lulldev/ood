@@ -1,6 +1,7 @@
 import {IBeverage} from "./IBeverage";
 
 export type PortionType = 'Standart'|'Double';
+export type TeaGradeType = 'Puer'|'Oolong'|'Green'|'Da Hong Pao';
 
 export class Beverage implements IBeverage {
 
@@ -69,12 +70,19 @@ export class Latte extends Beverage {
 
 export class Tea extends Beverage {
 
-  constructor() {
+  private grade: TeaGradeType;
+
+  constructor(grade) {
     super('Tea');
+    this.grade = grade;
   }
 
   public GetCost(): number {
     return 30;
+  }
+
+  public GetDescription(): string {
+    return `${this.grade} tea`;
   }
 }
 
