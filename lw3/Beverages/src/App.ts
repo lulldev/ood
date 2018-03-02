@@ -1,5 +1,5 @@
 import {IBeverage} from "./IBeverage";
-import {Coffee} from "./Beverages";
+import {Coffee, Latte} from "./Beverages";
 import {Cinnamon, IceCubeType, Lemon, IceCubes, Syrop, SyrupType, ChocolateCrumbs, CoconutFlakes} from "./Condiments";
 
 const MakeBeverage = {
@@ -44,13 +44,30 @@ const MakeBeverage = {
 };
 
 const coffee = new Coffee();
-
-const beverage = MakeBeverage
+const beverageCoffee = MakeBeverage
   .make(coffee)
-  .addLemon(2)
-  .addLemon(3)
   .addCoconutFlakes(10)
   .get();
 
-console.log(beverage.GetDescription());
+console.log(beverageCoffee.GetDescription());
+
+const latte = new Latte('Standart');
+const beverageLatte = MakeBeverage
+  .make(latte)
+  .addChocolateCrumbs(5)
+  .addSyrop('Chocolate')
+  .get();
+
+console.log(beverageLatte.GetDescription(), beverageLatte.GetCost());
+
+
+const doubleLatte = new Latte('Double');
+
+const beverageDoubleLatte = MakeBeverage
+  .make(doubleLatte)
+  .addChocolateCrumbs(5)
+  .addCoconutFlakes(5)
+  .get();
+
+console.log(beverageDoubleLatte.GetDescription(), beverageDoubleLatte.GetCost());
 

@@ -39,14 +39,23 @@ export class Capuccino extends Beverage {
   }
 }
 
+export type LatteType = 'Standart'|'Double';
+
 export class Latte extends Beverage {
 
-  constructor() {
+  private type;
+
+  constructor(type: LatteType) {
     super('Latte');
+    this.type = type;
   }
 
   public GetCost(): number {
-    return 90;
+    return this.type === 'Standart' ? 90 : 130;
+  }
+
+  public GetDescription(): string {
+    return `${this.type} latte`;
   }
 }
 
