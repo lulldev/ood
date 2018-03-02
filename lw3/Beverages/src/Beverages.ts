@@ -1,5 +1,7 @@
 import {IBeverage} from "./IBeverage";
 
+export type PortionType = 'Standart'|'Double';
+
 export class Beverage implements IBeverage {
 
   private description: string;
@@ -30,22 +32,28 @@ export class Coffee extends Beverage {
 
 export class Capuccino extends Beverage {
 
-  constructor() {
+  private type;
+
+  constructor(type: PortionType) {
     super('Capuccino');
+    this.type = type;
+
   }
 
   public GetCost(): number {
-    return 80;
+    return this.type === 'Standart' ? 80 : 110;
+  }
+
+  public GetDescription(): string {
+    return `${this.type} capuccino`;
   }
 }
-
-export type LatteType = 'Standart'|'Double';
 
 export class Latte extends Beverage {
 
   private type;
 
-  constructor(type: LatteType) {
+  constructor(type: PortionType) {
     super('Latte');
     this.type = type;
   }
