@@ -1,6 +1,6 @@
 import {IBeverage} from "./IBeverage";
 
-class Beverage implements IBeverage {
+export class Beverage implements IBeverage {
 
   private description: string;
 
@@ -17,7 +17,7 @@ class Beverage implements IBeverage {
   }
 }
 
-class Coffee extends Beverage {
+export class Coffee extends Beverage {
 
   constructor() {
     super('Coffee');
@@ -28,7 +28,7 @@ class Coffee extends Beverage {
   }
 }
 
-class Capuccino extends Beverage {
+export class Capuccino extends Beverage {
 
   constructor() {
     super('Capuccino');
@@ -39,7 +39,7 @@ class Capuccino extends Beverage {
   }
 }
 
-class Latte extends Beverage {
+export class Latte extends Beverage {
 
   constructor() {
     super('Latte');
@@ -50,7 +50,7 @@ class Latte extends Beverage {
   }
 }
 
-class Tea extends Beverage {
+export class Tea extends Beverage {
 
   constructor() {
     super('Tea');
@@ -61,7 +61,7 @@ class Tea extends Beverage {
   }
 }
 
-class Milkshake extends Beverage {
+export class Milkshake extends Beverage {
 
   constructor() {
     super('Milkshake');

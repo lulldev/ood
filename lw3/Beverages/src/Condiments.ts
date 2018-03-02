@@ -1,6 +1,6 @@
 import {IBeverage} from "./IBeverage";
 
-class CondimentDecorator implements IBeverage {
+export class CondimentDecorator implements IBeverage {
 
   private beverage: IBeverage;
 
@@ -25,7 +25,7 @@ class CondimentDecorator implements IBeverage {
   }
 }
 
-class Cinnamon extends CondimentDecorator {
+export class Cinnamon extends CondimentDecorator {
 
   constructor(beverage: IBeverage) {
     super(beverage);
@@ -40,7 +40,7 @@ class Cinnamon extends CondimentDecorator {
   }
 }
 
-class Lemon extends CondimentDecorator {
+export class Lemon extends CondimentDecorator {
 
   private quantity: number;
 
@@ -54,13 +54,13 @@ class Lemon extends CondimentDecorator {
   }
 
   public GetCondimentDescription(): string {
-    return `Lemin x ${this.quantity}`;
+    return `Lemon x ${this.quantity}`;
   }
 }
 
-type IceCubeType = 'Dry'|'Water';
+export type IceCubeType = 'Dry'|'Water';
 
-class IceCubes extends CondimentDecorator {
+export class IceCubes extends CondimentDecorator {
 
   private quantity: number;
   private iceCubeType: IceCubeType;
@@ -80,9 +80,9 @@ class IceCubes extends CondimentDecorator {
   }
 }
 
-type SyrupType = 'Chocolate'|'Maple';
+export type SyrupType = 'Chocolate'|'Maple';
 
-class Syrop extends CondimentDecorator {
+export class Syrop extends CondimentDecorator {
 
   private syropType: SyrupType;
 
@@ -100,7 +100,7 @@ class Syrop extends CondimentDecorator {
   }
 }
 
-class ChocolateCrumbs extends CondimentDecorator {
+export class ChocolateCrumbs extends CondimentDecorator {
 
   private mass: number;
 
@@ -118,7 +118,7 @@ class ChocolateCrumbs extends CondimentDecorator {
   }
 }
 
-class CoconutFlakes extends CondimentDecorator {
+export class CoconutFlakes extends CondimentDecorator {
 
   private mass: number;
 
@@ -135,3 +135,4 @@ class CoconutFlakes extends CondimentDecorator {
     return `Coconut flakes ${this.mass} g.`;
   }
 }
+
