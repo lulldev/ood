@@ -1,58 +1,70 @@
-import {IObserver} from './Observer';
-import {WeatherData, WeatherInfo} from './WeatherData';
-
-interface IStatType {
-  min: number;
-  max: number;
-  counter: number;
-  acc: number
-}
+import { IObserver } from './Observer';
+import { WeatherData, WeatherInfo } from './WeatherData';
 
 export class Display implements IObserver {
 
-  Update(data: any): void {
+  Update(data: WeatherInfo): void {
     const currentData = `
-Sensor type: ${data.wdType}       
 Current Temp ${data.temperature}
 Current Hum ${data.humidity}
 Current Pressure ${data.pressure}`;
-
     console.log(currentData);
   }
 
 }
 
-// StatisticCalculator in StatsDisplay
-export class StatsDisplay implements IObserver {
+class StatsCalculator {
+  private amountName: string;
+  private min: number;
+  private max: number;
+  private counter: number;
+  private acc: number;
 
-  private temperature: IStatType = {min: Infinity, max: -Infinity, counter: 0, acc: 0};
-  private humidity: IStatType = {min: Infinity, max: -Infinity, counter: 0, acc: 0};
-  private pressure: IStatType = {min: Infinity, max: -Infinity, counter: 0, acc: 0};
-
-  private CalculateBasicStat(param: { valueType: string, value: number }): void {
-
-    if (this[param.valueType].min > param.value) {
-      this[param.valueType].min = param.value;
-    }
-
-    if (this[param.valueType].max < param.value) {
-      this[param.valueType].max = param.value;
-    }
-
-    this[param.valueType].acc += param.value;
-    ++this[param.valueType].counter;
-
-    console.log(`
-Max ${param.valueType} ${this[param.valueType].max}
-Min ${param.valueType} ${this[param.valueType].min}
-Averge ${param.valueType} ${this[param.valueType].acc / this[param.valueType].counter}
----------------------------------`);
+  constructor(amountName: string) {
+    this.amountName = amountName;
+    this.min = Infinity;
+    this.max = -Infinity;
+    this.counter = 0;
+    this.acc = 0;
   }
 
+  private Calculate(newValue): void {
+    if (this.min > newValue) {
+      this.min = newValue;
+    }
+
+    if (this.max < newValue) {
+      this.max = newValue;
+    }
+
+    this.acc += newValue;
+    ++this.counter;
+  }
+
+  private GetAverage(): number {
+    return this.acc / this.counter;
+  }
+
+  public GetCalculation(newValue: number): string {
+    this.Calculate(newValue);
+    return `
+Max ${this.amountName} ${this.max}
+Min ${this.amountName} ${this.min}
+Averge ${this.amountName} ${this.GetAverage()}
+---------------------------------`;
+  }
+}
+
+export class StatsDisplay implements IObserver {
+
+  private temperature: StatsCalculator = new StatsCalculator('temperature');
+  private humidity: StatsCalculator = new StatsCalculator('humidity');
+  private pressure: StatsCalculator = new StatsCalculator('pressure');
+
   Update(data: any): void {
-    this.CalculateBasicStat({valueType: 'temperature', value: data.temperature});
-    this.CalculateBasicStat({valueType: 'humidity', value: data.humidity});
-    this.CalculateBasicStat({valueType: 'pressure', value: data.pressure});
+    this.temperature.GetCalculation(data.temperature);
+    this.humidity.GetCalculation(data.humidity);
+    this.pressure.GetCalculation(data.pressure);
   }
 }
 

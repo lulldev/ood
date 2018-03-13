@@ -1,4 +1,4 @@
-import {Observable} from "./Observer";
+import { Observable } from "./Observer";
 
 export interface WeatherInfo {
   temperature: number;

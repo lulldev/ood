@@ -1,6 +1,6 @@
 import { Display, StatsDisplay } from './WeatherStation';
-import {WeatherData} from './WeatherData';
-import {WeatherStationDuo} from "./WeatherStationDuo";
+import { WeatherData } from './WeatherData';
+import { WeatherStationDuo } from "./WeatherStationDuo";
 
 const wd : WeatherData = new WeatherData();
 const display : Display = new Display();
