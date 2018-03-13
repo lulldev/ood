@@ -43,6 +43,16 @@ const MakeBeverage = {
   }
 };
 
+
+function decorate(component, decorator, ...args) {
+  return new decorator(component, ...args);
+}
+
+decorate(new Milkshake("Small"), ChocolateCrumbs, 5);
+
+// new DecoratorBuilder(new Milkshake("Small")).decorate(Cho)
+
+
 const coffee = new Coffee();
 const beverageCoffee = MakeBeverage
   .make(coffee)

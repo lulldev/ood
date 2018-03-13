@@ -13,22 +13,20 @@ describe('Simple Weather Station', () => {
     wd.RegisterObserver(display, 200);
     wd.SetMeasurements({temperature: 3, humidity: 0.7, pressure: 760});
 
-    expect(wd.GetLog()).toEqual(
-      'Notification for Display with 200 priority\n' +
-      'Notification for StatsDisplay with 100 priority\n'
-    );
+    let notifiedObservers = wd.GetNotifiedObservers();
+    expect(notifiedObservers[0]).toEqual({observerType: 'Display', priority: 200});
+    expect(notifiedObservers[1]).toEqual({observerType: 'StatsDisplay', priority: 100});
 
     const statsDisplay2: StatsDisplay = new StatsDisplay();
     wd.RegisterObserver(statsDisplay2, 500);
 
-    wd.ClearLog();
     wd.SetMeasurements({temperature: 2, humidity: 0.7, pressure: 760});
 
-    expect(wd.GetLog()).toEqual(
-      'Notification for StatsDisplay with 500 priority\n' +
-      'Notification for Display with 200 priority\n' +
-      'Notification for StatsDisplay with 100 priority\n'
-    );
+    notifiedObservers = wd.GetNotifiedObservers();
+    expect(notifiedObservers[0]).toEqual({observerType: 'StatsDisplay', priority: 500});
+    expect(notifiedObservers[1]).toEqual({observerType: 'Display', priority: 200});
+    expect(notifiedObservers[2]).toEqual({observerType: 'StatsDisplay', priority: 100});
+
   });
 
   describe('Unbehavior moments in notifications', () => {
@@ -45,19 +43,16 @@ describe('Simple Weather Station', () => {
 
       wd.SetMeasurements({temperature: 3, humidity: 0.7, pressure: 760});
 
-      expect(wd.GetLog()).toEqual(
-        'Notification for Display with 200 priority\n' +
-        'Notification for Display with 200 priority\n' +
-        'Notification for CrashDisplay with 100 priority\n'
-      );
+      let notifiedObservers = wd.GetNotifiedObservers();
+      expect(notifiedObservers[0]).toEqual({observerType: 'Display', priority: 200});
+      expect(notifiedObservers[1]).toEqual({observerType: 'Display', priority: 200});
+      expect(notifiedObservers[2]).toEqual({observerType: 'CrashDisplay', priority: 100});
 
-      wd.ClearLog();
       wd.SetMeasurements({temperature: 2, humidity: 0.9, pressure: 760});
 
-      expect(wd.GetLog()).toEqual(
-        'Notification for Display with 200 priority\n' +
-        'Notification for Display with 200 priority\n'
-      );
+      notifiedObservers = wd.GetNotifiedObservers();
+      expect(notifiedObservers[0]).toEqual({observerType: 'Display', priority: 200});
+      expect(notifiedObservers[1]).toEqual({observerType: 'Display', priority: 200});
     });
   });
 
@@ -73,19 +68,17 @@ describe('Simple Weather Station', () => {
 
     wd.SetMeasurements({temperature: 2, humidity: 0.9, pressure: 760});
 
-    expect(wd.GetLog()).toEqual(
-      'Notification for Display with 200 priority\n' +
-      'Notification for Display with 200 priority\n' +
-      'Notification for CrashDisplay with 100 priority\n'
-    );
+    let notifiedObservers = wd.GetNotifiedObservers();
+    expect(notifiedObservers[0]).toEqual({observerType: 'Display', priority: 200});
+    expect(notifiedObservers[1]).toEqual({observerType: 'Display', priority: 200});
+    expect(notifiedObservers[2]).toEqual({observerType: 'CrashDisplay', priority: 100});
 
-    wd.ClearLog();
     wd.SetMeasurements({temperature: 1, humidity: 0.9, pressure: 760});
 
-    expect(wd.GetLog()).toEqual(
-      'Notification for Display with 200 priority\n' +
-      'Notification for CrashDisplay with 100 priority\n'
-    );
+    notifiedObservers = wd.GetNotifiedObservers();
+    expect(notifiedObservers[0]).toEqual({observerType: 'Display', priority: 200});
+    expect(notifiedObservers[1]).toEqual({observerType: 'CrashDisplay', priority: 100});
+
   });
 });
 

@@ -22,6 +22,7 @@ Current Pressure ${data.pressure}`;
 
 }
 
+// StatisticCalculator in StatsDisplay
 export class StatsDisplay implements IObserver {
 
   private temperature: IStatType = {min: Infinity, max: -Infinity, counter: 0, acc: 0};

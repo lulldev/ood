@@ -33,14 +33,4 @@ export class WeatherStationDuo {
     }
   }
 
-  public GetLog(wdType: WeatherDataType): string {
-    let log = '';
-    if (wdType === 'in') {
-      log = this.inWeatherData.GetLog();
-    }
-    else if (wdType === 'out') {
-      log = this.outWeatherData.GetLog();
-    }
-    return log;
-  }
 }

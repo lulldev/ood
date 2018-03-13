@@ -1,4 +1,7 @@
-import {WeatherData, WeatherDataType} from "./WeatherData";
+import { WeatherData, WeatherDataType } from "./WeatherData";
+
+type ObserverListType = { observer: IObserver, priority: number };
+type NotifiedObserverType = { observerType: string, priority: number };
 
 export interface IObserver {
   Update(data: any): void;
@@ -6,20 +9,20 @@ export interface IObserver {
 
 export interface IObservable {
   RegisterObserver(observer: IObserver, priority: number): void;
-
   NotifyObservers(): void;
-
   RemoveObserver(observer: IObserver): void;
 }
 
 export abstract class Observable implements IObservable {
 
-  private observerList: { observer: IObserver, priority: number }[] = [];
-  protected log: string = '';
+  private observerList: ObserverListType[] = [];
+  private notifiedObservers: NotifiedObserverType[] = [];
 
   public RegisterObserver(observer: IObserver, priority: number): void {
     this.observerList.push({observer: observer, priority: priority});
-    this.observerList = this.observerList.sort((a: { observer: IObserver, priority: number }, b: { observer: IObserver, priority: number }) => {
+    this.observerList = this.observerList.sort((
+      a: ObserverListType,
+      b: ObserverListType) => {
       return (a.priority > b.priority) ? -1 : ((b.priority > a.priority) ? 1 : 0);
     });
   }
@@ -28,10 +31,13 @@ export abstract class Observable implements IObservable {
     const data: any = this.GetChangedData();
     data.wdType = this.GetWDType();
 
+    this.notifiedObservers = [];
     this.observerList.forEach((currentObserver) => {
       currentObserver.observer.Update(data);
-      this.WriteLog(
-`Notification for ${currentObserver.observer.constructor.name} with ${currentObserver.priority} priority${data.wdType !== 'simple' ? `, type = ${data.wdType}` : ''}`);
+      this.notifiedObservers.push({
+        observerType: currentObserver.observer.constructor.name,
+        priority: currentObserver.priority,
+      });
     });
   }
 
@@ -43,16 +49,8 @@ export abstract class Observable implements IObservable {
     });
   }
 
-  private WriteLog(some: any): void {
-    this.log += `${some}\n`;
-  }
-
-  public GetLog(): string {
-    return this.log;
-  }
-
-  public ClearLog(): void {
-    this.log = '';
+  public GetNotifiedObservers(): NotifiedObserverType[] {
+    return this.notifiedObservers;
   }
 
   protected abstract GetChangedData(): any;

@@ -1,8 +1,9 @@
+
 import {Display, StatsDisplay} from '../src/WeatherStation';
 import {WeatherStationDuo} from '../src/WeatherStationDuo';
 
 describe('Weather Station Duo', () => {
-
+/*
   it('Notify observers in the right order', () => {
     const wsd: WeatherStationDuo = new WeatherStationDuo();
 
@@ -29,4 +30,5 @@ describe('Weather Station Duo', () => {
     );
 
   });
+  */
 });
