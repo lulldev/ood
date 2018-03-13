@@ -1,6 +1,8 @@
 import { WeatherData, WeatherInfo } from "./WeatherData";
 import { IObserver, ObserverWithPriorityType, NotifiedObserverType } from "./Observer";
 
+type NotifiedDuoObserverType = { observerType: string, priority: number, wdType: string };
+
 export class WeatherStationDuo {
   private weatherStations: { in: WeatherData, out: WeatherData } =
     { in: new WeatherData(), out: new WeatherData() };
@@ -20,7 +22,9 @@ export class WeatherStationDuo {
     this.weatherStations[wdType].SetMeasurements(weatherData);
   }
 
-  public GetNotifiedObservers(wdType: string): NotifiedObserverType[] {
-    return this.weatherStations[wdType].GetNotifiedObservers();
+  public GetNotifiedObservers(wdType: string): NotifiedDuoObserverType[] {
+    const notifiedObservers = this.weatherStations[wdType].GetNotifiedObservers();
+    notifiedObservers.wdType = wdType;
+    return notifiedObservers;
   }
 }

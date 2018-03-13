@@ -19,12 +19,12 @@ describe('Weather Station Duo', () => {
     let notifiedInObservers = wsd.GetNotifiedObservers('in');
     let notifiedOutObservers = wsd.GetNotifiedObservers('out');
 
-    expect(notifiedInObservers[0]).toEqual({observerType: 'StatsDisplay', priority: 200});
-    expect(notifiedInObservers[1]).toEqual({observerType: 'Display', priority: 100});
+    expect(notifiedInObservers[0]).toEqual({observerType: 'StatsDisplay', priority: 200, wdType: 'in'});
+    expect(notifiedInObservers[1]).toEqual({observerType: 'Display', priority: 100, wdType: 'in'});
     expect(notifiedOutObservers.length).toEqual(0);
 
     wsd.SetMeasurements('out', {temperature: 13, humidity: 1.7, pressure: 740});
-    expect(notifiedOutObservers[0]).toEqual({observerType: 'Display', priority: 200});
-    expect(notifiedOutObservers[1]).toEqual({observerType: 'StatsDisplay', priority: 100});
+    expect(notifiedOutObservers[0]).toEqual({observerType: 'Display', priority: 200, wdType: 'out'});
+    expect(notifiedOutObservers[1]).toEqual({observerType: 'StatsDisplay', priority: 100, wdType: 'out'});
   });
 });
