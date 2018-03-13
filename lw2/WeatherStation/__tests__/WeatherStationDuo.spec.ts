@@ -1,34 +1,30 @@
-
 import {Display, StatsDisplay} from '../src/WeatherStation';
 import {WeatherStationDuo} from '../src/WeatherStationDuo';
 
 describe('Weather Station Duo', () => {
-/*
+
   it('Notify observers in the right order', () => {
     const wsd: WeatherStationDuo = new WeatherStationDuo();
 
     const display: Display = new Display();
     const statsDisplay: StatsDisplay = new StatsDisplay();
 
-    wsd.RegisterObserver('in', display, 100);
-    wsd.RegisterObserver('in', statsDisplay, 200);
+    wsd.AddObserver('in', { observer: display, priority: 100 });
+    wsd.AddObserver('in', { observer: statsDisplay, priority: 200 });
 
-    wsd.RegisterObserver('out', display, 200);
-    wsd.RegisterObserver('out', statsDisplay, 100);
+    wsd.AddObserver('out', { observer: display, priority: 200 });
+    wsd.AddObserver('out', { observer: statsDisplay, priority: 100 });
 
     wsd.SetMeasurements('in', {temperature: 3, humidity: 0.7, pressure: 760});
-    expect(wsd.GetLog('in')).toEqual(
-      'Notification for StatsDisplay with 200 priority, type = in\n' +
-      'Notification for Display with 100 priority, type = in\n'
-    );
+    let notifiedInObservers = wsd.GetNotifiedObservers('in');
+    let notifiedOutObservers = wsd.GetNotifiedObservers('out');
 
+    expect(notifiedInObservers[0]).toEqual({observerType: 'StatsDisplay', priority: 200});
+    expect(notifiedInObservers[1]).toEqual({observerType: 'Display', priority: 100});
+    expect(notifiedOutObservers.length).toEqual(0);
 
     wsd.SetMeasurements('out', {temperature: 13, humidity: 1.7, pressure: 740});
-    expect(wsd.GetLog('out')).toEqual(
-      'Notification for Display with 200 priority, type = out\n' +
-      'Notification for StatsDisplay with 100 priority,type = out\n'
-    );
-
+    expect(notifiedOutObservers[0]).toEqual({observerType: 'Display', priority: 200});
+    expect(notifiedOutObservers[1]).toEqual({observerType: 'StatsDisplay', priority: 100});
   });
-  */
 });

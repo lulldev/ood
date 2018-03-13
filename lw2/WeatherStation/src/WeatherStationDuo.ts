@@ -1,5 +1,5 @@
 import { WeatherData, WeatherInfo } from "./WeatherData";
-import {IObserver, ObserverWithPriorityType} from "./Observer";
+import { IObserver, ObserverWithPriorityType, NotifiedObserverType } from "./Observer";
 
 export class WeatherStationDuo {
   private weatherStations: { in: WeatherData, out: WeatherData } =
@@ -18,5 +18,9 @@ export class WeatherStationDuo {
 
   public SetMeasurements(wdType: string, weatherData: WeatherInfo): void {
     this.weatherStations[wdType].SetMeasurements(weatherData);
+  }
+
+  public GetNotifiedObservers(wdType: string): NotifiedObserverType[] {
+    return this.weatherStations[wdType].GetNotifiedObservers();
   }
 }

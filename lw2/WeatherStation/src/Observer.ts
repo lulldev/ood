@@ -1,7 +1,7 @@
 import { WeatherData } from "./WeatherData";
 
 type ObserverListType = { observer: IObserver, priority: number };
-type NotifiedObserverType = { observerType: string, priority: number };
+export type NotifiedObserverType = { observerType: string, priority: number };
 export type ObserverWithPriorityType = { observer: IObserver, priority: number};
 
 export interface IObserver {
