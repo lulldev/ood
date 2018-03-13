@@ -1,36 +1,22 @@
-import {WeatherData, WeatherDataType, WeatherInfo} from "./WeatherData";
-import {IObserver} from "./Observer";
+import { WeatherData, WeatherInfo } from "./WeatherData";
+import {IObserver, ObserverWithPriorityType} from "./Observer";
 
 export class WeatherStationDuo {
+  private weatherStations: { in: WeatherData, out: WeatherData } =
+    { in: new WeatherData(), out: new WeatherData() };
 
-  private inWeatherData: WeatherData = new WeatherData('in');
-  private outWeatherData: WeatherData = new WeatherData('out');
-
-  public RegisterObserver(wdType: WeatherDataType, observer: IObserver, priority: number): void {
-    if (wdType === 'in') {
-      this.inWeatherData.RegisterObserver(observer, priority);
-    }
-    else if (wdType === 'out') {
-      this.outWeatherData.RegisterObserver(observer, priority);
-    }
+  public AddObserver(wdType: string, observerWithPriority: ObserverWithPriorityType): void {
+    this.weatherStations[wdType].RegisterObserver(
+      observerWithPriority.observer,
+      observerWithPriority.priority,
+    );
   }
 
-  public RemoveObserver(wdType: WeatherDataType, observer: IObserver): void {
-    if (wdType === 'in') {
-      this.inWeatherData.RemoveObserver(observer);
-    }
-    else if (wdType === 'out') {
-      this.outWeatherData.RemoveObserver(observer);
-    }
+  public RemoveObserver(wdType: string, observer: IObserver): void {
+    this.weatherStations[wdType].RemoveObserver(observer);
   }
 
-  public SetMeasurements(wdType: WeatherDataType, weatherData: WeatherInfo): void {
-    if (wdType === 'in') {
-      this.inWeatherData.SetMeasurements(weatherData);
-    }
-    else if (wdType === 'out') {
-      this.outWeatherData.SetMeasurements(weatherData);
-    }
+  public SetMeasurements(wdType: string, weatherData: WeatherInfo): void {
+    this.weatherStations[wdType].SetMeasurements(weatherData);
   }
-
 }

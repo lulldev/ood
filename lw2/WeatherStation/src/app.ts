@@ -18,11 +18,11 @@ wd.SetMeasurements({temperature: 6, humidity: 0.9, pressure: 760});
 
 const wsd: WeatherStationDuo = new WeatherStationDuo();
 
-wsd.RegisterObserver('in', display, 100);
-wsd.RegisterObserver('in', statsDisplay, 200);
+wsd.AddObserver('in', {observer: display, priority: 100});
+wsd.AddObserver('in', {observer: statsDisplay, priority: 200});
 
-wsd.RegisterObserver('out', display, 200);
-wsd.RegisterObserver('out', statsDisplay, 100);
+wsd.AddObserver('out', {observer: display, priority: 200});
+wsd.AddObserver('out', {observer: statsDisplay, priority: 200});
 
 wsd.SetMeasurements('in', {temperature: 5, humidity: 0.9, pressure: 760});
 wsd.SetMeasurements('out', {temperature: 15, humidity: 2.9, pressure: 800});

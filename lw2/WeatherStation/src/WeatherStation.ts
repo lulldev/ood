@@ -50,7 +50,6 @@ Averge ${param.valueType} ${this[param.valueType].acc / this[param.valueType].co
   }
 
   Update(data: any): void {
-    console.log('Sensor type: ' + data.wdType);
     this.CalculateBasicStat({valueType: 'temperature', value: data.temperature});
     this.CalculateBasicStat({valueType: 'humidity', value: data.humidity});
     this.CalculateBasicStat({valueType: 'pressure', value: data.pressure});

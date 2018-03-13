@@ -1,7 +1,8 @@
-import { WeatherData, WeatherDataType } from "./WeatherData";
+import { WeatherData } from "./WeatherData";
 
 type ObserverListType = { observer: IObserver, priority: number };
 type NotifiedObserverType = { observerType: string, priority: number };
+export type ObserverWithPriorityType = { observer: IObserver, priority: number};
 
 export interface IObserver {
   Update(data: any): void;
@@ -29,8 +30,6 @@ export abstract class Observable implements IObservable {
 
   public NotifyObservers(): void {
     const data: any = this.GetChangedData();
-    data.wdType = this.GetWDType();
-
     this.notifiedObservers = [];
     this.observerList.forEach((currentObserver) => {
       currentObserver.observer.Update(data);
@@ -54,5 +53,4 @@ export abstract class Observable implements IObservable {
   }
 
   protected abstract GetChangedData(): any;
-  protected abstract GetWDType(): WeatherDataType;
 }
