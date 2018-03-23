@@ -1,6 +1,23 @@
-import {IBeverage} from "./IBeverage";
-import {Capuccino, Coffee, Latte, Milkshake, Tea} from "./Beverages";
-import {Cinnamon, IceCubeType, Lemon, IceCubes, Syrop, SyrupType, ChocolateCrumbs, CoconutFlakes} from "./Condiments";
+import { IBeverage } from "./IBeverage";
+import {
+  Capuccino,
+  Coffee,
+  Latte,
+  Milkshake,
+  Tea
+} from "./Beverages";
+
+import {
+  Cinnamon,
+  Lemon,
+  IceCubes,
+  Syrop,
+  ChocolateCrumbs,
+  CoconutFlakes,
+  Cream,
+  ChocolateSlice,
+  Liquor,
+} from "./Condiments";
 
 // const MakeBeverage = {
 //   beverage: null,
@@ -134,7 +151,7 @@ const MakeBeverage = {
     return this;
   },
   result: function () {
-    return `${this.beverage.GetDescription()}, ${this.beverage.GetCost()}`;
+    return `${this.beverage.GetDescription()}, ${this.beverage.GetCost()} rub.`;
 
   }
 };
@@ -150,5 +167,19 @@ const coffeWithSyropAndCoconut = MakeBeverage
   .decorate(CoconutFlakes, 5)
   .result();
 
+const coffeWithCreamAndChocolateSlices = MakeBeverage
+  .setUp(new Coffee())
+  .decorate(Cream, 5)
+  .decorate(ChocolateSlice, 2)
+  .result();
+
+const latteWithLiquorAndChocolateCrumbs = MakeBeverage
+  .setUp(new Coffee())
+  .decorate(Liquor, 'Walnut')
+  .decorate(ChocolateSlice, 5)
+  .result();
+
 console.log(milkShakeWithIceCubes);
 console.log(coffeWithSyropAndCoconut);
+console.log(coffeWithCreamAndChocolateSlices);
+console.log(latteWithLiquorAndChocolateCrumbs);

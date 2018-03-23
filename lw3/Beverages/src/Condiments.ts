@@ -136,3 +136,64 @@ export class CoconutFlakes extends CondimentDecorator {
   }
 }
 
+export class Cream extends CondimentDecorator {
+
+  private quantity: number;
+
+  constructor(beverage: IBeverage, quantity: number = 1) {
+    super(beverage);
+    this.quantity = quantity;
+  }
+
+  public GetCondimentCost(): number {
+    return this.quantity * 25;
+  }
+
+  public GetCondimentDescription(): string {
+    return `Cream ${this.quantity}`;
+  }
+}
+
+export class ChocolateSlice extends CondimentDecorator {
+
+  private quantity: number;
+
+  constructor(beverage: IBeverage, quantity: number = 1) {
+    if (quantity < 1 || quantity > 5) {
+      throw Error('Invalid quantity');
+    }
+    super(beverage);
+    this.quantity = quantity;
+  }
+
+  public GetCondimentCost(): number {
+    return this.quantity * 10;
+  }
+
+  public GetCondimentDescription(): string {
+    return `Chocolate slices ${this.quantity}`;
+  }
+}
+
+export type LiquorType = 'Walnut'|'Chocolate';
+
+export class Liquor extends CondimentDecorator {
+
+  private type: LiquorType;
+
+  constructor(beverage: IBeverage, type: LiquorType) {
+    super(beverage);
+    this.type = type;
+  }
+
+  public GetCondimentCost(): number {
+    return 50;
+  }
+
+  public GetCondimentDescription(): string {
+    return `${this.type} liquor`;
+  }
+}
+
+
+
