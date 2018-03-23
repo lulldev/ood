@@ -2,57 +2,48 @@ import {IBeverage} from "./IBeverage";
 import {Capuccino, Coffee, Latte, Milkshake, Tea} from "./Beverages";
 import {Cinnamon, IceCubeType, Lemon, IceCubes, Syrop, SyrupType, ChocolateCrumbs, CoconutFlakes} from "./Condiments";
 
-const MakeBeverage = {
-  beverage: null,
-  make: function (beverage: IBeverage) {
-    this.beverage = beverage;
-    return this;
-  },
-  addLemon: function (quantity: number) {
-    const tmpBeverage = this.beverage;
-    this.beverage = new Lemon(tmpBeverage, quantity);
-    return this;
-  },
-  addCinnamon: function () {
-    const tmpBeverage = this.beverage;
-    this.beverage = new Cinnamon(tmpBeverage);
-    return this;
-  },
-  addIceCubes: function (quantity: number, iceCubeType: IceCubeType) {
-    const tmpBeverage = this.beverage;
-    this.beverage = new IceCubes(tmpBeverage, quantity, iceCubeType);
-    return this;
-  },
-  addSyrop: function (syropType: SyrupType) {
-    const tmpBeverage = this.beverage;
-    this.beverage = new Syrop(tmpBeverage, syropType);
-    return this;
-  },
-  addChocolateCrumbs: function (mass: number) {
-    const tmpBeverage = this.beverage;
-    this.beverage = new ChocolateCrumbs(tmpBeverage, mass);
-    return this;
-  },
-  addCoconutFlakes: function (mass: number) {
-    const tmpBeverage = this.beverage;
-    this.beverage = new CoconutFlakes(tmpBeverage, mass);
-    return this;
-  },
-  get: function () {
-    return this.beverage;
-  }
-};
+// const MakeBeverage = {
+//   beverage: null,
+//   make: function (beverage: IBeverage) {
+//     this.beverage = beverage;
+//     return this;
+//   },
+//   addLemon: function (quantity: number) {
+//     const tmpBeverage = this.beverage;
+//     this.beverage = new Lemon(tmpBeverage, quantity);
+//     return this;
+//   },
+//   addCinnamon: function () {
+//     const tmpBeverage = this.beverage;
+//     this.beverage = new Cinnamon(tmpBeverage);
+//     return this;
+//   },
+//   addIceCubes: function (quantity: number, iceCubeType: IceCubeType) {
+//     const tmpBeverage = this.beverage;
+//     this.beverage = new IceCubes(tmpBeverage, quantity, iceCubeType);
+//     return this;
+//   },
+//   addSyrop: function (syropType: SyrupType) {
+//     const tmpBeverage = this.beverage;
+//     this.beverage = new Syrop(tmpBeverage, syropType);
+//     return this;
+//   },
+//   addChocolateCrumbs: function (mass: number) {
+//     const tmpBeverage = this.beverage;
+//     this.beverage = new ChocolateCrumbs(tmpBeverage, mass);
+//     return this;
+//   },
+//   addCoconutFlakes: function (mass: number) {
+//     const tmpBeverage = this.beverage;
+//     this.beverage = new CoconutFlakes(tmpBeverage, mass);
+//     return this;
+//   },
+//   get: function () {
+//     return this.beverage;
+//   }
+// };
 
-
-function decorate(component, decorator, ...args) {
-  return new decorator(component, ...args);
-}
-
-decorate(new Milkshake("Small"), ChocolateCrumbs, 5);
-
-// new DecoratorBuilder(new Milkshake("Small")).decorate(Cho)
-
-
+/*
 const coffee = new Coffee();
 const beverageCoffee = MakeBeverage
   .make(coffee)
@@ -129,6 +120,35 @@ const beverageBigMilkshake = MakeBeverage
   .get();
 
 console.log(beverageBigMilkshake.GetDescription(), beverageBigMilkshake.GetCost());
+*/
 
 
+const MakeBeverage = {
+  beverage: null,
+  setUp: function (starterBeverage) {
+    this.beverage = starterBeverage;
+    return this;
+  },
+  decorate: function (decorator, ...args) {
+    this.beverage = new decorator(this.beverage, ...args);
+    return this;
+  },
+  result: function () {
+    return `${this.beverage.GetDescription()}, ${this.beverage.GetCost()}`;
 
+  }
+};
+
+const milkShakeWithIceCubes = MakeBeverage
+  .setUp(new Milkshake("Small"))
+  .decorate(IceCubes, 5)
+  .result();
+
+const coffeWithSyropAndCoconut = MakeBeverage
+  .setUp(new Coffee())
+  .decorate(Syrop, 'Chocolate')
+  .decorate(CoconutFlakes, 5)
+  .result();
+
+console.log(milkShakeWithIceCubes);
+console.log(coffeWithSyropAndCoconut);
