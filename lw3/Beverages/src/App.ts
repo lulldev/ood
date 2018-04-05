@@ -167,7 +167,7 @@ const coffeWithSyropAndCoconut = MakeBeverage
   .decorate(CoconutFlakes, 5)
   .result();
 
-const coffeWithCreamAndChocolateSlices = MakeBeverage
+const coffeeWithCreamAndChocolateSlices = MakeBeverage
   .setUp(new Coffee())
   .decorate(Cream, 5)
   .decorate(ChocolateSlice, 2)
@@ -181,5 +181,5 @@ const latteWithLiquorAndChocolateCrumbs = MakeBeverage
 
 console.log(milkShakeWithIceCubes);
 console.log(coffeWithSyropAndCoconut);
-console.log(coffeWithCreamAndChocolateSlices);
+console.log(coffeeWithCreamAndChocolateSlices);
 console.log(latteWithLiquorAndChocolateCrumbs);
