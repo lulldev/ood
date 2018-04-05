@@ -1,5 +1,3 @@
-import { WeatherData } from "./WeatherData";
-
 type ObserverListType = { observer: IObserver, priority: number };
 export type NotifiedObserverType = { observerType: string, priority: number };
 export type ObserverWithPriorityType = { observer: IObserver, priority: number};
@@ -17,7 +15,6 @@ export interface IObservable {
 export abstract class Observable implements IObservable {
 
   private observerList: ObserverListType[] = [];
-  private notifiedObservers: NotifiedObserverType[] = [];
 
   public RegisterObserver(observer: IObserver, priority: number): void {
     this.observerList.push({observer: observer, priority: priority});
@@ -30,13 +27,8 @@ export abstract class Observable implements IObservable {
 
   public NotifyObservers(): void {
     const data: any = this.GetChangedData();
-    this.notifiedObservers = [];
     this.observerList.forEach((currentObserver) => {
       currentObserver.observer.Update(data);
-      this.notifiedObservers.push({
-        observerType: currentObserver.observer.constructor.name,
-        priority: currentObserver.priority,
-      });
     });
   }
 
@@ -46,10 +38,6 @@ export abstract class Observable implements IObservable {
         this.observerList.splice(index, 1);
       }
     });
-  }
-
-  public GetNotifiedObservers(): NotifiedObserverType[] {
-    return this.notifiedObservers;
   }
 
   protected abstract GetChangedData(): any;

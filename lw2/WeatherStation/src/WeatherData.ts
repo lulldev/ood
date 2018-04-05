@@ -6,7 +6,7 @@ export interface WeatherInfo {
   pressure: number;
 }
 
-export class WeatherData extends Observable {
+export default class WeatherData extends Observable {
 
   private temperature: number = 0.0;
   private humidity: number = 0.0;

@@ -1,5 +1,5 @@
 import { IObserver } from './Observer';
-import { WeatherData, WeatherInfo } from './WeatherData';
+import WeatherData, { WeatherInfo } from './WeatherData';
 
 export class Display implements IObserver {
 
