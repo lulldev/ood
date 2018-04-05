@@ -1,5 +1,5 @@
 import { Display, StatsDisplay } from './WeatherStation';
-import { WeatherData } from './WeatherData';
+import WeatherData from './WeatherData';
 import { WeatherStationDuo } from "./WeatherStationDuo";
 
 const wd : WeatherData = new WeatherData();

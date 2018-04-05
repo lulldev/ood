@@ -45,13 +45,14 @@ class StatsCalculator {
     return this.acc / this.counter;
   }
 
-  public GetCalculation(newValue: number): string {
+  public GetCalculation(newValue: number): object {
     this.Calculate(newValue);
-    return `
-Max ${this.amountName} ${this.max}
-Min ${this.amountName} ${this.min}
-Averge ${this.amountName} ${this.GetAverage()}
----------------------------------`;
+    return {
+      amountName: this.amountName,
+      min: this.min,
+      max: this.max,
+      average: this.GetAverage(),
+    };
   }
 }
 
@@ -61,10 +62,22 @@ export class StatsDisplay implements IObserver {
   private humidity: StatsCalculator = new StatsCalculator('humidity');
   private pressure: StatsCalculator = new StatsCalculator('pressure');
 
+  private FormatCalculation(calculationData: any) {
+    return `
+Max ${calculationData.amountName} ${calculationData.max}
+Min ${calculationData.amountName} ${calculationData.min}
+Average ${calculationData.amountName} ${calculationData.average}
+---------------------------------`;
+  }
+
   Update(data: any): void {
-    this.temperature.GetCalculation(data.temperature);
-    this.humidity.GetCalculation(data.humidity);
-    this.pressure.GetCalculation(data.pressure);
+    const temperature = this.temperature.GetCalculation(data.temperature);
+    const humidity = this.humidity.GetCalculation(data.humidity);
+    const pressure = this.pressure.GetCalculation(data.pressure);
+
+    this.FormatCalculation(temperature);
+    this.FormatCalculation(humidity);
+    this.FormatCalculation(pressure);
   }
 }
 
