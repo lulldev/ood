@@ -1,19 +1,19 @@
 {
-  "name": "lw4 - fabric",
+  "name": "lw4_fabric",
   "version": "0.1.0",
   "engineStrict": true,
   "engines": {
     "node": ">= 8.9.0"
   },
   "devDependencies": {
-    "@types/jest": "~22.1.1",
+    "@types/jest": "^22.1.4",
     "@types/node": "~8.5.10",
     "jest": "~22.1.4",
     "rimraf": "~2.6.2",
     "tslint": "~5.9.1",
-    "tslint-microsoft-contrib": "~5.0.2",
-    "tsutils": "~2.21.0",
-    "typescript": "~2.7.1"
+    "tslint-microsoft-contrib": "^5.0.3",
+    "tsutils": "^2.21.2",
+    "typescript": "^2.7.2"
   },
   "scripts": {
     "execute": "npm run build && node build/src/App.js",
@@ -27,6 +27,8 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
-    "tslib": "~1.9.0"
+    "command-line-args": "^5.0.2",
+    "tslib": "~1.9.0",
+    "validator": "^9.4.1"
   }
 }

@@ -1,20 +1,20 @@
-import { Shape } from "./Shape";
+// import { Shape } from "./Shape";
 import { IPainter } from "./Painter";
 import { Canvas } from "./Canvas";
 
 export class PictureDraft implements IPainter {
 
-  public GetShapeCount(): number { // todo: Shape
+  public GetShapeCount(): number {
     // todo
     return 0;
   }
 
-  public GetShape(): Shape {
+  public GetShape(): void { // todo: Shape
 
   }
 
   DrawPicture(draft: any, canvas: Canvas): void {
-
+    console.log(draft, canvas);
   }
 
 }

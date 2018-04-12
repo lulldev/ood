@@ -42,6 +42,7 @@ export class Rectangle extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
+    console.log(canvas);
     /*
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
@@ -59,8 +60,6 @@ export class Triangle extends Shape {
   private a: ShapeEdge;
   private b: ShapeEdge;
   private c: ShapeEdge;
-  private width: number;
-  private height: number;
 
   constructor(a: ShapeEdge, b: ShapeEdge, c: ShapeEdge,  color: Color) {
     super(color);
@@ -82,6 +81,7 @@ export class Triangle extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
+    console.log(canvas);
     /*
         let context = canvasContext.getContext("2d");
         context.clearRect(0, 0, canvasContext.width, canvasContext.height);
@@ -125,6 +125,7 @@ export class Ellipse extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
+    console.log(canvas);
     // https://true-coder.ru/javascript/risuem-ellips-na-canvas.html
   }
 }
@@ -155,6 +156,7 @@ export class RegularPolygon extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
+    console.log(canvas);
     // http://scienceprimer.com/drawing-regular-polygons-javascript-canvas
     // https://processing.org/examples/regularpolygon.html
   }

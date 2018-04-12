@@ -1,4 +1,4 @@
-import { Shape } from "./Shape";
+// import { Shape } from "./Shape";
 // import { PictureDraft } from './PictureDraft';
 
 export interface IDesigner {
@@ -8,6 +8,7 @@ export interface IDesigner {
 export class Designer implements IDesigner {
 
   public CreateDraft(strm: string): void { // todo: Shape
+    console.log(strm);
     // todo
   }
 }

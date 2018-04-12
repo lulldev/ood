@@ -14,6 +14,7 @@ export class ShapeFactory implements IShapeFactory {
   }
 
   public CreateShape(descr: string): void { // todo: Shape
+    console.log(descr);
     // todo
   }
 }
