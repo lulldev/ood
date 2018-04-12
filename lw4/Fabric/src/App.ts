@@ -1,4 +1,8 @@
 // import validator from 'validator';
+import { Client } from "./Client";
+import { Designer } from "./Designer";
+import { PictureDraft } from "./PictureDraft";
+
 const commandLineArgs = require('command-line-args');
 
 const startupOptionDifinition = [
@@ -15,11 +19,11 @@ if (!startupOptions.hasOwnProperty('clientName') || !startupOptions.hasOwnProper
   process.exit(1);
 }
 
-// todo: инициализируем объект класса клиент
+const client: object = new Client(startupOptions.clientName);
+const designer: object = new Designer();
+const pictureDraft: object = new PictureDraft(designer);
 
 // todo: инициализируем объект класса проект
-
-// todo: инициализируем объект класса дизайнер (в рамках программы это одна сущность)
 
 // todo: организуем прием аргументов для фабрики
 

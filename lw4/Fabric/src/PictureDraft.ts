@@ -1,20 +1,29 @@
 // import { Shape } from "./Shape";
 import { IPainter } from "./Painter";
 import { Canvas } from "./Canvas";
+// import { Designer } from "./Designer";
+import { Shape } from "./Shape";
 
 export class PictureDraft implements IPainter {
 
+  private designer: object;
+  private shapesStore: Shape[];
+
+  constructor(designer: object) {
+    this.designer = designer;
+    this.shapesStore = [];
+  }
+
   public GetShapeCount(): number {
-    // todo
-    return 0;
+    return this.shapesStore.length;
   }
 
   public GetShape(): void { // todo: Shape
 
   }
 
-  DrawPicture(draft: any, canvas: Canvas): void {
-    console.log(draft, canvas);
+  DrawPicture(canvas: Canvas): void {
+    console.log(canvas);
   }
 
 }

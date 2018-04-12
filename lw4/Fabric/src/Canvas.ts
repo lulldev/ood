@@ -8,6 +8,8 @@ export interface ICanvas {
   DrawEllipse(l: number, t: number, w: number, h: number): void;
 }
 
+// todo: текстовое рисование
+
 export class Canvas implements ICanvas{
 
   private color: Color;
