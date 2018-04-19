@@ -16,7 +16,6 @@
     "typescript": "^2.7.2"
   },
   "scripts": {
-    "execute": "npm run build && node build/src/App.js",
     "clean": "rimraf coverage build tmp",
     "build": "tsc -p tsconfig.release.json",
     "watch": "tsc -w -p tsconfig.release.json",
@@ -27,8 +26,11 @@
     "test:watch": "jest --watch"
   },
   "dependencies": {
+    "async": "^2.6.0",
+    "chalk": "^2.4.0",
     "command-line-args": "^5.0.2",
     "randomstring": "^1.1.5",
+    "readline-sync": "^1.4.9",
     "tslib": "~1.9.0",
     "validator": "^9.4.1"
   }

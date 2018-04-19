@@ -1,15 +1,13 @@
-// import { Shape } from "./Shape";
-// import { PictureDraft } from './PictureDraft';
+import { Shape } from "./Shape";
+import { ShapeFactory } from "./ShapeFactory";
 
 export interface IDesigner {
-  CreateDraft(strm: string): void; // todo: PictureDraft
+  CreateDraft(shapeParams: object): Shape;
 }
 
 export class Designer implements IDesigner {
-
-  public CreateDraft(strm: string): void { // todo: Shape
-    console.log(strm);
-    // todo
+  public CreateDraft(shapeParams: object): Shape {
+    const shapeFactory: ShapeFactory = new ShapeFactory();
+    return shapeFactory.CreateShape(shapeParams);
   }
 }
-

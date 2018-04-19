@@ -42,8 +42,9 @@ export class Rectangle extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
-    console.log(canvas);
+    canvas.DrawRectangle(this.x, this.y, this.width, this.height);
     /*
+    todo:
     const context = canvas.getContext("2d");
     context.clearRect(0, 0, canvas.width, canvas.height);
     context.beginPath();
@@ -53,6 +54,7 @@ export class Rectangle extends Shape {
     context.fillRect(this.x, this.y, this.width, this.height);
     */
   }
+
 }
 
 export class Triangle extends Shape {
@@ -80,9 +82,14 @@ export class Triangle extends Shape {
     return this.c;
   }
 
+  public ToString(): string {
+    return `Triangle (a=${this.a}, b=${this.b}, с=${this.b})`;
+  }
+
   public Draw(canvas: Canvas): void {
-    console.log(canvas);
+    canvas.DrawTriangle(this.a.x, this.a.y, this.b.x, this.b.y, this.c.x, this.c.y);
     /*
+    todo:
         let context = canvasContext.getContext("2d");
         context.clearRect(0, 0, canvasContext.width, canvasContext.height);
         context.beginPath();
@@ -124,8 +131,15 @@ export class Ellipse extends Shape {
     return this.verticalRadius;
   }
 
+  public ToString(): string {
+    return `Ellipse (center=${this.center}, 
+    vertical radius=${this.verticalRadius}, horizontal radius=${this.horizontalRadius})`;
+  }
+
   public Draw(canvas: Canvas): void {
-    console.log(canvas);
+    canvas.DrawEllipse(this.center.x, this.center.y, this.verticalRadius, this.horizontalRadius);
+
+    // todo:
     // https://true-coder.ru/javascript/risuem-ellips-na-canvas.html
   }
 }
@@ -156,7 +170,8 @@ export class RegularPolygon extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
-    console.log(canvas);
+    canvas.DrawPolygon(this.center.x, this.center.y, this.numberOfSides, this.sideSize);
+    // todo:
     // http://scienceprimer.com/drawing-regular-polygons-javascript-canvas
     // https://processing.org/examples/regularpolygon.html
   }

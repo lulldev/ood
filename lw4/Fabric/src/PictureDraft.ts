@@ -1,29 +1,37 @@
-// import { Shape } from "./Shape";
 import { IPainter } from "./Painter";
 import { Canvas } from "./Canvas";
-// import { Designer } from "./Designer";
 import { Shape } from "./Shape";
+import { Client } from "./Client";
+import { Designer } from "./Designer";
+import { Color } from "./Color";
 
 export class PictureDraft implements IPainter {
 
-  private designer: object;
+  private client: Client;
+  private designer: Designer;
   private shapesStore: Shape[];
 
-  constructor(designer: object) {
+  constructor(client: Client, designer: Designer) {
+    this.client = client;
     this.designer = designer;
     this.shapesStore = [];
   }
 
-  public GetShapeCount(): number {
+  public AddShape(shapeParams: object): void {
+    const newShape: Shape = this.designer.CreateDraft(shapeParams);
+    this.shapesStore.push(newShape);
+  }
+
+  public GetShapesCount(): number {
     return this.shapesStore.length;
   }
 
-  public GetShape(): void { // todo: Shape
-
-  }
+  // public GetShape(): Shape {}
 
   DrawPicture(canvas: Canvas): void {
-    console.log(canvas);
+    this.shapesStore.map((shape) => {
+      shape.Draw(canvas);
+    });
   }
 
 }
