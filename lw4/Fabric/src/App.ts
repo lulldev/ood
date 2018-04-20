@@ -44,7 +44,7 @@ const helpView = () => {
 const validateShapeArgs = (args: object): boolean => {
   const argsArr = Object.keys(args).map(k => args[k]);
   return argsArr.every((val) => {
-    return val && !!parseInt(val);
+    return val && Number(val) === parseInt(val) && Number(val) >= 0;
   });
 };
 

@@ -82,10 +82,6 @@ export class Triangle extends Shape {
     return this.c;
   }
 
-  public ToString(): string {
-    return `Triangle (a=${this.a}, b=${this.b}, с=${this.b})`;
-  }
-
   public Draw(canvas: Canvas): void {
     canvas.DrawTriangle(this.a.x, this.a.y, this.b.x, this.b.y, this.c.x, this.c.y);
     /*
@@ -131,11 +127,6 @@ export class Ellipse extends Shape {
     return this.verticalRadius;
   }
 
-  public ToString(): string {
-    return `Ellipse (center=${this.center}, 
-    vertical radius=${this.verticalRadius}, horizontal radius=${this.horizontalRadius})`;
-  }
-
   public Draw(canvas: Canvas): void {
     canvas.DrawEllipse(this.center.x, this.center.y, this.verticalRadius, this.horizontalRadius);
 
@@ -158,7 +149,7 @@ export class RegularPolygon extends Shape {
   }
 
   public GetVertexCount(): number {
-    return 0; // todo
+    return this.numberOfSides;
   }
 
   public GetCenter(): ShapeEdge {

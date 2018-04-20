@@ -6,9 +6,6 @@ import {
   RegularPolygon,
 } from "./Shape";
 
-// TODO
-// import { Color } from "./Color";
-
 export interface IShapeFactory {
   CreateShape(shapeParams: any): Shape;
 }

@@ -40,14 +40,14 @@ export class Canvas implements ICanvas {
 
   public DrawEllipse(centerX: number, centerY: number,
                      verticalRadius: number, horizontalRadius: number): void {
-    console.log(`Draw ellipse: center = [${centerX};${centerY}], 
-    v = ${verticalRadius}, h = ${horizontalRadius}`);
+    console.log(`Draw ellipse: center = [${centerX};${centerY}], ` +
+    `v = ${verticalRadius}, h = ${horizontalRadius}`);
   }
 
   public DrawPolygon(centerX: number, centerY: number,
                      numberOfSides: number, sideSize: number): void {
-    console.log(`Draw polygon: center = [${centerX};${centerY}], 
-    sides count = ${numberOfSides}, side size = ${sideSize}`);
+    console.log(`Draw polygon: center = [${centerX};${centerY}], ` +
+    `sides count = ${numberOfSides}, side size = ${sideSize}`);
   }
 
   public DrawTriangle(x1: number, y1: number,
