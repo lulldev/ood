@@ -41,7 +41,7 @@ const helpView = () => {
   console.log('exit - выход программы');
 };
 
-const validateShapeArgs = (args: object): boolean => {
+const isValidShapeArgs = (args: object): boolean => {
   const argsArr = Object.keys(args).map(k => args[k]);
   return argsArr.every((val) => {
     return val && Number(val) === parseInt(val) && Number(val) >= 0;
@@ -57,7 +57,7 @@ helpView();
 
 readlineSync.promptCLLoop({
   rectangle: (centerX: number, centerY: number, width: number, height: number, colorName: string) => {
-    if (!validateShapeArgs({centerX, centerY, width, height})) {
+    if (!isValidShapeArgs({centerX, centerY, width, height})) {
       console.log('Введены неверные параметры');
       return;
     }
@@ -73,7 +73,7 @@ readlineSync.promptCLLoop({
   },
   triangle: (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number,
              colorName: string) => {
-    if (!validateShapeArgs({x1, y1, x2, y2, x3, y3})) {
+    if (!isValidShapeArgs({x1, y1, x2, y2, x3, y3})) {
       console.log('Введены неверные параметры');
       return;
     }
@@ -91,7 +91,7 @@ readlineSync.promptCLLoop({
   },
   ellipse: (centerX: number, centerY: number, horizontalRadius: number,
             verticalRadius: number, colorName: string) => {
-    if (!validateShapeArgs({centerX, centerY, horizontalRadius, verticalRadius})) {
+    if (!isValidShapeArgs({centerX, centerY, horizontalRadius, verticalRadius})) {
       console.log('Введены неверные параметры');
       return;
     }
@@ -107,7 +107,7 @@ readlineSync.promptCLLoop({
   },
   regular_polygon: (centerX: number, centerY: number, numberOfSides: number,
                     sideSize: number, colorName: string) => {
-    if (!validateShapeArgs({centerX, centerY, numberOfSides, sideSize})) {
+    if (!isValidShapeArgs({centerX, centerY, numberOfSides, sideSize})) {
       console.log('Введены неверные параметры');
       return;
     }
