@@ -1,9 +1,8 @@
 import { Color } from './Color';
 
-// todo: interface
-
 export interface ICanvas {
-  SetColor(color: Color): void;
+  SetCanvasColor(color: Color): void;
+  GetCanvasColor(): Color;
   MoveTo(x: number, y: number): void;
   DrawLine(from: number, to: number): void;
   DrawEllipse(centerX: number, centerY: number, verticalRadius: number, horizontalRadius: number): void;
@@ -11,8 +10,6 @@ export interface ICanvas {
   DrawPolygon(centerX: number, centerY: number, numberOfSides: number, sideSize: number): void;
   DrawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): void;
 }
-
-// todo: текстовое рисование
 
 export class Canvas implements ICanvas {
 
@@ -22,12 +19,16 @@ export class Canvas implements ICanvas {
     this.color = Color.White;
   }
 
-  public SetColor(color: Color): void {
+  public SetCanvasColor(color: Color): void {
     this.color = color;
   }
 
-  public DrawRectangle(x: number, y: number, width: number, height: number): void {
-    console.log(`Draw rectangle: x = ${x}, y = ${y}, width = ${width}, height = ${height}`);
+  public GetCanvasColor(): Color {
+    return this.color;
+  }
+
+  public GetCanvasInfo(): string {
+    return `Canvas color ${this.GetCanvasColor()}`;
   }
 
   public MoveTo(x: number, y: number): void {
@@ -38,16 +39,20 @@ export class Canvas implements ICanvas {
     console.log(`Draw line: from ${from} to ${to}`);
   }
 
+  public DrawRectangle(x: number, y: number, width: number, height: number): void {
+    console.log(`Draw rectangle: x = ${x}, y = ${y}, width = ${width}, height = ${height}`);
+  }
+
   public DrawEllipse(centerX: number, centerY: number,
                      verticalRadius: number, horizontalRadius: number): void {
-    console.log(`Draw ellipse: center = [${centerX};${centerY}], ` +
-    `v = ${verticalRadius}, h = ${horizontalRadius}`);
+    console.log(this.GetCanvasInfo());
+    console.log(`Draw ellipse: center = [${centerX};${centerY}], ` + `v = ${verticalRadius}, h = ${horizontalRadius}`);
   }
 
   public DrawPolygon(centerX: number, centerY: number,
                      numberOfSides: number, sideSize: number): void {
     console.log(`Draw polygon: center = [${centerX};${centerY}], ` +
-    `sides count = ${numberOfSides}, side size = ${sideSize}`);
+      `sides count = ${numberOfSides}, side size = ${sideSize}`);
   }
 
   public DrawTriangle(x1: number, y1: number,

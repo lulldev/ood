@@ -16,6 +16,7 @@
     "typescript": "^2.7.2"
   },
   "scripts": {
+    "autorun": "node build/src/App.js --clientName=Ivan --projectName=Test",
     "clean": "rimraf coverage build tmp",
     "build": "tsc -p tsconfig.release.json",
     "watch": "tsc -w -p tsconfig.release.json",
