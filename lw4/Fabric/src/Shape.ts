@@ -20,29 +20,35 @@ export abstract class Shape {
 
 export class Rectangle extends Shape {
 
-  private x: number;
-  private y: number;
+  private startX: number;
+  private startY: number;
   private width: number;
   private height: number;
 
-  constructor(startPoint: ShapeEdge, width: number, height: number, color: Color) {
+  constructor(startX: number, startY: number, width: number, height: number, color: Color) {
+
     super(color);
-    this.x = startPoint.x;
-    this.y = startPoint.y;
+
+    if(!this.IsValid(startX, startY, width, height)) {
+      throw new Error(`Invalid rectangle params`);
+    }
+
+    this.startX = startX;
+    this.startY = startY;
     this.width = width;
     this.height = height;
   }
 
   public GetLeftTop(): ShapeEdge {
-    return { x: this.x, y: this.y };
+    return { x: this.startX, y: this.startY };
   }
 
   public GetRightBottom(): ShapeEdge {
-    return { x: this.x + this.height, y: this.y + this.width };
+    return { x: this.startX + this.height, y: this.startY + this.width };
   }
 
   public Draw(canvas: Canvas): void {
-    canvas.DrawRectangle(this.x, this.y, this.width, this.height);
+    canvas.DrawRectangle(this.startX, this.startY, this.width, this.height);
     /*
     todo:
     const context = canvas.getContext("2d");
@@ -55,35 +61,52 @@ export class Rectangle extends Shape {
     */
   }
 
+  private IsValid(startX: number, startY: number, width: number, height: number): boolean {
+    return !!startX && !!startY && (!!width && width > 0) && (!!height && height > 0);
+  }
+
 }
 
 export class Triangle extends Shape {
 
-  private a: ShapeEdge;
-  private b: ShapeEdge;
-  private c: ShapeEdge;
+  private x1: number;
+  private y1: number;
+  private x2: number;
+  private y2: number;
+  private x3: number;
+  private y3: number;
 
-  constructor(a: ShapeEdge, b: ShapeEdge, c: ShapeEdge,  color: Color) {
+  constructor(x1: number, y1: number, x2: number,
+              y2: number, x3: number, y3: number, color: Color) {
+
     super(color);
-    this.a = a;
-    this.b = b;
-    this.c = c;
+
+    if(!this.IsValid(x1, y1, x2, y2, x3, y3)) {
+      throw new Error(`Invalid triangle params`);
+    }
+
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
+    this.x3 = x3;
+    this.y3 = y3;
   }
 
   public GetVertex1(): ShapeEdge {
-    return this.a;
+    return { x: this.x1, y: this.y1 };
   }
 
   public GetVertex2(): ShapeEdge {
-    return this.b;
+    return { x: this.x2, y: this.y2 };
   }
 
   public GetVertex3(): ShapeEdge {
-    return this.c;
+    return { x: this.x3, y: this.y3 };
   }
 
   public Draw(canvas: Canvas): void {
-    canvas.DrawTriangle(this.a.x, this.a.y, this.b.x, this.b.y, this.c.x, this.c.y);
+    canvas.DrawTriangle(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
     /*
     todo:
         let context = canvasContext.getContext("2d");
@@ -100,50 +123,78 @@ export class Triangle extends Shape {
         context.fill();
     */
   }
+
+  private IsValid(x1: number, y1: number, x2: number,
+                  y2: number, x3: number, y3: number): boolean {
+    return !!x1 && !!y1 && !!x2 && !!y2 && !!x3 && !!y3;
+  }
 }
 
 export class Ellipse extends Shape {
 
-  private center: ShapeEdge;
-  private horizontalRadius: number;
-  private verticalRadius: number;
+  private left: number;
+  private top: number;
+  private width: number;
+  private height: number;
 
-  constructor(center: ShapeEdge, horizontalRadius: number, verticalRadius: number,  color: Color) {
+  constructor(left: number, top: number,
+              width: number, height: number, color: Color) {
+
     super(color);
-    this.center = center;
-    this.horizontalRadius = horizontalRadius;
-    this.verticalRadius = verticalRadius;
+
+    if(!this.IsValid(left, top, width, height)) {
+      throw new Error(`Invalid ellipse params`);
+    }
+
+    this.left = left;
+    this.top = top;
+    this.width = width;
+    this.height = height;
   }
 
   public GetCenter(): ShapeEdge {
-    return this.center;
+    return {x: this.left, y: this.top };
   }
 
   public GetHorizontalRadius(): number {
-    return this.horizontalRadius;
+    return 0; // todo
   }
 
   public GetVerticalRadius(): number {
-    return this.verticalRadius;
+    return 0; // todo
   }
 
   public Draw(canvas: Canvas): void {
-    canvas.DrawEllipse(this.center.x, this.center.y, this.verticalRadius, this.horizontalRadius);
+    const center = this.GetCenter();
+    canvas.DrawEllipse(center.x, center.y, this.GetVerticalRadius(), this.GetHorizontalRadius());
 
     // todo:
     // https://true-coder.ru/javascript/risuem-ellips-na-canvas.html
+  }
+
+  private IsValid(left: number, top: number, width: number, height: number): boolean {
+    return !!left && !!top && (!!width && width > 0) && (!!height && height > 0);
   }
 }
 
 export class RegularPolygon extends Shape {
 
-  private center: ShapeEdge;
+  private centerX: number;
+  private centerY: number;
   private numberOfSides: number;
   private sideSize: number;
 
-  constructor(center: ShapeEdge, numberOfSides: number, sideSize: number,  color: Color) {
+  constructor(centerX: number, centerY: number, numberOfSides: number,
+              sideSize: number,  color: Color) {
+
     super(color);
-    this.center = center;
+
+    if(!this.IsValid(centerX, centerY, numberOfSides, sideSize)) {
+      throw new Error(`Invalid regular-polygon params`);
+    }
+
+    this.centerX = centerX;
+    this.centerY = centerY;
     this.numberOfSides = numberOfSides;
     this.sideSize = sideSize;
   }
@@ -153,7 +204,7 @@ export class RegularPolygon extends Shape {
   }
 
   public GetCenter(): ShapeEdge {
-    return this.center;
+    return { x: this.centerX, y: this.centerY };
   }
 
   public GetRadius(): number {
@@ -161,10 +212,15 @@ export class RegularPolygon extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
-    canvas.DrawPolygon(this.center.x, this.center.y, this.numberOfSides, this.sideSize);
+    const center = this.GetCenter();
+    canvas.DrawPolygon(center.x, center.y, this.numberOfSides, this.sideSize);
     // todo:
     // http://scienceprimer.com/drawing-regular-polygons-javascript-canvas
     // https://processing.org/examples/regularpolygon.html
+  }
+
+  private IsValid(centerX: number, centerY: number, numberOfSides: number, sideSize: number): boolean {
+    return !!centerX && !!centerY && (!!numberOfSides && numberOfSides > 0) && (!!sideSize && sideSize > 0);
   }
 }
 

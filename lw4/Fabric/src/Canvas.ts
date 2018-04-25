@@ -45,7 +45,6 @@ export class Canvas implements ICanvas {
 
   public DrawEllipse(centerX: number, centerY: number,
                      verticalRadius: number, horizontalRadius: number): void {
-    console.log(this.GetCanvasInfo());
     console.log(`Draw ellipse: center = [${centerX};${centerY}], ` + `v = ${verticalRadius}, h = ${horizontalRadius}`);
   }
 

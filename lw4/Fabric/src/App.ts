@@ -41,91 +41,77 @@ const helpView = () => {
   console.log('exit - выход программы');
 };
 
-const isValidShapeArgs = (args: object): boolean => {
-  const argsArr = Object.keys(args).map(k => args[k]);
-  return argsArr.every((val) => {
-    return val && Number(val) === parseInt(val) && Number(val) >= 0;
-  });
-};
-
-const getColorByName = (colorName: string): Color => {
-  return Object.keys(Color).indexOf(colorName) !== -1
-    ? Color[colorName] : Color.Black;
-} ;
-
 helpView();
 
 readlineSync.promptCLLoop({
-  rectangle: (centerX: number, centerY: number, width: number, height: number, colorName: string) => {
-    if (!isValidShapeArgs({centerX, centerY, width, height})) {
-      console.log('Введены неверные параметры');
-      return;
+  rectangle: (centerX: number, centerY: number, width: number, height: number, color: string) => {
+    try {
+      pictureDraft.AddShape({
+        type: 'rectangle',
+        centerX,
+        centerY,
+        width,
+        height,
+        color,
+      });
     }
-    const color: Color = getColorByName(colorName);
-    pictureDraft.AddShape({
-      type: 'rectangle',
-      centerX,
-      centerY,
-      width,
-      height,
-      color: color,
-    });
+    catch(e) {
+      console.log(e.message);
+    }
+
   },
   triangle: (x1: number, y1: number, x2: number, y2: number, x3: number, y3: number,
-             colorName: string) => {
-    if (!isValidShapeArgs({x1, y1, x2, y2, x3, y3})) {
-      console.log('Введены неверные параметры');
-      return;
+             color: string) => {
+
+    try {
+      pictureDraft.AddShape({
+        type: 'triangle',
+        x1,
+        y1,
+        x2,
+        y2,
+        x3,
+        y3,
+        color,
+      });
     }
-    const color: Color = getColorByName(colorName);
-    pictureDraft.AddShape({
-      type: 'triangle',
-      x1,
-      y1,
-      x2,
-      y2,
-      x3,
-      y3,
-      color: color,
-    });
+    catch(e) {
+      console.log(e.message);
+    }
   },
   ellipse: (centerX: number, centerY: number, horizontalRadius: number,
-            verticalRadius: number, colorName: string) => {
-    if (!isValidShapeArgs({centerX, centerY, horizontalRadius, verticalRadius})) {
-      console.log('Введены неверные параметры');
-      return;
+            verticalRadius: number, color: string) => {
+    try {
+      pictureDraft.AddShape({
+        type: 'ellipse',
+        centerX,
+        centerY,
+        horizontalRadius,
+        verticalRadius,
+        color,
+      });
     }
-    const color: Color = getColorByName(colorName);
-    pictureDraft.AddShape({
-      type: 'ellipse',
-      centerX,
-      centerY,
-      horizontalRadius,
-      verticalRadius,
-      color: color,
-    });
+    catch(e) {
+      console.log(e.message);
+    }
   },
   regular_polygon: (centerX: number, centerY: number, numberOfSides: number,
-                    sideSize: number, colorName: string) => {
-    if (!isValidShapeArgs({centerX, centerY, numberOfSides, sideSize})) {
-      console.log('Введены неверные параметры');
-      return;
+                    sideSize: number, color: string) => {
+    try {
+      pictureDraft.AddShape({
+        type: 'regular_polygon',
+        centerX,
+        centerY,
+        numberOfSides,
+        sideSize,
+        color,
+      });
     }
-    const color: Color = getColorByName(colorName);
-    pictureDraft.AddShape({
-      type: 'ellipse',
-      centerX,
-      centerY,
-      numberOfSides,
-      sideSize,
-      color: color,
-    });
+    catch(e) {
+      console.log(e.message);
+    }
   },
-  draw: () => {
-    pictureDraft.DrawPicture(new Canvas());
-  },
+  draw: () => pictureDraft.DrawPicture(new Canvas()),
   help: () => helpView(),
-  exit: () => {
-    return true;
-  }
+  exit: () => { return true; },
 });
