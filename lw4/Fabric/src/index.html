@@ -1,0 +1,108 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Picture Draft</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" />
+</head>
+<body>
+
+<main class="container" style="margin: 20px;">
+  <div class="row">
+    <div class="col-lg-8">
+      <canvas id="canvas-area" style="width: 100%; border: 1px solid #ccc;"></canvas>
+    </div>
+    <div class="col-lg-4">
+      <label>Выбор фигуры</label>
+      <form class="form">
+        <div class="form-group">
+          <select class="form-control">
+            <option value=""></option>
+            <option value="rectangle">Прямоугольник</option>
+            <option value="triangle">Треугольник</option>
+            <option value="ellipse">Эллипс</option>
+            <option value="regular_polygon">Многоугольник</option>
+          </select>
+        </div>
+        <div class="color-form">
+          <div class="form-group">
+            <label>Цвет заливки</label>
+            <input type="color" class="form-control fill-color" value="#ffffff" />
+          </div>
+        </div>
+
+        <div class="circle-form">
+          <div class="form-group">
+            <label>Radius:</label>
+            <input type="number" class="form-control radius" value="10" />
+          </div>
+          <div class="form-group">
+            <label>X-coord:</label>
+            <input type="number" class="form-control circle-x-coord" value="50" />
+          </div>
+          <div class="form-group">
+            <label>Y-coord:</label>
+            <input type="number" class="form-control circle-y-coord" value="20" />
+          </div>
+        </div>
+        <div class="rectangle-form">
+          <div class="form-group">
+            <label>X1-coord:</label>
+            <input type="number" class="form-control rectangle-x1-coord" value="5" />
+          </div>
+          <div class="form-group">
+            <label>Y1-coord:</label>
+            <input type="number" class="form-control rectangle-y1-coord" value="5" />
+          </div>
+          <div class="form-group">
+            <label>X2-coord:</label>
+            <input type="number" class="form-control rectangle-x2-coord" value="50" />
+          </div>
+          <div class="form-group">
+            <label>Y2-coord:</label>
+            <input type="number" class="form-control rectangle-y2-coord" value="50" />
+          </div>
+        </div>
+        <div class="triangle-form">
+          <div class="form-group">
+            <label>X1-coord:</label>
+            <input type="number" class="form-control triangle-x1-coord" value="5" />
+          </div>
+          <div class="form-group">
+            <label>Y1-coord:</label>
+            <input type="number" class="form-control triangle-y1-coord" value="8" />
+          </div>
+          <div class="form-group">
+            <label>X2-coord:</label>
+            <input type="number" class="form-control triangle-x2-coord" value="10" />
+          </div>
+          <div class="form-group">
+            <label>Y2-coord:</label>
+            <input type="number" class="form-control triangle-y2-coord" value="20" />
+          </div>
+          <div class="form-group">
+            <label>X3-coord:</label>
+            <input type="number" class="form-control triangle-x3-coord" value="15" />
+          </div>
+          <div class="form-group">
+            <label>Y3-coord:</label>
+            <input type="number" class="form-control triangle-y3-coord" value="25" />
+          </div>
+        </div>
+        <div class="form-group action-control-btns">
+          <a href="#" class="btn btn-md btn-success draw-shape">Draw shape!</a>
+          <a href="#" class="btn btn-md btn-danger reset-configurator">Reset form</a>
+        </div>
+      </form>
+    </div>
+  </div>
+</main>
+
+
+<script src="js/react/react.js"></script>
+<script src="js/react/react-dom.js"></script>
+<script src="js/react/browser.min.js"></script>
+<script type="text/babel" src="js/app.js"></script>
+
+</body>
+</html>
