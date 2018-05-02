@@ -1,6 +1,7 @@
 import * as React from 'react';
 import {
   Button,
+  ButtonGroup,
   Col,
   Container,
   Form,
@@ -9,10 +10,10 @@ import {
   Row,
 } from 'reactstrap';
 
+import EllipseFormConfigurator from './EllipseFormConfigurator';
+import PolygonFormConfigurator from './PolygonFormConfigurator';
 import RectangleFormConfigurator from './RectangleFormConfigurator';
 import TriangleFormConfigurator from './TriangleFormConfigurator';
-import EllipseFormConfigurator from './TriangleFormConfigurator';
-import PolygonFormConfigurator from './TriangleFormConfigurator';
 
 class PictureDraft extends React.Component {
   public render() {
@@ -25,7 +26,7 @@ class PictureDraft extends React.Component {
           <Col lg={4}>
             <Form>
               <FormGroup>
-                <select className="form-control shape-type">
+                <select className="form-control required">
                   <option/>
                   <option value="rectangle">Rectangle</option>
                   <option value="triangle">Triangle</option>
@@ -39,7 +40,7 @@ class PictureDraft extends React.Component {
                 <Input
                   type="color"
                   className="form-control"
-                  value="#fff"
+                  required={true}
                 />
               </FormGroup>
 
@@ -48,9 +49,10 @@ class PictureDraft extends React.Component {
               <EllipseFormConfigurator/>
               <PolygonFormConfigurator/>
 
-              <FormGroup>
-                <Button>Draw picture</Button>
-              </FormGroup>
+              <ButtonGroup>
+                <Button>Add shape</Button>
+                <Button color="success">Draw picture</Button>
+              </ButtonGroup>
             </Form>
           </Col>
         </Row>
