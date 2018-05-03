@@ -13,7 +13,8 @@ export default class ShapeStore extends React.Component<any, any> {
       <div>
         Добавленные фигуры для рисования:
         <ul>
-          {this.props.shapeStore.map((shape: any) => (<li>{shape.name}</li>))}
+          {this.props.shapeStore.map((shapeName: string, index: number) =>
+            (<li key={index}>{shapeName}</li>))}
         </ul>
       </div>
     );

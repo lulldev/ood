@@ -26,12 +26,10 @@ export class PictureDraft implements IPainter {
   }
 
   public GetShapesStore(): string[] {
-    return this.shapesStore.map((shape: Shape) => {
+    return this.shapesStore.map((shape: any) => {
       return shape.constructor.name;
     });
   }
-
-  // public GetShape(): Shape {}
 
   public DrawPicture(canvas: Canvas): void {
     console.log(canvas.GetCanvasInfo());

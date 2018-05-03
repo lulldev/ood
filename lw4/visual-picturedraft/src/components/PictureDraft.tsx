@@ -40,12 +40,19 @@ class PictureDraftContainer extends React.Component<any, any> {
       isShowPolygonForm: false,
       isShowRectangleForm: false,
       isShowTriangleForm: false,
+      shapeColor: '#000',
       shapeParams: {},
       shapeStore: [],
+      shapeType: '',
     };
     this.handleShapeChange = this.handleShapeChange.bind(this);
     this.handleAddShape = this.handleAddShape.bind(this);
     this.handleDrawPictire = this.handleDrawPictire.bind(this);
+    this.inputShapeHandler = this.inputShapeHandler.bind(this);
+    this.handleColorChange = this.handleColorChange.bind(this);
+  }
+  public handleColorChange(event: any): void {
+    this.setState({shapeColor: event.target.value});
   }
   public inputShapeHandler(params: any): void {
     this.setState({ shapeParams: params });
@@ -62,22 +69,25 @@ class PictureDraftContainer extends React.Component<any, any> {
 
     switch (shape) {
       case 'rectangle':
-        this.setState({ isShowRectangleForm: true });
+        this.setState({ isShowRectangleForm: true, shapeType: shape });
         break;
       case 'triangle':
-        this.setState({ isShowTriangleForm: true });
+        this.setState({ isShowTriangleForm: true, shapeType: shape });
         break;
       case 'ellipse':
-        this.setState({ isShowEllipseForm: true });
+        this.setState({ isShowEllipseForm: true, shapeType: shape });
         break;
       case 'polygon':
-        this.setState({ isShowPolygonForm: true });
+        this.setState({ isShowPolygonForm: true, shapeType: shape });
         break;
     }
   }
   public handleAddShape(): void {
     try {
-      this.draft.AddShape(this.state.shapeParams);
+      const type = this.state.shapeType;
+      const params = this.state.shapeParams;
+      const color = this.state.shapeColor;
+      this.draft.AddShape({ type, color, ...params});
       this.setState({shapeStore: this.draft.GetShapesStore()});
     }
     catch (e) {
@@ -116,7 +126,9 @@ class PictureDraftContainer extends React.Component<any, any> {
                 <Input
                   type="color"
                   className="form-control"
+                  defaultValue={'#000'}
                   required={true}
+                  onChange={this.handleColorChange}
                 />
               </FormGroup>
 
