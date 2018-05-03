@@ -11,7 +11,6 @@ export class PictureDraft implements IPainter {
   private shapesStore: Shape[];
 
   constructor(client: Client, designer: Designer) {
-    console.log(this.client);
     this.client = client;
     this.designer = designer;
     this.shapesStore = [];
@@ -24,6 +23,12 @@ export class PictureDraft implements IPainter {
 
   public GetShapesCount(): number {
     return this.shapesStore.length;
+  }
+
+  public GetShapesStore(): string[] {
+    return this.shapesStore.map((shape: Shape) => {
+      return shape.constructor.name;
+    });
   }
 
   // public GetShape(): Shape {}

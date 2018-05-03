@@ -9,6 +9,7 @@ import {
   Input,
   Row,
 } from 'reactstrap';
+
 import { Client } from '../picture-draft/Client';
 import { Designer } from '../picture-draft/Designer';
 import { PictureDraft } from '../picture-draft/PictureDraft';
@@ -18,6 +19,7 @@ import EllipseFormConfigurator from './EllipseFormConfigurator';
 import PolygonFormConfigurator from './PolygonFormConfigurator';
 import RectangleFormConfigurator from './RectangleFormConfigurator';
 import TriangleFormConfigurator from './TriangleFormConfigurator';
+import ShapeStore from './ShapeStore';
 
 const CANVAS_HTML_ID = 'canvas-area';
 
@@ -29,7 +31,8 @@ class PictureDraftContainer extends React.Component<any, any> {
 
     this.draft = new PictureDraft(new Client('Client'), new Designer());
     this.canvas = new Canvas(CANVAS_HTML_ID);
-        console.log(this.draft);
+
+    console.log(this.draft);
     console.log(this.canvas);
 
     this.state = {
@@ -37,10 +40,15 @@ class PictureDraftContainer extends React.Component<any, any> {
       isShowPolygonForm: false,
       isShowRectangleForm: false,
       isShowTriangleForm: false,
+      shapeParams: {},
+      shapeStore: [],
     };
     this.handleShapeChange = this.handleShapeChange.bind(this);
     this.handleAddShape = this.handleAddShape.bind(this);
     this.handleDrawPictire = this.handleDrawPictire.bind(this);
+  }
+  public inputShapeHandler(params: any): void {
+    this.setState({ shapeParams: params });
   }
   public handleShapeChange(event: any): void {
     const shape = event.target.value;
@@ -68,7 +76,14 @@ class PictureDraftContainer extends React.Component<any, any> {
     }
   }
   public handleAddShape(): void {
-    // this.draft.AddShape();
+    try {
+      this.draft.AddShape(this.state.shapeParams);
+      this.setState({shapeStore: this.draft.GetShapesStore()});
+    }
+    catch (e) {
+      alert(e.message);
+    }
+    console.log(this.draft);
   }
   public handleDrawPictire(): void {
     this.draft.DrawPicture(this.canvas);
@@ -79,12 +94,16 @@ class PictureDraftContainer extends React.Component<any, any> {
         <Row>
           <Col lg={8}>
             <canvas id={CANVAS_HTML_ID}/>
+            <ShapeStore shapeStore={this.state.shapeStore}/>
           </Col>
           <Col lg={4}>
             <Form>
               <FormGroup>
-                <select className="form-control required" onChange={this.handleShapeChange}>
-                  <option/>
+                <select className="form-control required"
+                        onChange={this.handleShapeChange}
+                        defaultValue={''}
+                >
+                  <option value=""/>
                   <option value="rectangle">Rectangle</option>
                   <option value="triangle">Triangle</option>
                   <option value="ellipse">Ellipse</option>
@@ -101,14 +120,26 @@ class PictureDraftContainer extends React.Component<any, any> {
                 />
               </FormGroup>
 
-              <RectangleFormConfigurator isVisible={this.state.isShowRectangleForm}/>
-              <TriangleFormConfigurator isVisible={this.state.isShowTriangleForm}/>
-              <EllipseFormConfigurator isVisible={this.state.isShowEllipseForm}/>
-              <PolygonFormConfigurator isVisible={this.state.isShowPolygonForm}/>
+              <RectangleFormConfigurator
+                  isVisible={this.state.isShowRectangleForm}
+                  inputHandler={this.inputShapeHandler}
+              />
+              <TriangleFormConfigurator
+                  isVisible={this.state.isShowTriangleForm}
+                  inputHandler={this.inputShapeHandler}
+              />
+              <EllipseFormConfigurator
+                  isVisible={this.state.isShowEllipseForm}
+                  inputHandler={this.inputShapeHandler}
+              />
+              <PolygonFormConfigurator
+                  isVisible={this.state.isShowPolygonForm}
+                  inputHandler={this.inputShapeHandler}
+              />
 
               <ButtonGroup>
-                <Button onClick={this.handleAddShape}>Add shape</Button>
-                <Button onClick={this.handleDrawPictire} color="success">Draw picture</Button>
+                <Button onClick={this.handleAddShape}>Добавить фигуру</Button>
+                <Button onClick={this.handleDrawPictire} color="success">Нарисовать картинку</Button>
               </ButtonGroup>
             </Form>
           </Col>

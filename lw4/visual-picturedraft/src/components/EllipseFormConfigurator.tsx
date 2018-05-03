@@ -22,25 +22,29 @@ export default class EllipseFormConfigurator extends React.Component<any, any> {
         <FormGroup>
           <Label>Left:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>Top:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>Width:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>Height:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
       </div>

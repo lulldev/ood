@@ -22,37 +22,43 @@ export default class TriangleFormConfigurator extends React.Component<any, any> 
         <FormGroup>
           <Label>X1:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>Y1:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>X2:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>Y2:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>X3:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
         <FormGroup>
           <Label>Y3:</Label>
           <Input
-            type="number" value="10"
+            type="number"
+            defaultValue={'10'}
           />
         </FormGroup>
       </div>
