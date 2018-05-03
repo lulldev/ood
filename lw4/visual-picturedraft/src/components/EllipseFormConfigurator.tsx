@@ -14,7 +14,7 @@ export default class EllipseFormConfigurator extends React.Component<any, any> {
     };
   }
   public render() {
-    if (!this.state.isVisible) {
+    if (!this.props.isVisible) {
       return null;
     }
     return (

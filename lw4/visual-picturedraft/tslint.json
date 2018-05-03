@@ -4,7 +4,16 @@
     "exclude": [
       "config/**/*.js",
       "node_modules/**/*.ts"
-    ],
-    "ordered-imports": true
+    ]
+  },
+  "rules": {
+    "quotemark": [true, "single", "jsx-double"],
+    "ordered-imports": false,
+    "no-var-requires": false,
+    "no-console": false,
+    "no-shadowed-variable": false,
+    "no-unused-variable": false,
+    "interface-over-type-literal": false,
+    "max-classes-per-file": [false]
   }
 }

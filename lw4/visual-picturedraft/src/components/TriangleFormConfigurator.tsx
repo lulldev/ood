@@ -14,7 +14,7 @@ export default class TriangleFormConfigurator extends React.Component<any, any> 
     };
   }
   public render() {
-    if (!this.state.isVisible) {
+    if (!this.props.isVisible) {
       return null;
     }
     return (
