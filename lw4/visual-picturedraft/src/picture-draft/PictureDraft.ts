@@ -32,6 +32,7 @@ export class PictureDraft implements IPainter {
   }
 
   public DrawPicture(canvas: Canvas): void {
+    canvas.ResetCanvas();
     this.shapesStore.map((shape) => {
       shape.Draw(canvas);
     });

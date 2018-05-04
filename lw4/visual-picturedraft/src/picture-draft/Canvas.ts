@@ -38,6 +38,12 @@ export class Canvas implements ICanvas {
     return this.HTMLElementID;
   }
 
+  public ResetCanvas(): void {
+    const canvas: any = document.getElementById(this.HTMLElementID);
+    const context: any = canvas.getContext('2d');
+    context.clearRect(0, 0, canvas.width, canvas.height);
+  }
+
   public DrawRectangle(x: number, y: number, width: number, height: number, color: string): void {
     const canvas: any = document.getElementById(this.HTMLElementID);
     const context: any = canvas.getContext('2d');
@@ -63,7 +69,7 @@ export class Canvas implements ICanvas {
     context.restore();
     context.closePath();
     context.stroke();
-    context.stroke();
+    context.fill();
   }
 
   public DrawPolygon(centerX: number, centerY: number,

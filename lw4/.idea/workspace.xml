@@ -13,7 +13,40 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="Canvas.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/visual-picturedraft/src/picture-draft/Canvas.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="40" column="9" lean-forward="false" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/visual-picturedraft/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="330">
+              <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="PictureDraft.ts" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/visual-picturedraft/src/picture-draft/PictureDraft.ts">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="184">
+              <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+              <folding>
+                <element signature="e#0#37#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -63,12 +96,12 @@
         <option value="$PROJECT_DIR$/visual-picturedraft/src/components/Canvas.tsx.ts" />
         <option value="$PROJECT_DIR$/visual-picturedraft/src/components/Canvas.tsx" />
         <option value="$PROJECT_DIR$/visual-picturedraft/src/components/PictureDraft.tsx" />
-        <option value="$PROJECT_DIR$/visual-picturedraft/src/picture-draft/Canvas.ts" />
-        <option value="$PROJECT_DIR$/visual-picturedraft/src/picture-draft/PictureDraft.ts" />
         <option value="$PROJECT_DIR$/picturedraft/src/picture-draft/PictureDraft.ts" />
         <option value="$PROJECT_DIR$/picturedraft/src/picture-draft/Canvas.ts" />
         <option value="$PROJECT_DIR$/picturedraft/src/picture-draft/Shape.ts" />
         <option value="$PROJECT_DIR$/picturedraft/src/picture-draft/ConsoleApp.ts" />
+        <option value="$PROJECT_DIR$/visual-picturedraft/src/picture-draft/Canvas.ts" />
+        <option value="$PROJECT_DIR$/visual-picturedraft/src/picture-draft/PictureDraft.ts" />
       </list>
     </option>
   </component>
@@ -109,24 +142,6 @@
             <path>
               <item name="lw4" type="b2602c69:ProjectViewProjectNode" />
               <item name="lw4" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lw4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lw4" type="462c0819:PsiDirectoryNode" />
-              <item name="picturedraft" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lw4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lw4" type="462c0819:PsiDirectoryNode" />
-              <item name="picturedraft" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="lw4" type="b2602c69:ProjectViewProjectNode" />
-              <item name="lw4" type="462c0819:PsiDirectoryNode" />
-              <item name="picturedraft" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="picture-draft" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="lw4" type="b2602c69:ProjectViewProjectNode" />
@@ -192,19 +207,20 @@
       <option name="presentableId" value="Default" />
       <updated>1525276706127</updated>
       <workItem from="1525276708329" duration="7371000" />
-      <workItem from="1525325350754" duration="18262000" />
+      <workItem from="1525325350754" duration="18602000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="25633000" />
+    <option name="totallyTimeSpent" value="25973000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="22" width="1280" height="778" extended-state="0" />
+    <editor active="true" />
     <layout>
       <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TypeScript" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2536349" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2536349" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -345,13 +361,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visual-picturedraft/.gitignore">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="6" lean-forward="true" selection-start-line="9" selection-start-column="6" selection-end-line="9" selection-end-column="6" />
         </state>
       </provider>
     </entry>
@@ -511,24 +520,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/visual-picturedraft/src/picture-draft/PictureDraft.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="402">
-          <caret line="32" column="0" lean-forward="true" selection-start-line="32" selection-start-column="0" selection-end-line="32" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#37#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/visual-picturedraft/src/picture-draft/Canvas.ts">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="12" lean-forward="true" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/picturedraft/package.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-47">
@@ -595,6 +586,32 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
           <caret line="8" column="27" lean-forward="false" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visual-picturedraft/src/picture-draft/PictureDraft.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="34" column="20" lean-forward="false" selection-start-line="34" selection-start-column="20" selection-end-line="34" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visual-picturedraft/src/picture-draft/Canvas.ts">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="40" column="9" lean-forward="false" selection-start-line="40" selection-start-column="9" selection-end-line="40" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/visual-picturedraft/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="22" column="5" lean-forward="true" selection-start-line="22" selection-start-column="5" selection-end-line="22" selection-end-column="5" />
           <folding />
         </state>
       </provider>
