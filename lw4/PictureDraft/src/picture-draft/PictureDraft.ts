@@ -3,7 +3,6 @@ import { Canvas } from "./Canvas";
 import { Shape } from "./Shape";
 import { Client } from "./Client";
 import { Designer } from "./Designer";
-import { Color } from "./Color";
 
 export class PictureDraft implements IPainter {
 
@@ -25,8 +24,6 @@ export class PictureDraft implements IPainter {
   public GetShapesCount(): number {
     return this.shapesStore.length;
   }
-
-  // public GetShape(): Shape {}
 
   DrawPicture(canvas: Canvas): void {
     console.log(canvas.GetCanvasInfo());

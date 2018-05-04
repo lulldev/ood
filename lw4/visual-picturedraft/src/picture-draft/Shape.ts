@@ -131,17 +131,16 @@ export class Ellipse extends Shape {
   }
 
   public GetHorizontalRadius(): number {
-    return 0; // todo
+    return this.width / 2
   }
 
   public GetVerticalRadius(): number {
-    return 0; // todo
+    return this.height / 2
   }
 
   public Draw(canvas: Canvas): void {
     const center = this.GetCenter();
     canvas.DrawEllipse(center.x, center.y, this.GetVerticalRadius(), this.GetHorizontalRadius(), this.color);
-    // https://true-coder.ru/javascript/risuem-ellips-na-canvas.html
   }
 
   private IsValid(left: number, top: number, width: number, height: number): boolean {

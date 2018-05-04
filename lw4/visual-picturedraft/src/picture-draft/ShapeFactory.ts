@@ -6,8 +6,6 @@ import {
   RegularPolygon,
 } from './Shape';
 
-import { Color, GetColorByName } from './Color';
-
 export interface IShapeFactory {
   CreateShape(shapeParams: any): Shape;
 }
@@ -39,10 +37,10 @@ export class ShapeFactory implements IShapeFactory {
       }
       else if (shapeParams.type === 'ellipse') {
         return new Ellipse(
-          shapeParams.centerX,
-          shapeParams.centerY,
-          shapeParams.horizontalRadius,
-          shapeParams.verticalRadius,
+          shapeParams.left,
+          shapeParams.top,
+          shapeParams.width,
+          shapeParams.height,
           shapeParams.color
         );
       }

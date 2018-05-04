@@ -5,7 +5,7 @@ export interface ICanvas {
   GetCanvasColor(): Color;
   MoveTo(x: number, y: number): void;
   DrawLine(from: number, to: number): void;
-  DrawEllipse(centerX: number, centerY: number, verticalRadius: number, horizontalRadius: number): void;
+  DrawEllipse(left: number, top: number, verticalRadius: number, horizontalRadius: number): void;
   DrawRectangle(l: number, t: number, w: number, h: number): void;
   DrawPolygon(centerX: number, centerY: number, numberOfSides: number, sideSize: number): void;
   DrawTriangle(x1: number, y1: number, x2: number, y2: number, x3: number, y3: number): void;
@@ -43,9 +43,9 @@ export class Canvas implements ICanvas {
     console.log(`Draw rectangle: x = ${x}, y = ${y}, width = ${width}, height = ${height}`);
   }
 
-  public DrawEllipse(centerX: number, centerY: number,
+  public DrawEllipse(left: number, top: number,
                      verticalRadius: number, horizontalRadius: number): void {
-    console.log(`Draw ellipse: center = [${centerX};${centerY}], ` + `v = ${verticalRadius}, h = ${horizontalRadius}`);
+    console.log(`Draw ellipse: center = [${left};${top}], ` + `v = ${verticalRadius}, h = ${horizontalRadius}`);
   }
 
   public DrawPolygon(centerX: number, centerY: number,

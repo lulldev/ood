@@ -30,7 +30,7 @@ const helpView = () => {
   console.log('Доступные параметры фигур для добавления фигур:');
   console.log('rectangle centerX centerY width height color');
   console.log('triangle x1, y1, x2, y2, x3, y3, color');
-  console.log('ellipse centerX, centerY, horizontalRadius, verticalRadius, color');
+  console.log('ellipse left, top, width, height, color');
   console.log('regular_polygon centerX, centerY, numberOfSides, sideSize, color');
   console.log('--------------');
   console.log('Доступные параметры цвета (color) для фигур:');
@@ -79,15 +79,15 @@ readlineSync.promptCLLoop({
       console.log(e.message);
     }
   },
-  ellipse: (centerX: number, centerY: number, horizontalRadius: number,
-            verticalRadius: number, color: string) => {
+  ellipse: (left: number, top: number, width: number,
+            height: number, color: string) => {
     try {
       pictureDraft.AddShape({
         type: 'ellipse',
-        centerX,
-        centerY,
-        horizontalRadius,
-        verticalRadius,
+        left,
+        top,
+        width,
+        height,
         color,
       });
     }

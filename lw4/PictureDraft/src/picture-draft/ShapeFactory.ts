@@ -41,10 +41,10 @@ export class ShapeFactory implements IShapeFactory {
       }
       else if (shapeParams.type === 'ellipse') {
         return new Ellipse(
-          shapeParams.centerX,
-          shapeParams.centerY,
-          shapeParams.horizontalRadius,
-          shapeParams.verticalRadius,
+          shapeParams.left,
+          shapeParams.top,
+          shapeParams.width,
+          shapeParams.height,
           shapeColor,
         );
       }

@@ -10,30 +10,28 @@ import {
   Row,
 } from 'reactstrap';
 
-import { Client } from '../picture-draft/Client';
-import { Designer } from '../picture-draft/Designer';
-import { PictureDraft } from '../picture-draft/PictureDraft';
-import { Canvas } from '../picture-draft/Canvas';
+import {Client} from '../picture-draft/Client';
+import {Designer} from '../picture-draft/Designer';
+import {PictureDraft} from '../picture-draft/PictureDraft';
+import {Canvas} from '../picture-draft/Canvas';
 
 import EllipseFormConfigurator from './EllipseFormConfigurator';
 import PolygonFormConfigurator from './PolygonFormConfigurator';
 import RectangleFormConfigurator from './RectangleFormConfigurator';
 import TriangleFormConfigurator from './TriangleFormConfigurator';
 import ShapeStore from './ShapeStore';
-
-const CANVAS_HTML_ID = 'canvas-area';
+import CanvasArea from './CanvasArea';
 
 class PictureDraftContainer extends React.Component<any, any> {
+
   private draft: PictureDraft;
   private canvas: Canvas;
-  constructor (props: any) {
+
+  constructor(props: any) {
     super(props);
 
     this.draft = new PictureDraft(new Client('Client'), new Designer());
-    this.canvas = new Canvas(CANVAS_HTML_ID);
-
-    console.log(this.draft);
-    console.log(this.canvas);
+    this.canvas = new Canvas('canvas-area');
 
     this.state = {
       isShowEllipseForm: false,
@@ -51,12 +49,15 @@ class PictureDraftContainer extends React.Component<any, any> {
     this.inputShapeHandler = this.inputShapeHandler.bind(this);
     this.handleColorChange = this.handleColorChange.bind(this);
   }
+
   public handleColorChange(event: any): void {
     this.setState({shapeColor: event.target.value});
   }
+
   public inputShapeHandler(params: any): void {
-    this.setState({ shapeParams: params });
+    this.setState({shapeParams: params});
   }
+
   public handleShapeChange(event: any): void {
     const shape = event.target.value;
 
@@ -69,32 +70,33 @@ class PictureDraftContainer extends React.Component<any, any> {
 
     switch (shape) {
       case 'rectangle':
-        this.setState({ isShowRectangleForm: true, shapeType: shape });
+        this.setState({isShowRectangleForm: true, shapeType: shape});
         break;
       case 'triangle':
-        this.setState({ isShowTriangleForm: true, shapeType: shape });
+        this.setState({isShowTriangleForm: true, shapeType: shape});
         break;
       case 'ellipse':
-        this.setState({ isShowEllipseForm: true, shapeType: shape });
+        this.setState({isShowEllipseForm: true, shapeType: shape});
         break;
       case 'regular_polygon':
-        this.setState({ isShowPolygonForm: true, shapeType: shape });
+        this.setState({isShowPolygonForm: true, shapeType: shape});
         break;
     }
   }
+
   public handleAddShape(): void {
     try {
       const type = this.state.shapeType;
       const params = this.state.shapeParams;
       const color = this.state.shapeColor;
-      this.draft.AddShape({ type, color, ...params});
+      this.draft.AddShape({type, color, ...params});
       this.setState({shapeStore: this.draft.GetShapesStore()});
     }
     catch (e) {
       alert(e.message);
     }
-    console.log(this.draft);
   }
+
   public handleDrawPictire(): void {
     if (this.draft.GetShapesCount() === 0) {
       alert('Нет фигур для рисования. Добавьте фигуры');
@@ -102,12 +104,13 @@ class PictureDraftContainer extends React.Component<any, any> {
     }
     this.draft.DrawPicture(this.canvas);
   }
+
   public render() {
     return (
       <Container>
         <Row>
           <Col lg={8}>
-            <canvas id={CANVAS_HTML_ID}/>
+            <CanvasArea canvasHTMLID={this.canvas.GetCanvasHTMLElementID()}/>
             <ShapeStore shapeStore={this.state.shapeStore}/>
           </Col>
           <Col lg={4}>
@@ -137,20 +140,20 @@ class PictureDraftContainer extends React.Component<any, any> {
               </FormGroup>
 
               <RectangleFormConfigurator
-                  isVisible={this.state.isShowRectangleForm}
-                  inputHandler={this.inputShapeHandler}
+                isVisible={this.state.isShowRectangleForm}
+                inputHandler={this.inputShapeHandler}
               />
               <TriangleFormConfigurator
-                  isVisible={this.state.isShowTriangleForm}
-                  inputHandler={this.inputShapeHandler}
+                isVisible={this.state.isShowTriangleForm}
+                inputHandler={this.inputShapeHandler}
               />
               <EllipseFormConfigurator
-                  isVisible={this.state.isShowEllipseForm}
-                  inputHandler={this.inputShapeHandler}
+                isVisible={this.state.isShowEllipseForm}
+                inputHandler={this.inputShapeHandler}
               />
               <PolygonFormConfigurator
-                  isVisible={this.state.isShowPolygonForm}
-                  inputHandler={this.inputShapeHandler}
+                isVisible={this.state.isShowPolygonForm}
+                inputHandler={this.inputShapeHandler}
               />
 
               <ButtonGroup>

@@ -49,16 +49,6 @@ export class Rectangle extends Shape {
 
   public Draw(canvas: Canvas): void {
     canvas.DrawRectangle(this.startX, this.startY, this.width, this.height);
-    /*
-    todo:
-    const context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.beginPath();
-    context.fillStyle = this.color;
-    context.lineWidth = 0.5;
-    context.strokeRect(this.x, this.y, this.width, this.height);
-    context.fillRect(this.x, this.y, this.width, this.height);
-    */
   }
 
   private IsValid(startX: number, startY: number, width: number, height: number): boolean {
@@ -107,21 +97,6 @@ export class Triangle extends Shape {
 
   public Draw(canvas: Canvas): void {
     canvas.DrawTriangle(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
-    /*
-    todo:
-        let context = canvasContext.getContext("2d");
-        context.clearRect(0, 0, canvasContext.width, canvasContext.height);
-        context.beginPath();
-        context.fillStyle = this.getBgColor();
-        context.lineWidth = 0.5;
-        context.strokeStyle = this.getBorderColor();
-        context.moveTo(this.x1, this.y1);
-        context.lineTo(this.x2, this.y2);
-        context.lineTo(this.x3, this.y3);
-        context.lineTo(this.x1, this.y1);
-        context.stroke();
-        context.fill();
-    */
   }
 
   private IsValid(x1: number, y1: number, x2: number,
@@ -157,19 +132,16 @@ export class Ellipse extends Shape {
   }
 
   public GetHorizontalRadius(): number {
-    return 0; // todo
+    return this.width / 2
   }
 
   public GetVerticalRadius(): number {
-    return 0; // todo
+    return this.height / 2
   }
 
   public Draw(canvas: Canvas): void {
     const center = this.GetCenter();
     canvas.DrawEllipse(center.x, center.y, this.GetVerticalRadius(), this.GetHorizontalRadius());
-
-    // todo:
-    // https://true-coder.ru/javascript/risuem-ellips-na-canvas.html
   }
 
   private IsValid(left: number, top: number, width: number, height: number): boolean {
@@ -207,16 +179,9 @@ export class RegularPolygon extends Shape {
     return { x: this.centerX, y: this.centerY };
   }
 
-  public GetRadius(): number {
-    return 0; // todo
-  }
-
   public Draw(canvas: Canvas): void {
     const center = this.GetCenter();
     canvas.DrawPolygon(center.x, center.y, this.numberOfSides, this.sideSize);
-    // todo:
-    // http://scienceprimer.com/drawing-regular-polygons-javascript-canvas
-    // https://processing.org/examples/regularpolygon.html
   }
 
   private IsValid(centerX: number, centerY: number, numberOfSides: number, sideSize: number): boolean {
