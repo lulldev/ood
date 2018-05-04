@@ -1,17 +1,16 @@
-import { Color } from './Color';
 import { Canvas } from './Canvas';
 
 export type ShapeEdge = { x: number, y: number };
 
 export abstract class Shape {
 
-  protected color: Color;
+  protected color: string;
 
-  constructor(color: Color) {
+  constructor(color: string) {
     this.color = color;
   }
 
-  public GetColor(): Color {
+  public GetColor(): string {
     return this.color;
   }
 
@@ -25,7 +24,7 @@ export class Rectangle extends Shape {
   private width: number;
   private height: number;
 
-  constructor(startX: number, startY: number, width: number, height: number, color: Color) {
+  constructor(startX: number, startY: number, width: number, height: number, color: string) {
 
     super(color);
 
@@ -48,17 +47,7 @@ export class Rectangle extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
-    canvas.DrawRectangle(this.startX, this.startY, this.width, this.height);
-    /*
-    todo:
-    const context = canvas.getContext("2d");
-    context.clearRect(0, 0, canvas.width, canvas.height);
-    context.beginPath();
-    context.fillStyle = this.color;
-    context.lineWidth = 0.5;
-    context.strokeRect(this.x, this.y, this.width, this.height);
-    context.fillRect(this.x, this.y, this.width, this.height);
-    */
+    canvas.DrawRectangle(this.startX, this.startY, this.width, this.height, this.color);
   }
 
   private IsValid(startX: number, startY: number, width: number, height: number): boolean {
@@ -77,7 +66,7 @@ export class Triangle extends Shape {
   private y3: number;
 
   constructor(x1: number, y1: number, x2: number,
-              y2: number, x3: number, y3: number, color: Color) {
+              y2: number, x3: number, y3: number, color: string) {
 
     super(color);
 
@@ -106,22 +95,7 @@ export class Triangle extends Shape {
   }
 
   public Draw(canvas: Canvas): void {
-    canvas.DrawTriangle(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3);
-    /*
-    todo:
-        let context = canvasContext.getContext("2d");
-        context.clearRect(0, 0, canvasContext.width, canvasContext.height);
-        context.beginPath();
-        context.fillStyle = this.getBgColor();
-        context.lineWidth = 0.5;
-        context.strokeStyle = this.getBorderColor();
-        context.moveTo(this.x1, this.y1);
-        context.lineTo(this.x2, this.y2);
-        context.lineTo(this.x3, this.y3);
-        context.lineTo(this.x1, this.y1);
-        context.stroke();
-        context.fill();
-    */
+    canvas.DrawTriangle(this.x1, this.y1, this.x2, this.y2, this.x3, this.y3, this.color);
   }
 
   private IsValid(x1: number, y1: number, x2: number,
@@ -138,7 +112,7 @@ export class Ellipse extends Shape {
   private height: number;
 
   constructor(left: number, top: number,
-              width: number, height: number, color: Color) {
+              width: number, height: number, color: string) {
 
     super(color);
 
@@ -166,9 +140,7 @@ export class Ellipse extends Shape {
 
   public Draw(canvas: Canvas): void {
     const center = this.GetCenter();
-    canvas.DrawEllipse(center.x, center.y, this.GetVerticalRadius(), this.GetHorizontalRadius());
-
-    // todo:
+    canvas.DrawEllipse(center.x, center.y, this.GetVerticalRadius(), this.GetHorizontalRadius(), this.color);
     // https://true-coder.ru/javascript/risuem-ellips-na-canvas.html
   }
 
@@ -185,7 +157,7 @@ export class RegularPolygon extends Shape {
   private sideSize: number;
 
   constructor(centerX: number, centerY: number, numberOfSides: number,
-              sideSize: number,  color: Color) {
+              sideSize: number,  color: string) {
 
     super(color);
 
@@ -213,10 +185,7 @@ export class RegularPolygon extends Shape {
 
   public Draw(canvas: Canvas): void {
     const center = this.GetCenter();
-    canvas.DrawPolygon(center.x, center.y, this.numberOfSides, this.sideSize);
-    // todo:
-    // http://scienceprimer.com/drawing-regular-polygons-javascript-canvas
-    // https://processing.org/examples/regularpolygon.html
+    canvas.DrawPolygon(center.x, center.y, this.numberOfSides, this.sideSize, this.color);
   }
 
   private IsValid(centerX: number, centerY: number, numberOfSides: number, sideSize: number): boolean {

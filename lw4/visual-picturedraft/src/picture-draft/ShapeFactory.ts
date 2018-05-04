@@ -16,8 +16,6 @@ export class ShapeFactory implements IShapeFactory {
 
   public CreateShape(shapeParams: any): Shape {
 
-    const shapeColor: Color = GetColorByName(shapeParams.color);
-
     try {
       if (shapeParams.type === 'rectangle') {
         return new Rectangle(
@@ -25,7 +23,7 @@ export class ShapeFactory implements IShapeFactory {
           shapeParams.centerY,
           shapeParams.width,
           shapeParams.height,
-          shapeColor
+          shapeParams.color
         );
       }
       else if (shapeParams.type === 'triangle') {
@@ -36,7 +34,7 @@ export class ShapeFactory implements IShapeFactory {
           shapeParams.y2,
           shapeParams.x3,
           shapeParams.y3,
-          shapeColor,
+          shapeParams.color
         );
       }
       else if (shapeParams.type === 'ellipse') {
@@ -45,7 +43,7 @@ export class ShapeFactory implements IShapeFactory {
           shapeParams.centerY,
           shapeParams.horizontalRadius,
           shapeParams.verticalRadius,
-          shapeColor,
+          shapeParams.color
         );
       }
       else if (shapeParams.type === 'regular_polygon') {
@@ -54,7 +52,7 @@ export class ShapeFactory implements IShapeFactory {
           shapeParams.centerY,
           shapeParams.numberOfSides,
           shapeParams.sideSize,
-          shapeColor,
+          shapeParams.color
         );
       }
       else {

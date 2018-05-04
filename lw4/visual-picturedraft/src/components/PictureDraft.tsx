@@ -77,7 +77,7 @@ class PictureDraftContainer extends React.Component<any, any> {
       case 'ellipse':
         this.setState({ isShowEllipseForm: true, shapeType: shape });
         break;
-      case 'polygon':
+      case 'regular_polygon':
         this.setState({ isShowPolygonForm: true, shapeType: shape });
         break;
     }
@@ -96,6 +96,10 @@ class PictureDraftContainer extends React.Component<any, any> {
     console.log(this.draft);
   }
   public handleDrawPictire(): void {
+    if (this.draft.GetShapesCount() === 0) {
+      alert('Нет фигур для рисования. Добавьте фигуры');
+      return;
+    }
     this.draft.DrawPicture(this.canvas);
   }
   public render() {
@@ -114,10 +118,10 @@ class PictureDraftContainer extends React.Component<any, any> {
                         defaultValue={''}
                 >
                   <option value=""/>
-                  <option value="rectangle">Rectangle</option>
-                  <option value="triangle">Triangle</option>
-                  <option value="ellipse">Ellipse</option>
-                  <option value="polygon">Polygon</option>
+                  <option value="rectangle">Прямоугольник</option>
+                  <option value="triangle">Треугольник</option>
+                  <option value="ellipse">Эллипс</option>
+                  <option value="regular_polygon">Многоугольник</option>
                 </select>
               </FormGroup>
 
