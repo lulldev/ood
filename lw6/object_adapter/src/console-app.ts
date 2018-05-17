@@ -1,17 +1,27 @@
-import { Canvas } from './graphics_lib/graphics_lib'
-import { CanvasPainter } from './shape_drawing_lib/shape_drawing_lib'
+import { Canvas } from './graphics_lib';
+import { ModernGraphicsRenderer } from './modern_graphics_lib';
+import { CanvasPainter } from './shape_drawing_lib';
 
-export const PaintPicture = (painter: CanvasPainter): void => {
-  // CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 });
-  // CRectangle rectangle({ 30, 40 }, 18, 24);
-// TODO: нарисовать прямоугольник и треугольник при помощи painter
-  console.log(painter)
+namespace App {
+  export const paintPicture = (painter: CanvasPainter): void => {
+    // CTriangle triangle({ 10, 15 }, { 100, 200 }, { 150, 250 });
+    // CRectangle rectangle({ 30, 40 }, 18, 24);
+    // TODO: нарисовать прямоугольник и треугольник при помощи painter
+    console.log(painter);
+  };
+
+  export const paintPictureOnCanvas = (): void => {
+    const simpleCanvas: Canvas = new Canvas();
+    const canvasPainter: CanvasPainter = new CanvasPainter(simpleCanvas);
+    paintPicture(canvasPainter);
+  };
+
+  export const paintPictureOnModernGraphicsRenderer = (): void => {
+    // const modernGraphicsRenderer: ModernGraphicsRenderer = new ModernGraphicsRenderer();
+    // const canvasPainter: CanvasPainter = new CanvasPainter(modernGraphicsRenderer);
+    // PaintPicture(canvasPainter);
+  };
 }
 
-export const PaintPictureOnCanvas = (): void => {
-  const simpleCanvas: Canvas = new Canvas();
-  const canvasPainter: CanvasPainter = new CanvasPainter(simpleCanvas);
-  PaintPicture(canvasPainter);
-}
-
-PaintPictureOnCanvas();
+// App.PaintPictureOnCanvas();
+console.log('test');

@@ -11,6 +11,7 @@
     "no-unused-variable": [
       true
     ],
+    "no-console": false,
     "mocha-no-side-effect-code": false,
     "missing-jsdoc": false,
     "no-relative-imports": false,

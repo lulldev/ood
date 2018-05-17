@@ -1,6 +1,5 @@
-import { ICanvas } from "../graphics_lib/graphics_lib";
-
-export type Point = { x: number, y: number };
+import { Point } from '../both/point';
+import { ICanvas } from '../graphics_lib';
 
 export interface ICanvasDrawable {
   Draw(canvas: ICanvas): void;
@@ -19,9 +18,9 @@ class Triangle implements ICanvasDrawable {
     this.p3 = p3;
   }
 
-  Draw(canvas: ICanvas): void {
+  public Draw(canvas: ICanvas): void {
     // TODO: написать код рисования треугольника на холсте
-    console.log('draw triangle ', canvas)
+    console.log('draw triangle ', canvas);
   }
 }
 
@@ -37,8 +36,8 @@ class Rectangle implements ICanvasDrawable {
     this.height = height;
   }
 
-  Draw(canvas: ICanvas): void {
-    console.log('draw rectangle ', canvas)
+  public Draw(canvas: ICanvas): void {
+    console.log('draw rectangle ', canvas);
   }
 }
 
@@ -50,7 +49,7 @@ export class CanvasPainter {
     this.canvas = canvas;
   }
 
-  Draw(canvas: ICanvasDrawable): void {
-    console.log('draw by ', this.canvas, canvas)
+  public Draw(canvas: ICanvasDrawable): void {
+    console.log('draw by ', this.canvas, canvas);
   }
 }
