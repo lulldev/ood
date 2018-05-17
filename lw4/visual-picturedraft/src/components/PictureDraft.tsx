@@ -116,6 +116,7 @@ class PictureDraftContainer extends React.Component<any, any> {
           <Col lg={4}>
             <Form>
               <FormGroup>
+                <label>Выберите фигуру:</label>
                 <select className="form-control required"
                         onChange={this.handleShapeChange}
                         defaultValue={''}
