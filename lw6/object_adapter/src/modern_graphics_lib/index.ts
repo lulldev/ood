@@ -16,7 +16,7 @@ export class ModernGraphicsRenderer {
     if (this.isDrawing) {
       throw Error('DrawLine is allowed between BeginDraw()/EndDraw() only');
     }
-    console.log(`<line fromX="${start.x}" fromY="${start.y}" toX="${end.x}" toY="${end.y}"`);
+    console.log(`<line fromX="${start.x}" fromY="${start.y}" toX="${end.x}" toY="${end.y}">`);
   }
 
   public EndDraw(): void {

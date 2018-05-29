@@ -5,26 +5,27 @@ export interface ICanvasDrawable {
   Draw(canvas: ICanvas): void;
 }
 
-class Triangle implements ICanvasDrawable {
+export class Triangle implements ICanvasDrawable {
 
   private p1: Point;
   private p2: Point;
   private p3: Point;
 
   constructor (p1: Point, p2: Point, p3: Point) {
-    // TODO: написать код конструктора
     this.p1 = p1;
     this.p2 = p2;
     this.p3 = p3;
   }
 
   public Draw(canvas: ICanvas): void {
-    // TODO: написать код рисования треугольника на холсте
-    console.log('draw triangle ', canvas);
+    canvas.MoveTo(this.p1.x, this.p1.y);
+    canvas.LineTo(this.p2.x, this.p2.y);
+    canvas.LineTo(this.p3.x, this.p3.y);
+    canvas.LineTo(this.p1.x, this.p1.y);
   }
 }
 
-class Rectangle implements ICanvasDrawable {
+export class Rectangle implements ICanvasDrawable {
 
   private leftTop: Point;
   private width: number;
@@ -37,7 +38,11 @@ class Rectangle implements ICanvasDrawable {
   }
 
   public Draw(canvas: ICanvas): void {
-    console.log('draw rectangle ', canvas);
+    canvas.MoveTo(this.leftTop.x, this.leftTop.y);
+    canvas.LineTo(this.leftTop.x + this.width, this.leftTop.y);
+    canvas.LineTo(this.leftTop.x + this.width, this.leftTop.y + this.height);
+    canvas.LineTo(this.leftTop.x, this.leftTop.y + this.height);
+    canvas.LineTo(this.leftTop.x, this.leftTop.y);
   }
 }
 
@@ -50,6 +55,6 @@ export class CanvasPainter {
   }
 
   public Draw(canvas: ICanvasDrawable): void {
-    console.log('draw by ', this.canvas, canvas);
+    canvas.Draw(this.canvas);
   }
 }
