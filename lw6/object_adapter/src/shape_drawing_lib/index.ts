@@ -3,6 +3,7 @@ import { ICanvas } from '../graphics_lib';
 
 export interface ICanvasDrawable {
   Draw(canvas: ICanvas): void;
+  End(): void;
 }
 
 export class Triangle implements ICanvasDrawable {
@@ -22,6 +23,10 @@ export class Triangle implements ICanvasDrawable {
     canvas.LineTo(this.p2.x, this.p2.y);
     canvas.LineTo(this.p3.x, this.p3.y);
     canvas.LineTo(this.p1.x, this.p1.y);
+  }
+
+  public End(): void {
+
   }
 }
 
@@ -44,6 +49,10 @@ export class Rectangle implements ICanvasDrawable {
     canvas.LineTo(this.leftTop.x, this.leftTop.y + this.height);
     canvas.LineTo(this.leftTop.x, this.leftTop.y);
   }
+
+  public End(): void {
+
+  }
 }
 
 export class CanvasPainter {
@@ -56,5 +65,9 @@ export class CanvasPainter {
 
   public Draw(canvas: ICanvasDrawable): void {
     canvas.Draw(this.canvas);
+  }
+
+  public End(): void {
+    this.canvas.End();
   }
 }

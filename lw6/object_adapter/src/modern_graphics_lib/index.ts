@@ -3,27 +3,32 @@ import { Point } from '../both/point';
 export class ModernGraphicsRenderer {
 
   private isDrawing: boolean = false;
+  private outWriter: any;
+
+  constructor(outWriter: any) {
+    this.outWriter = outWriter;
+  }
 
   public BeginDraw(): void {
     if (this.isDrawing) {
       throw Error('Drawing has already begun');
     }
-    console.log('<draw>');
+    this.outWriter('<draw>');
     this.isDrawing = true;
   }
 
   public DrawLine(start: Point, end: Point): void {
-    if (this.isDrawing) {
+    if (!this.isDrawing) {
       throw Error('DrawLine is allowed between BeginDraw()/EndDraw() only');
     }
-    console.log(`<line fromX="${start.x}" fromY="${start.y}" toX="${end.x}" toY="${end.y}">`);
+    this.outWriter(`<line fromX="${start.x}" fromY="${start.y}" toX="${end.x}" toY="${end.y}">`);
   }
 
   public EndDraw(): void {
-    if (this.isDrawing) {
+    if (!this.isDrawing) {
       throw Error('Drawing has not been started');
     }
-    console.log('</draw>');
+    this.outWriter('</draw>');
     this.isDrawing = false;
   }
 }

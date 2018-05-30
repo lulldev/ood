@@ -22,10 +22,9 @@ namespace App {
       24
     );
 
-    console.log('(draw triangle)');
     painter.Draw(triangle);
-    console.log('(draw rectangle)');
     painter.Draw(rectangle);
+    painter.End();
   };
 
   export const paintPictureOnCanvas = (): void => {
@@ -35,7 +34,7 @@ namespace App {
   };
 
   export const paintPictureOnModernGraphicsRenderer = (): void => {
-    const modernGraphicsRenderer: ModernGraphicsRenderer = new ModernGraphicsRenderer();
+    const modernGraphicsRenderer: ModernGraphicsRenderer = new ModernGraphicsRenderer(console.log);
     const adapter: CanvasObjectAdapter = new CanvasObjectAdapter(modernGraphicsRenderer);
     const canvasPainter: CanvasPainter = new CanvasPainter(adapter);
     paintPicture(canvasPainter);

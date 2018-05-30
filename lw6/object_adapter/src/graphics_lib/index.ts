@@ -1,6 +1,7 @@
 export interface ICanvas {
   MoveTo(x: number, y: number): void;
   LineTo(x: number, y: number): void;
+  End(): void;
 }
 
 export class Canvas implements ICanvas {
@@ -11,5 +12,9 @@ export class Canvas implements ICanvas {
 
   public LineTo(x: number, y: number): void {
     console.log(`LineTo (${x}:${y})`);
+  }
+
+  public End(): void {
+    console.log('End draw component')
   }
 }

@@ -10,6 +10,7 @@ export class CanvasObjectAdapter implements ICanvas {
 
   constructor(renderer: ModernGraphicsRenderer) {
     this.modernRenderer = renderer;
+    this.modernRenderer.BeginDraw();
   }
 
   public MoveTo(x: number, y: number): void {
@@ -21,12 +22,7 @@ export class CanvasObjectAdapter implements ICanvas {
     this.position = { x, y };
   }
 
-  public BeginDraw() {
-    this.modernRenderer.BeginDraw();
-  }
-
-  public EndDraw() {
+  public End(): void {
     this.modernRenderer.EndDraw();
   }
-
 }
