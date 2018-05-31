@@ -48,8 +48,7 @@ export class GumballMachine implements IGumballMachine {
   public ToString(): string {
     return `Mighty Gumball, Inc.
 Inventory: ${this.ballsCount} ${'gumball' + (this.ballsCount !== 1 ? 's' : '')}
-Machine is ${this.state.ToString()}
-    `;
+Machine is ${this.state.ToString()}`;
   }
 
   public GetBallCount(): number {
