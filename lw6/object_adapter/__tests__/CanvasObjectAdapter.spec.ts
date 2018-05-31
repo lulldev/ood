@@ -25,23 +25,22 @@ describe('CanvasObjectAdapter', () => {
     { x: 150, y: 250 }
   );
 
-  it('After ini modern canvas adapter draw starting', () => {
+  it('After init modern canvas adapter draw starting', () => {
     expect(outputLog[0]).toEqual('<draw>');
   });
 
-  it('End drawing', () => {
+  it('End drawing add last tag to canvas', () => {
     canvasPainter.End();
     expect(outputLog[1]).toEqual('</draw>');
   });
 
+  it('End drawing throw if draw mode not start', () => {
+    expect(() => canvasPainter.End()).toThrow();
+  });
+
   it('Draw triangle in not begin draw mode', () => {
     outputLog = [];
-    canvasPainter.End();
-    // todo
-    const paintTriangle = () => {
-      canvasPainter.Draw(triangle);
-    };
-    expect(canvasPainter.Draw(triangle)).toThrow();
+    expect(() => canvasPainter.Draw(triangle)).toThrow();
     expect(outputLog.length).toEqual(0);
   });
 
