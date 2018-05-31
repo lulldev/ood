@@ -25,6 +25,12 @@ describe('CanvasObjectAdapter', () => {
     { x: 150, y: 250 }
   );
 
+  const rectangle: Rectangle = new Rectangle(
+    { x: 30, y: 40 },
+    18,
+    24
+  );
+
   it('After init modern canvas adapter draw starting', () => {
     expect(outputLog[0]).toEqual('<draw>');
   });
@@ -59,6 +65,31 @@ describe('CanvasObjectAdapter', () => {
         '<line fromX="10" fromY="15" toX="100" toY="200">',
         '<line fromX="100" fromY="200" toX="150" toY="250">',
         '<line fromX="150" fromY="250" toX="10" toY="15">',
+        '</draw>'
+      ]
+    );
+  });
+
+  it('Draw many shapes', () => {
+    outputLog = [];
+    const modernGraphicsRenderer: ModernGraphicsRenderer = new ModernGraphicsRenderer(outputHookHelper);
+    const adapter: CanvasObjectAdapter = new CanvasObjectAdapter(modernGraphicsRenderer);
+    const canvasPainter: CanvasPainter = new CanvasPainter(adapter);
+
+    canvasPainter.Draw(triangle);
+    canvasPainter.Draw(rectangle);
+    canvasPainter.End();
+
+    expect(outputLog).toEqual(
+      [
+        '<draw>',
+        '<line fromX="10" fromY="15" toX="100" toY="200">',
+        '<line fromX="100" fromY="200" toX="150" toY="250">',
+        '<line fromX="150" fromY="250" toX="10" toY="15">',
+        '<line fromX="30" fromY="40" toX="48" toY="40">',
+        '<line fromX="48" fromY="40" toX="48" toY="64">',
+        '<line fromX="48" fromY="64" toX="30" toY="64">',
+        '<line fromX="30" fromY="64" toX="30" toY="40">',
         '</draw>'
       ]
     );
