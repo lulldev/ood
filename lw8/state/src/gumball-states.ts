@@ -4,27 +4,29 @@ import { IGumballMachine } from './gumball-machine';
 export class SoldState implements IState {
 
   private gumballMachine: IGumballMachine;
+  private output: any;
 
-  constructor(gumballMachine: IGumballMachine) {
+  constructor(gumballMachine: IGumballMachine, output: any) {
     this.gumballMachine = gumballMachine;
+    this.output = output;
   }
 
   InsertQuarter(): void {
-    console.log('Please wait, we are already giving you a gumball');
+    this.output('Please wait, we are already giving you a gumball');
   }
 
   EjectQuarter(): void {
-    console.log('Sorry you already turned the crank');
+    this.output('Sorry you already turned the crank');
   }
 
   TurnCrank(): void {
-    console.log('Turning twice doesnt get you another gumball');
+    this.output('Turning twice doesnt get you another gumball');
   }
 
   Dispense(): void {
     this.gumballMachine.ReleaseBall();
     if (this.gumballMachine.GetBallCount() == 0) {
-      console.log('Oops, out of gumballs');
+      this.output('Oops, out of gumballs');
       this.gumballMachine.SetSoldOutState();
     }
     else {
@@ -40,25 +42,27 @@ export class SoldState implements IState {
 export class SoldOutState implements IState {
 
   private gumballMachine: IGumballMachine;
+  private output: any;
 
-  constructor(gumballMachine: IGumballMachine) {
+  constructor(gumballMachine: IGumballMachine, output: any) {
     this.gumballMachine = gumballMachine;
+    this.output = output;
   }
 
   InsertQuarter(): void {
-    console.log('You cant insert a quarter, the machine is sold out');
+    this.output('You cant insert a quarter, the machine is sold out');
   }
 
   EjectQuarter(): void {
-    console.log('You cant eject, you havent inserted a quarter yet');
+    this.output('You cant eject, you havent inserted a quarter yet');
   }
 
   TurnCrank(): void {
-    console.log('You turned but theres no gumballs');
+    this.output('You turned but theres no gumballs');
   }
 
   Dispense(): void {
-    console.log('No gumball dispensed');
+    this.output('No gumball dispensed');
   }
 
   ToString(): string {
@@ -69,27 +73,29 @@ export class SoldOutState implements IState {
 export class HasQuarterState implements IState {
 
   private gumballMachine: IGumballMachine;
+  private output: any;
 
-  constructor(gumballMachine: IGumballMachine) {
+  constructor(gumballMachine: IGumballMachine, output: any) {
     this.gumballMachine = gumballMachine;
+    this.output = output;
   }
 
   InsertQuarter(): void {
-    console.log('You cant insert another quarter');
+    this.output('You cant insert another quarter');
   }
 
   EjectQuarter(): void {
-    console.log('Quarter returned');
+    this.output('Quarter returned');
     this.gumballMachine.SetNoQuarterState();
   }
 
   TurnCrank(): void {
-    console.log('You turned...');
+    this.output('You turned...');
     this.gumballMachine.SetSoldState();
   }
 
   Dispense(): void {
-    console.log('No gumball dispensed');
+    this.output('No gumball dispensed');
   }
 
   ToString(): string {
@@ -100,26 +106,28 @@ export class HasQuarterState implements IState {
 export class NoQuarterState implements IState {
 
   private gumballMachine: IGumballMachine;
+  private output: any;
 
-  constructor(gumballMachine: IGumballMachine) {
+  constructor(gumballMachine: IGumballMachine, output: any) {
     this.gumballMachine = gumballMachine;
+    this.output = output;
   }
 
   InsertQuarter(): void {
-    console.log('You inserted a quarter');
+    this.output('You inserted a quarter');
     this.gumballMachine.SetHasQuarterState();
   }
 
   EjectQuarter(): void {
-    console.log('You havent inserted a quarter');
+    this.output('You havent inserted a quarter');
   }
 
   TurnCrank(): void {
-    console.log('You turned but theres no quarter');
+    this.output('You turned but theres no quarter');
   }
 
   Dispense(): void {
-    console.log('You need to pay first');
+    this.output('You need to pay first');
   }
 
   ToString(): string {

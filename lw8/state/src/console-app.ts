@@ -1,6 +1,6 @@
 import { GumballMachine } from './gumball-machine';
 
-const gumballMachine: GumballMachine = new GumballMachine(10);
+const gumballMachine: GumballMachine = new GumballMachine(10, console.log);
 console.log(gumballMachine.ToString());
 
 gumballMachine.InsertQuarter();

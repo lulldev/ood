@@ -18,14 +18,21 @@ export interface IGumballMachine {
 export class GumballMachine implements IGumballMachine {
 
   private ballsCount: number = 0;
-  private soldState: SoldState = new SoldState(this);
-  private soldOutState: SoldOutState = new SoldOutState(this);
-  private noQuarterState: NoQuarterState = new NoQuarterState(this);
-  private hasQuarterState: HasQuarterState = new HasQuarterState(this);
+  private soldState: SoldState;
+  private soldOutState: SoldOutState;
+  private noQuarterState: NoQuarterState;
+  private hasQuarterState: HasQuarterState;
   private state: IState;
+  private output: any;
 
-  constructor(numBalls: number) {
+  constructor(numBalls: number, output: any) {
     this.ballsCount = numBalls;
+    this.output = output;
+    this.soldState = new SoldState(this, this.output);
+    this.soldOutState = new SoldOutState(this, this.output);
+    this.noQuarterState = new NoQuarterState(this, this.output);
+    this.hasQuarterState = new HasQuarterState(this, this.output);
+
     this.state = this.soldOutState;
     if (this.ballsCount > 0) {
       this.state = this.noQuarterState;
@@ -57,7 +64,7 @@ Machine is ${this.state.ToString()}`;
 
   public ReleaseBall(): void {
     if (this.ballsCount != 0) {
-      console.log('A gumball comes rolling out the slot...\n');
+      this.output('A gumball comes rolling out the slot...\n');
       --this.ballsCount;
     }
   }
