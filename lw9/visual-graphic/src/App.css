@@ -1,0 +1,8 @@
+.app {
+    padding: 20px;
+}
+
+#canvas-area {
+    border: 1px solid #ccc;
+    width: 100%;
+}

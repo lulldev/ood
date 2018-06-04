@@ -25,9 +25,7 @@ export class Triangle implements ICanvasDrawable {
     canvas.LineTo(this.p1.x, this.p1.y);
   }
 
-  public End(): void {
-
-  }
+  public End(): void {}
 }
 
 export class Rectangle implements ICanvasDrawable {
@@ -50,9 +48,7 @@ export class Rectangle implements ICanvasDrawable {
     canvas.LineTo(this.leftTop.x, this.leftTop.y);
   }
 
-  public End(): void {
-
-  }
+  public End(): void {}
 }
 
 export class CanvasPainter {
