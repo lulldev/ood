@@ -18,10 +18,10 @@ class HarmonicFuncGraphContainer extends React.Component<any, any> {
     return (
       <Container>
         <Row>
-          <Col lg={8}>
+          <Col lg={7}>
             <HarmonicGraphic/>
           </Col>
-          <Col lg={4}>
+          <Col lg={5}>
             <HarmonicGraphicControl/>
           </Col>
         </Row>
@@ -31,4 +31,3 @@ class HarmonicFuncGraphContainer extends React.Component<any, any> {
 }
 
 export default HarmonicFuncGraphContainer;
-

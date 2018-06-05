@@ -1,35 +1,93 @@
-import {
-  LineChart,
-  XAxis,
-  YAxis,
-  CartesianGrid,
-  Line,
-} from 'recharts';
 import * as React from 'react';
+import { Canvas } from './Canvas';
+
+function fun1(x: any) {
+  return Math.sin(2*x+0);
+}
+
+function fun2(x: any) {
+  return Math.cos(x - 1);
+}
 
 export default class HarmonicGraphic extends React.Component<any, any> {
 
   constructor(props: any) {
     super(props);
+    this.drawGraph = this.drawGraph.bind(this);
+    this.draw = this.draw.bind(this);
+    this.showAxes = this.showAxes.bind(this);
+  }
+
+  public drawGraph(ctx: any, axes: any, func: any, color: any, thick: any): void {
+    let xx: any;
+    let yy: any;
+    const dx: any = 1;
+    const x0: any = axes.x0;
+    const y0: any = axes.y0;
+    const scale: any = axes.scale;
+    const iMax: any = Math.round((ctx.canvas.width - x0) / dx);
+    const iMin: any = axes.doNegativeX ? Math.round(-x0 / dx) : 0;
+    ctx.beginPath();
+    ctx.lineWidth = thick;
+    ctx.strokeStyle = color;
+
+    for (let i = iMin; i <= iMax; i++) {
+      xx = dx * i;
+      yy = scale * func(xx / scale);
+      if (i === iMin) {
+        ctx.moveTo(x0 + xx, y0 - yy);
+      }
+      else {
+        ctx.lineTo(x0 + xx, y0 - yy);
+      }
+    }
+    ctx.stroke();
+  }
+
+  public showAxes(ctx: any, axes: any) {
+    const x0: any = axes.x0;
+    const w = ctx.canvas.width;
+    const y0: any = axes.y0;
+    const h = ctx.canvas.height;
+    const xmin: any = axes.doNegativeX ? 0 : x0;
+    ctx.beginPath();
+    ctx.strokeStyle = 'rgb(128,128,128)';
+    ctx.moveTo(xmin, y0);
+    ctx.lineTo(w, y0);
+    ctx.moveTo(x0, 0);
+    ctx.lineTo(x0, h);
+    ctx.stroke();
+  }
+
+  public draw() {
+    const canvas: any = document.getElementById('canvas');
+    if (null == canvas || !canvas.getContext) {
+      return;
+    }
+
+    const axes: any = {};
+    const ctx: any = canvas.getContext('2d');
+    axes.x0 = .5 + .5 * canvas.width;  // x0 pixels from left to x=0
+    axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
+    axes.scale = 40;                 // 40 pixels from x=0 to x=1
+    axes.doNegativeX = true;
+
+    this.showAxes(ctx, axes);
+    this.drawGraph(ctx, axes, fun1, 'rgb(11,153,11)', 1);
+    this.drawGraph(ctx, axes, fun2, 'rgb(66,44,255)', 2);
+  }
+
+  public componentDidMount() {
+    this.draw();
   }
 
   public render() {
-    const data: any = [
-      { uv: 1, pv: 2400, amt: 2400},
-      { uv: 10, pv: 1398, amt: 2210},
-      { uv: 2, pv: 9800, amt: 2290},
-      { uv: 4, pv: 3908, amt: 2000},
-      { uv: 2, pv: 4800, amt: 2181},
-      { uv: 1, pv: 3800, amt: 2500},
-      { uv: -1, pv: 4300, amt: 2100},
-    ];
     return (
-      <LineChart width={500} height={300} data={data}>
-        <XAxis dataKey="name"/>
-        <YAxis/>
-        <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-      </LineChart>
+      <div>
+        <Canvas
+          canvasHTMLId="canvas"
+        />
+      </div>
     );
   }
 }
