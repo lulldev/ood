@@ -1,15 +1,11 @@
 import * as React from 'react';
 import { Canvas } from './Canvas';
 
-function fun1(x: any) {
-  return Math.sin(2*x+0);
+interface IProps {
+  harmonicFunctions: any
 }
 
-function fun2(x: any) {
-  return Math.cos(x - 1);
-}
-
-export default class HarmonicGraphic extends React.Component<any, any> {
+export default class HarmonicGraphic extends React.Component<IProps, any> {
 
   constructor(props: any) {
     super(props);
@@ -67,26 +63,34 @@ export default class HarmonicGraphic extends React.Component<any, any> {
 
     const axes: any = {};
     const ctx: any = canvas.getContext('2d');
-    axes.x0 = .5 + .5 * canvas.width;  // x0 pixels from left to x=0
-    axes.y0 = .5 + .5 * canvas.height; // y0 pixels from top to y=0
-    axes.scale = 40;                 // 40 pixels from x=0 to x=1
+    axes.x0 = .5 + .5 * canvas.width;
+    axes.y0 = .5 + .5 * canvas.height;
+    axes.scale = 40;
     axes.doNegativeX = true;
 
     this.showAxes(ctx, axes);
-    this.drawGraph(ctx, axes, fun1, 'rgb(11,153,11)', 1);
-    this.drawGraph(ctx, axes, fun2, 'rgb(66,44,255)', 2);
+    this.props.harmonicFunctions.forEach((harmonicFunctionData: any) => {
+      this.drawGraph(ctx, axes, this.buildHarmonicFunctionByData(harmonicFunctionData), 'red', 1);
+    });
   }
 
-  public componentDidMount() {
-    this.draw();
+  public buildHarmonicFunctionByData(data: any): any {
+    const harmonicType: any = data.function === 'sin' ? Math.sin : Math.cos;
+    const frequency = data.frequency ? data.frequency : 1;
+    const amplitude = data.amplitude ? data.amplitude : 1;
+    const phase = data.phase ? data.phase : 0;
+    return (x: any): any => {
+      return amplitude * harmonicType(frequency * x + phase);
+    };
   }
 
   public render() {
+    if (this.props.harmonicFunctions.length > 0) {
+      this.draw();
+    }
     return (
       <div>
-        <Canvas
-          canvasHTMLId="canvas"
-        />
+        <Canvas canvasHTMLId="canvas" />
       </div>
     );
   }
