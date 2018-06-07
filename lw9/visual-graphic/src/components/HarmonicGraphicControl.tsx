@@ -13,7 +13,7 @@ import {
 } from 'reactstrap';
 
 interface IProps {
-  setFunctionData: any;
+  harmonicViewModel: any;
 }
 
 export default class HarmonicGraphicControl extends React.Component<IProps, any> {
@@ -21,7 +21,6 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
   constructor(props: any) {
     super(props);
     this.state = {
-      functionList: [],
       isEnableDelete: false,
       modal: false,
       selectedHarmonic: null
@@ -41,10 +40,8 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
             <label>Select harmonic function</label>
             <select multiple={true} className="form-control select-harmonic" onClick={this.selectHarmonic}>
               {
-                this.state.functionList.map((func: any, i: number) => {
-                  return (<option key={i} value={i}>
-                      {this.harmonicFunctionToString(func)}
-                    </option>);
+                this.props.harmonicViewModel.allFuncsToString().map((stringFunc: any, i: number) => {
+                  return <option key={i} value={i}>{stringFunc}</option>;
                 })
               }
             </select>
@@ -123,25 +120,13 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
     }
 
     const formElems: any = Array.from(e.target.getElementsByClassName('form-control'));
-    const functionData: any = {};
+    const newFunction: any = {};
     formElems.forEach((elem: any) => {
-      functionData[elem.name] =  elem.value;
+      newFunction[elem.name] =  elem.value;
     });
 
-    const functionList = this.state.functionList;
-    functionList.push(functionData);
-    this.setState({functionList});
-
-    this.props.setFunctionData(functionList);
-
+    this.props.harmonicViewModel.setNewHarmonicFunction(newFunction);
     this.toggle();
-  }
-
-  private harmonicFunctionToString(funcData: any): string {
-    const frequencyString: string = funcData.frequency !== '0' ? funcData.frequency + '+' : '';
-    const amplitudeString: string = funcData.amplitude !== '0' ? funcData.amplitude + '*' : '';
-    const phaseString: string = funcData.phase !== '0' ? '*' + funcData.phase : '';
-    return `${frequencyString}${amplitudeString}${funcData.function}(x${phaseString})`;
   }
 
   private selectHarmonic(e: any) {
@@ -153,10 +138,7 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
 
   private deleteHarmonicFunction() {
     if (this.state.selectedHarmonic !== null) {
-      const functionList = this.state.functionList;
-      functionList.splice(Number(this.state.selectedHarmonic), 1);
-      this.setState({functionList, selectedHarmonic: null, isEnableDelete: false});
-      this.props.setFunctionData(this.state.functionList);
+      this.props.harmonicViewModel.deleteHarmonicFuncByIndex(Number(this.state.selectedHarmonic));
     }
   }
 }

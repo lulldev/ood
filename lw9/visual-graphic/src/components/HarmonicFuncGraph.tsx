@@ -7,15 +7,19 @@ import {
 
 import HarmonicGraphic from './HarmonicGraphic';
 import HarmonicGraphicControl from './HarmonicGraphicControl';
+import HarmonicViewModel from '../core/HarmonicViewModel';
 
 class HarmonicFuncGraphContainer extends React.Component<any, any> {
 
   constructor(props: any) {
     super(props);
     this.state = {
-      harmonicFunctions: []
+      harmonicViewModel: null,
     };
-    this.setFunctionData = this.setFunctionData.bind(this);
+  }
+
+  public componentWillMount() {
+    this.setState({harmonicViewModel: new HarmonicViewModel(this)});
   }
 
   public render() {
@@ -24,21 +28,17 @@ class HarmonicFuncGraphContainer extends React.Component<any, any> {
         <Row>
           <Col lg={7}>
             <HarmonicGraphic
-              harmonicFunctions={this.state.harmonicFunctions}
+              harmonicViewModel={this.state.harmonicViewModel}
             />
           </Col>
           <Col lg={5}>
             <HarmonicGraphicControl
-              setFunctionData={this.setFunctionData}
+              harmonicViewModel={this.state.harmonicViewModel}
             />
           </Col>
         </Row>
       </Container>
     )
-  }
-
-  private setFunctionData(data: any) {
-    this.setState({ harmonicFunctions: data});
   }
 }
 

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Canvas } from './Canvas';
 
 interface IProps {
-  harmonicFunctions: any
+  harmonicViewModel: any
 }
 
 export default class HarmonicGraphic extends React.Component<IProps, any> {
@@ -58,6 +58,7 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
   public clearCanvas(canvas: any, ctx: any): void {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
+
   public draw() {
     const canvas: any = document.getElementById('canvas'); // todo
     if (null == canvas || !canvas.getContext) {
@@ -74,23 +75,16 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
     axes.doNegativeX = true;
 
     this.showAxes(ctx, axes);
-    this.props.harmonicFunctions.forEach((harmonicFunctionData: any) => {
-      this.drawGraph(ctx, axes, this.buildHarmonicFunctionByData(harmonicFunctionData), 'red', 1);
+
+    this.props.harmonicViewModel.getBuildFuncs().forEach((harmonicFunc: any) => {
+      this.drawGraph(
+        ctx,
+        axes,
+        harmonicFunc,
+        'red',
+        1
+      );
     });
-  }
-
-  public buildHarmonicFunctionByData(data: any): any {
-    const harmonicType: any = data.function === 'sin' ? Math.sin : Math.cos;
-    let frequency = Number(data.frequency);
-    let amplitude = Number(data.amplitude);
-    let phase = Number(data.phase);
-    frequency = frequency !== 0 ? frequency : 1;
-    amplitude = amplitude !== 0 ? amplitude : 1;
-    phase = phase !== 0 ? phase : 0;
-
-    return (x: any): any => {
-      return amplitude * harmonicType(frequency * x + phase);
-    };
   }
 
   public render() {
