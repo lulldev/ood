@@ -1,12 +1,19 @@
-export default class HarmonicModel {
+export type HarmonicFunc = {
+  function: string;
+  amplitude: string;
+  frequency: string;
+  phase: string;
+}
 
-  private harmonicFunctionsStore: any[] = [];
+export class HarmonicModel {
 
-  public getAllFunctions(): any[] {
+  private harmonicFunctionsStore: HarmonicFunc[] = [];
+
+  public getAllFunctions(): HarmonicFunc[] {
     return this.harmonicFunctionsStore;
   }
 
-  public addFunction(func: any) {
+  public addFunction(func: HarmonicFunc) {
     this.harmonicFunctionsStore.push(func);
   }
 

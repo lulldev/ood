@@ -16,7 +16,13 @@ interface IProps {
   harmonicViewModel: any;
 }
 
-export default class HarmonicGraphicControl extends React.Component<IProps, any> {
+interface IState {
+  isEnableDelete: boolean;
+  modal: boolean;
+  selectedHarmonic: any;
+}
+
+export default class HarmonicGraphicControl extends React.Component<IProps, IState> {
 
   constructor(props: any) {
     super(props);

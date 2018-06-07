@@ -1,4 +1,8 @@
-import HarmonicModel from './HarmonicModel';
+import {
+  HarmonicModel,
+  HarmonicFunc
+}
+from './HarmonicModel';
 
 export default class HarmonicViewModel {
 
@@ -9,7 +13,7 @@ export default class HarmonicViewModel {
     this.appContext = appContext;
   }
 
-  public setNewHarmonicFunction(func: any) {
+  public setNewHarmonicFunction(func: HarmonicFunc) {
     this.harmonicModel.addFunction(func);
     this.appContext.setState({ harmonicFuncModel: this.appContext.state.harmonicFuncModel });
   }
