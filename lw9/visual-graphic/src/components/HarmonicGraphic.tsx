@@ -55,14 +55,19 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
     ctx.stroke();
   }
 
+  public clearCanvas(canvas: any, ctx: any): void {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  }
   public draw() {
-    const canvas: any = document.getElementById('canvas');
+    const canvas: any = document.getElementById('canvas'); // todo
     if (null == canvas || !canvas.getContext) {
       return;
     }
 
-    const axes: any = {};
     const ctx: any = canvas.getContext('2d');
+    this.clearCanvas(canvas, ctx);
+
+    const axes: any = {};
     axes.x0 = .5 + .5 * canvas.width;
     axes.y0 = .5 + .5 * canvas.height;
     axes.scale = 40;
@@ -89,9 +94,7 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
   }
 
   public render() {
-    if (this.props.harmonicFunctions.length > 0) {
-      this.draw();
-    }
+    this.draw();
     return (
       <div>
         <Canvas canvasHTMLId="canvas" />

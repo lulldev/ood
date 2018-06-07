@@ -22,11 +22,15 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
     super(props);
     this.state = {
       functionList: [],
-      modal: false
+      isEnableDelete: false,
+      modal: false,
+      selectedHarmonic: null
     };
 
     this.toggle = this.toggle.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
+    this.selectHarmonic = this.selectHarmonic.bind(this);
+    this.deleteHarmonicFunction = this.deleteHarmonicFunction.bind(this);
   }
 
   public render() {
@@ -35,10 +39,12 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
         <Form>
           <FormGroup>
             <label>Select harmonic function</label>
-            <select multiple={true} className="form-control">
+            <select multiple={true} className="form-control select-harmonic" onClick={this.selectHarmonic}>
               {
-                this.state.functionList.map((func: string, i: number) => {
-                  return (<option key={i}>{func}</option>);
+                this.state.functionList.map((func: any, i: number) => {
+                  return (<option key={i} value={i}>
+                      {this.harmonicFunctionToString(func)}
+                    </option>);
                 })
               }
             </select>
@@ -46,7 +52,10 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
           <FormGroup>
             <ButtonGroup>
               <Button color="success" onClick={this.toggle}>Add new</Button>
-              <Button color="danger" disabled={true}>Delete</Button>
+              <Button color="danger"
+                      disabled={!this.state.isEnableDelete}
+                      onClick={this.deleteHarmonicFunction}
+              >Delete</Button>
             </ButtonGroup>
           </FormGroup>
 
@@ -119,14 +128,35 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
       functionData[elem.name] =  elem.value;
     });
 
-    this.props.setFunctionData(functionData);
     const functionList = this.state.functionList;
-    const frequencyString: string = functionData.frequency !== '0' ? functionData.frequency + '+' : '';
-    const amplitudeString: string = functionData.amplitude !== '0' ? functionData.amplitude + '*' : '';
-    const phaseString: string = functionData.phase !== '0' ? '*' + functionData.phase : '';
-    functionList.push(`${frequencyString}${amplitudeString}${functionData.function}(x${phaseString})`);
-
+    functionList.push(functionData);
     this.setState({functionList});
+
+    this.props.setFunctionData(functionList);
+
     this.toggle();
+  }
+
+  private harmonicFunctionToString(funcData: any): string {
+    const frequencyString: string = funcData.frequency !== '0' ? funcData.frequency + '+' : '';
+    const amplitudeString: string = funcData.amplitude !== '0' ? funcData.amplitude + '*' : '';
+    const phaseString: string = funcData.phase !== '0' ? '*' + funcData.phase : '';
+    return `${frequencyString}${amplitudeString}${funcData.function}(x${phaseString})`;
+  }
+
+  private selectHarmonic(e: any) {
+    this.setState({
+      isEnableDelete: true,
+      selectedHarmonic: e.target.value
+    });
+  }
+
+  private deleteHarmonicFunction() {
+    if (this.state.selectedHarmonic !== null) {
+      const functionList = this.state.functionList;
+      functionList.splice(Number(this.state.selectedHarmonic), 1);
+      this.setState({functionList, selectedHarmonic: null, isEnableDelete: false});
+      this.props.setFunctionData(this.state.functionList);
+    }
   }
 }

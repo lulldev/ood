@@ -23,10 +23,14 @@ class HarmonicFuncGraphContainer extends React.Component<any, any> {
       <Container>
         <Row>
           <Col lg={7}>
-            <HarmonicGraphic harmonicFunctions={this.state.harmonicFunctions} />
+            <HarmonicGraphic
+              harmonicFunctions={this.state.harmonicFunctions}
+            />
           </Col>
           <Col lg={5}>
-            <HarmonicGraphicControl setFunctionData={this.setFunctionData} />
+            <HarmonicGraphicControl
+              setFunctionData={this.setFunctionData}
+            />
           </Col>
         </Row>
       </Container>
@@ -34,9 +38,7 @@ class HarmonicFuncGraphContainer extends React.Component<any, any> {
   }
 
   private setFunctionData(data: any) {
-    const harmonicFunctions = this.state.harmonicFunctions;
-    harmonicFunctions.push(data);
-    this.setState({ harmonicFunctions});
+    this.setState({ harmonicFunctions: data});
   }
 }
 
