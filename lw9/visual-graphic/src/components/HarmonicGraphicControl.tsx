@@ -63,15 +63,30 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
                   </FormGroup>
                   <FormGroup>
                     <label>Amplitude</label>
-                    <Input name="amplitude" type="number" className="form-control" />
+                    <Input name="amplitude"
+                           type="text"
+                           className="form-control"
+                           required={true}
+                           defaultValue={'0'}
+                    />
                   </FormGroup>
                   <FormGroup>
                     <label>Frequency</label>
-                    <Input name="frequency" type="number" className="form-control" />
+                    <Input name="frequency"
+                           type="text"
+                           className="form-control"
+                           required={true}
+                           defaultValue={'0'}
+                    />
                   </FormGroup>
                   <FormGroup>
                     <label>Phase</label>
-                    <Input name="phase" type="number" className="form-control" />
+                    <Input name="phase"
+                           type="text"
+                           className="form-control"
+                           required={true}
+                           defaultValue={'0'}
+                    />
                   </FormGroup>
               </ModalBody>
               <ModalFooter>
@@ -106,9 +121,12 @@ export default class HarmonicGraphicControl extends React.Component<IProps, any>
 
     this.props.setFunctionData(functionData);
     const functionList = this.state.functionList;
-    functionList.push(`${functionData.frequency}+${functionData.amplitude}*${functionData.function}(x+${functionData.phase})`);
-    this.setState({functionList});
+    const frequencyString: string = functionData.frequency !== '0' ? functionData.frequency + '+' : '';
+    const amplitudeString: string = functionData.amplitude !== '0' ? functionData.amplitude + '*' : '';
+    const phaseString: string = functionData.phase !== '0' ? '*' + functionData.phase : '';
+    functionList.push(`${frequencyString}${amplitudeString}${functionData.function}(x${phaseString})`);
 
+    this.setState({functionList});
     this.toggle();
   }
 }

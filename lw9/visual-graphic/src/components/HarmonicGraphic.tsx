@@ -76,9 +76,13 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
 
   public buildHarmonicFunctionByData(data: any): any {
     const harmonicType: any = data.function === 'sin' ? Math.sin : Math.cos;
-    const frequency = data.frequency ? data.frequency : 1;
-    const amplitude = data.amplitude ? data.amplitude : 1;
-    const phase = data.phase ? data.phase : 0;
+    let frequency = Number(data.frequency);
+    let amplitude = Number(data.amplitude);
+    let phase = Number(data.phase);
+    frequency = frequency !== 0 ? frequency : 1;
+    amplitude = amplitude !== 0 ? amplitude : 1;
+    phase = phase !== 0 ? phase : 0;
+
     return (x: any): any => {
       return amplitude * harmonicType(frequency * x + phase);
     };
