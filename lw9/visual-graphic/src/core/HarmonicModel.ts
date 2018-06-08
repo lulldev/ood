@@ -1,8 +1,8 @@
 export type HarmonicFunc = {
   function: string;
-  amplitude: string;
-  frequency: string;
-  phase: string;
+  amplitude: number;
+  frequency: number;
+  phase: number;
 }
 
 export class HarmonicModel {

@@ -131,8 +131,13 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
       newFunction[elem.name] =  elem.value;
     });
 
-    this.props.harmonicViewModel.setNewHarmonicFunction(newFunction);
     this.toggle();
+
+    if (this.props.harmonicViewModel.isFunctionValid(newFunction)) {
+      this.props.harmonicViewModel.setNewHarmonicFunction(newFunction);
+    } else {
+      alert('Invalid params');
+    }
   }
 
   private selectHarmonic(e: any) {
