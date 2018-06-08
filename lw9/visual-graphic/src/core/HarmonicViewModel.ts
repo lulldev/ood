@@ -49,9 +49,14 @@ export default class HarmonicViewModel {
   }
 
   public isFunctionValid(newFuncObj: any): boolean {
-    return (newFuncObj.hasOwnProperty('function') && (newFuncObj.function === 'sin' || newFuncObj === 'cos')) &&
+    return (newFuncObj.hasOwnProperty('function') &&
+      (newFuncObj.function === 'sin' || newFuncObj.function === 'cos')) &&
       (newFuncObj.hasOwnProperty('amplitude') && !isNaN(Number(newFuncObj.amplitude))) &&
       (newFuncObj.hasOwnProperty('frequency') && !isNaN(Number(newFuncObj.frequency))) &&
       (newFuncObj.hasOwnProperty('phase') && !isNaN(Number(newFuncObj.phase)));
+  }
+
+  public selectByIndex(index: number): HarmonicFunc {
+    return this.harmonicModel.getAllFunctions()[index];
   }
 }
