@@ -37,7 +37,9 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
     this.toggle = this.toggle.bind(this);
     this.onSubmit = this.onSubmit.bind(this);
     this.selectHarmonic = this.selectHarmonic.bind(this);
+    this.addHarmonicFunction = this.addHarmonicFunction.bind(this);
     this.deleteHarmonicFunction = this.deleteHarmonicFunction.bind(this);
+    this.editHarmonicFunction = this.editHarmonicFunction.bind(this);
   }
 
   public render() {
@@ -56,18 +58,19 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
           </FormGroup>
           <FormGroup>
             <ButtonGroup>
-              <Button color="success" onClick={this.toggle}>Add new</Button>
+              <Button color="success" onClick={this.addHarmonicFunction}>Add new</Button>
               <Button color="warning"
                       disabled={!this.state.isEnableDelete}
+                      onClick={this.editHarmonicFunction}
               >Edit</Button>
               <Button color="danger"
-                      disabled={!this.state.isEnableDelete}
+                      disabled={!this.state.isEnableEdit}
                       onClick={this.deleteHarmonicFunction}
               >Delete</Button>
             </ButtonGroup>
           </FormGroup>
 
-          <Modal isOpen={this.state.modal} toggle={this.toggle} className="create-function-modal">
+          <Modal isOpen={this.state.modal} toggle={this.toggle} className="modify-function-modal">
             <Form onSubmit={this.onSubmit}>
               <ModalHeader toggle={this.toggle}>
                 {!this.state.isEnableEdit ? 'Create' : 'Edit' } harmonic function
@@ -150,13 +153,27 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
   private selectHarmonic(e: any) {
     this.setState({
       isEnableDelete: true,
+      isEnableEdit: true,
       selectedHarmonic: e.target.value
     });
+  }
+
+  private addHarmonicFunction() {
+    this.setState({ isEnableEdit: false });
+    this.toggle();
   }
 
   private deleteHarmonicFunction() {
     if (this.state.selectedHarmonic !== null) {
       this.props.harmonicViewModel.deleteHarmonicFuncByIndex(Number(this.state.selectedHarmonic));
+    }
+  }
+
+  private editHarmonicFunction() {
+    this.setState({ isEnableEdit: true });
+    if (this.state.selectedHarmonic !== null) {
+      // this.props.harmonicViewModel.deleteHarmonicFuncByIndex(Number(this.state.selectedHarmonic));
+      this.toggle();
     }
   }
 }
