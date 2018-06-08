@@ -21,6 +21,7 @@ interface IState {
   isEnableEdit: boolean;
   modal: boolean;
   selectedHarmonic: any;
+  selectedHarmonicData: any;
 }
 
 export default class HarmonicGraphicControl extends React.Component<IProps, IState> {
@@ -31,7 +32,8 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
       isEnableDelete: false,
       isEnableEdit: false,
       modal: false,
-      selectedHarmonic: null
+      selectedHarmonic: null,
+      selectedHarmonicData: {}
     };
 
     this.toggle = this.toggle.bind(this);
@@ -48,7 +50,7 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
         <Form>
           <FormGroup>
             <label>Select harmonic function</label>
-            <select multiple={true} className="form-control select-harmonic" onClick={this.selectHarmonic}>
+            <select multiple={true} className="form-control select-harmonic" onChange={this.selectHarmonic}>
               {
                 this.props.harmonicViewModel.allFuncsToString().map((stringFunc: any, i: number) => {
                   return <option key={i} value={i}>{stringFunc}</option>;
@@ -89,7 +91,8 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
                            type="text"
                            className="form-control"
                            required={true}
-                           defaultValue={'0'}
+                           defaultValue={
+                             this.state.isEnableEdit ? this.state.selectedHarmonicData.amplitude : '0'}
                     />
                   </FormGroup>
                   <FormGroup>
@@ -98,7 +101,8 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
                            type="text"
                            className="form-control"
                            required={true}
-                           defaultValue={'0'}
+                           defaultValue={
+                             this.state.isEnableEdit ? this.state.selectedHarmonicData.frequency : '0'}
                     />
                   </FormGroup>
                   <FormGroup>
@@ -107,7 +111,8 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
                            type="text"
                            className="form-control"
                            required={true}
-                           defaultValue={'0'}
+                           defaultValue={
+                             this.state.isEnableEdit ? this.state.selectedHarmonicData.phase : '0'}
                     />
                   </FormGroup>
               </ModalBody>
@@ -173,9 +178,11 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
   }
 
   private editHarmonicFunction() {
-    this.setState({ isEnableEdit: true });
     if (this.state.selectedHarmonic !== null) {
-      // this.props.harmonicViewModel.deleteHarmonicFuncByIndex(Number(this.state.selectedHarmonic));
+      this.setState({
+        isEnableEdit: true,
+        selectedHarmonicData: this.props.harmonicViewModel.selectByIndex(this.state.selectedHarmonic)
+      });
       this.toggle();
     }
   }
