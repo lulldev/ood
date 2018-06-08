@@ -18,6 +18,7 @@ interface IProps {
 
 interface IState {
   isEnableDelete: boolean;
+  isEnableEdit: boolean;
   modal: boolean;
   selectedHarmonic: any;
 }
@@ -28,6 +29,7 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
     super(props);
     this.state = {
       isEnableDelete: false,
+      isEnableEdit: false,
       modal: false,
       selectedHarmonic: null
     };
@@ -55,6 +57,9 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
           <FormGroup>
             <ButtonGroup>
               <Button color="success" onClick={this.toggle}>Add new</Button>
+              <Button color="warning"
+                      disabled={!this.state.isEnableDelete}
+              >Edit</Button>
               <Button color="danger"
                       disabled={!this.state.isEnableDelete}
                       onClick={this.deleteHarmonicFunction}
@@ -64,7 +69,9 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
 
           <Modal isOpen={this.state.modal} toggle={this.toggle} className="create-function-modal">
             <Form onSubmit={this.onSubmit}>
-              <ModalHeader toggle={this.toggle}>Create harmonic function</ModalHeader>
+              <ModalHeader toggle={this.toggle}>
+                {!this.state.isEnableEdit ? 'Create' : 'Edit' } harmonic function
+              </ModalHeader>
               <ModalBody>
                   <FormGroup>
                     <label>Function</label>
