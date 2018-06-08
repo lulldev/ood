@@ -145,6 +145,9 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
 
     if (this.props.harmonicViewModel.isFunctionValid(newFunction)) {
       this.props.harmonicViewModel.setNewHarmonicFunction(newFunction);
+      if (this.state.isEnableEdit) {
+        this.props.harmonicViewModel.deleteHarmonicFuncByIndex(newFunction);
+      }
     } else {
       alert('Invalid params');
     }
