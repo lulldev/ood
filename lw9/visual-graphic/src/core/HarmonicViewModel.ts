@@ -23,10 +23,10 @@ export default class HarmonicViewModel {
 
   public allFuncsToString(): string[] {
     return this.harmonicModel.getAllFunctions().map((func: any) => {
-      const frequencyString: string = func.frequency !== 0 ? func.frequency + '+' : '';
       const amplitudeString: string = func.amplitude !== 0 ? func.amplitude + '*' : '';
-      const phaseString: string = func.phase !== 0 ? '*' + func.phase : '';
-      return `${frequencyString}${amplitudeString}${func.function}(x${phaseString})`;
+      const frequencyString: string = func.frequency !== 0 ? '*' + func.frequency : '';
+      const phaseString: string = func.phase !== 0 ? '+' + func.phase : '';
+      return `${amplitudeString}${func.function}(x${frequencyString}${phaseString})`;
     });
   }
 
@@ -58,8 +58,8 @@ export default class HarmonicViewModel {
   private getBuildFuncs(): any[] {
     return this.harmonicModel.getAllFunctions().map((func: any) => {
       const harmonicType: any = func.function === 'sin' ? Math.sin : Math.cos;
-      const frequency = func.frequency !== 0 ? func.frequency : 1;
       const amplitude = func.amplitude !== 0 ? func.amplitude : 1;
+      const frequency = func.frequency !== 0 ? func.frequency : 1;
       const phase = func.phase !== 0 ? func.phase : 0;
 
       return (x: any): any => {

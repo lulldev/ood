@@ -75,13 +75,7 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
     axes.doNegativeX = true;
 
     this.drawAxes(ctx, axes);
-
-    this.drawHarmonicGraph(
-      ctx,
-      axes,
-      'red',
-      1
-    );
+    this.drawHarmonicGraph(ctx, axes, 'red', 1);
   }
 
   public render() {
