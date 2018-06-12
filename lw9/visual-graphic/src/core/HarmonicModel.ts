@@ -1,4 +1,4 @@
-export type HarmonicFunc = {
+export type HarmonicFuncType = {
   function: string;
   amplitude: number;
   frequency: number;
@@ -7,13 +7,13 @@ export type HarmonicFunc = {
 
 export class HarmonicModel {
 
-  private harmonicFunctionsStore: HarmonicFunc[] = [];
+  private harmonicFunctionsStore: HarmonicFuncType[] = [];
 
-  public getAllFunctions(): HarmonicFunc[] {
+  public getAllFunctions(): HarmonicFuncType[] {
     return this.harmonicFunctionsStore;
   }
 
-  public addFunction(func: HarmonicFunc) {
+  public addFunction(func: HarmonicFuncType) {
     this.harmonicFunctionsStore.push(func);
   }
 

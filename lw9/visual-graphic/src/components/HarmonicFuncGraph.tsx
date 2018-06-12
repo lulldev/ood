@@ -5,8 +5,8 @@ import {
   Row,
 } from 'reactstrap';
 
-import HarmonicGraphic from './HarmonicGraphic';
-import HarmonicGraphicControl from './HarmonicGraphicControl';
+import HarmonicGraphic from './Graphic/HarmonicGraphic';
+import GraphicControlView from './Control/GraphicControlView';
 import HarmonicViewModel from '../core/HarmonicViewModel';
 
 class HarmonicFuncGraphContainer extends React.Component<any, any> {
@@ -32,7 +32,7 @@ class HarmonicFuncGraphContainer extends React.Component<any, any> {
             />
           </Col>
           <Col lg={5}>
-            <HarmonicGraphicControl
+            <GraphicControlView
               harmonicViewModel={this.state.harmonicViewModel}
             />
           </Col>

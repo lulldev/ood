@@ -1,10 +1,9 @@
 import {
   HarmonicModel,
   HarmonicFuncType
-}
-from './HarmonicModel';
+} from '../../core/HarmonicModel';
 
-export default class HarmonicViewModel {
+export default class GraphicControlPresenter {
 
   private harmonicModel: HarmonicModel = new HarmonicModel();
   private appContext: any;

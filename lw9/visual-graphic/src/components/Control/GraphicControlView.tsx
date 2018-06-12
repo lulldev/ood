@@ -14,6 +14,7 @@ import {
 
 interface IProps {
   harmonicViewModel: any;
+  presenter: any;
 }
 
 interface IState {
@@ -24,10 +25,16 @@ interface IState {
   selectedHarmonicData: any;
 }
 
-export default class HarmonicGraphicControl extends React.Component<IProps, IState> {
+export default class GraphicControlView extends React.Component<IProps, IState> {
+
+  private presenter: any;
 
   constructor(props: any) {
     super(props);
+
+    this.presenter = props.presenter;
+    this.presenter.setView(this);
+
     this.state = {
       isEnableDelete: false,
       isEnableEdit: false,
@@ -127,6 +134,10 @@ export default class HarmonicGraphicControl extends React.Component<IProps, ISta
       </div>
     );
   }
+
+  // ===== PRESENTER ACTIONS
+
+  // ===== VIEW MANAGEMENT
 
   private toggle() {
     this.setState({

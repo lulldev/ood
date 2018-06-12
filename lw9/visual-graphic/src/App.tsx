@@ -1,12 +1,12 @@
 import * as React from 'react';
 import './App.css';
-import HarmonicFuncGraph from './components/HarmonicFuncGraph';
+import Editor from './components/Editor';
 
 class App extends React.Component {
   public render() {
     return (
       <div className="app">
-        <HarmonicFuncGraph />
+        <Editor/>
       </div>
     );
   }
