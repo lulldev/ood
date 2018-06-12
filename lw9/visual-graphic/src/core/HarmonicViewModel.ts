@@ -30,17 +30,12 @@ export default class HarmonicViewModel {
     });
   }
 
-  public getBuildFuncs(): any[] {
-    return this.harmonicModel.getAllFunctions().map((func: any) => {
-      const harmonicType: any = func.function === 'sin' ? Math.sin : Math.cos;
-      const frequency = func.frequency !== 0 ? func.frequency : 1;
-      const amplitude = func.amplitude !== 0 ? func.amplitude : 1;
-      const phase = func.phase !== 0 ? func.phase : 0;
-
-      return (x: any): any => {
-        return amplitude * harmonicType(frequency * x + phase);
-      };
+  public calculateHarmonicSum(x: number): number {
+    let harmonicSum = 0;
+    this.getBuildFuncs().forEach((func) => {
+      harmonicSum += func(x);
     });
+    return harmonicSum;
   }
 
   public deleteHarmonicFuncByIndex(index: number) {
@@ -58,5 +53,18 @@ export default class HarmonicViewModel {
 
   public selectByIndex(index: number): HarmonicFunc {
     return this.harmonicModel.getAllFunctions()[index];
+  }
+
+  private getBuildFuncs(): any[] {
+    return this.harmonicModel.getAllFunctions().map((func: any) => {
+      const harmonicType: any = func.function === 'sin' ? Math.sin : Math.cos;
+      const frequency = func.frequency !== 0 ? func.frequency : 1;
+      const amplitude = func.amplitude !== 0 ? func.amplitude : 1;
+      const phase = func.phase !== 0 ? func.phase : 0;
+
+      return (x: any): any => {
+        return amplitude * harmonicType(frequency * x + phase);
+      };
+    });
   }
 }

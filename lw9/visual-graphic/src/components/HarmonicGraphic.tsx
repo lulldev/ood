@@ -9,12 +9,12 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
 
   constructor(props: any) {
     super(props);
-    this.drawGraph = this.drawGraph.bind(this);
+    this.drawHarmonicGraph = this.drawHarmonicGraph.bind(this);
     this.draw = this.draw.bind(this);
-    this.showAxes = this.showAxes.bind(this);
+    this.drawAxes = this.drawAxes.bind(this);
   }
 
-  public drawGraph(ctx: any, axes: any, func: any, color: any, thick: any): void {
+  public drawHarmonicGraph(ctx: any, axes: any, color: any, thick: any): void {
     let xx: any;
     let yy: any;
     const dx: any = 1;
@@ -29,7 +29,7 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
 
     for (let i = iMin; i <= iMax; i++) {
       xx = dx * i;
-      yy = scale * func(xx / scale);
+      yy = scale * this.props.harmonicViewModel.calculateHarmonicSum(xx / scale);
       if (i === iMin) {
         ctx.moveTo(x0 + xx, y0 - yy);
       }
@@ -40,7 +40,7 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
     ctx.stroke();
   }
 
-  public showAxes(ctx: any, axes: any) {
+  public drawAxes(ctx: any, axes: any) {
     const x0: any = axes.x0;
     const w = ctx.canvas.width;
     const y0: any = axes.y0;
@@ -74,17 +74,14 @@ export default class HarmonicGraphic extends React.Component<IProps, any> {
     axes.scale = 40;
     axes.doNegativeX = true;
 
-    this.showAxes(ctx, axes);
+    this.drawAxes(ctx, axes);
 
-    this.props.harmonicViewModel.getBuildFuncs().forEach((harmonicFunc: any) => {
-      this.drawGraph(
-        ctx,
-        axes,
-        harmonicFunc,
-        'red',
-        1
-      );
-    });
+    this.drawHarmonicGraph(
+      ctx,
+      axes,
+      'red',
+      1
+    );
   }
 
   public render() {
