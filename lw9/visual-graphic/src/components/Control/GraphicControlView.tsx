@@ -2,7 +2,6 @@ import * as React from 'react';
 import {
   Form,
   Input,
-  Label,
   FormGroup,
   Button,
   ButtonGroup,
@@ -11,44 +10,44 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap';
+import GraphicControlPresenter from './GraphicControlPresenter';
 
 interface IProps {
-  harmonicViewModel: any;
-  presenter: any;
+  harmonicList: any;
+  updateHarmonicList: any;
 }
 
 interface IState {
   isEnableDelete: boolean;
   isEnableEdit: boolean;
   modal: boolean;
-  selectedHarmonic: any;
+  selectedHarmonicIndex: any;
   selectedHarmonicData: any;
 }
 
 export default class GraphicControlView extends React.Component<IProps, IState> {
 
-  private presenter: any;
+  private presenter: any = new GraphicControlPresenter();
 
   constructor(props: any) {
     super(props);
 
-    this.presenter = props.presenter;
     this.presenter.setView(this);
 
     this.state = {
       isEnableDelete: false,
       isEnableEdit: false,
       modal: false,
-      selectedHarmonic: null,
-      selectedHarmonicData: {}
+      selectedHarmonicData: {},
+      selectedHarmonicIndex: null,
     };
 
     this.toggle = this.toggle.bind(this);
-    this.onSubmit = this.onSubmit.bind(this);
-    this.selectHarmonic = this.selectHarmonic.bind(this);
-    this.addHarmonicFunction = this.addHarmonicFunction.bind(this);
-    this.deleteHarmonicFunction = this.deleteHarmonicFunction.bind(this);
-    this.editHarmonicFunction = this.editHarmonicFunction.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleSelectHarmonic = this.handleSelectHarmonic.bind(this);
+    this.handleAddHarmonicFunction = this.handleAddHarmonicFunction.bind(this);
+    this.handleDeleteHarmonicFunction = this.handleDeleteHarmonicFunction.bind(this);
+    this.handleEditHarmonicFunction = this.handleEditHarmonicFunction.bind(this);
   }
 
   public render() {
@@ -57,9 +56,9 @@ export default class GraphicControlView extends React.Component<IProps, IState> 
         <Form>
           <FormGroup>
             <label>Select harmonic function</label>
-            <select multiple={true} className="form-control select-harmonic" onChange={this.selectHarmonic}>
+            <select multiple={true} className="form-control select-harmonic" onChange={this.handleSelectHarmonic}>
               {
-                this.props.harmonicViewModel.allFuncsToString().map((stringFunc: any, i: number) => {
+                this.presenter.stringFuncArr().map((stringFunc: any, i: number) => {
                   return <option key={i} value={i}>{stringFunc}</option>;
                 })
               }
@@ -67,20 +66,20 @@ export default class GraphicControlView extends React.Component<IProps, IState> 
           </FormGroup>
           <FormGroup>
             <ButtonGroup>
-              <Button color="success" onClick={this.addHarmonicFunction}>Add new</Button>
+              <Button color="success" onClick={this.handleAddHarmonicFunction}>Add new</Button>
               <Button color="warning"
                       disabled={!this.state.isEnableDelete}
-                      onClick={this.editHarmonicFunction}
+                      onClick={this.handleEditHarmonicFunction}
               >Edit</Button>
               <Button color="danger"
                       disabled={!this.state.isEnableEdit}
-                      onClick={this.deleteHarmonicFunction}
+                      onClick={this.handleDeleteHarmonicFunction}
               >Delete</Button>
             </ButtonGroup>
           </FormGroup>
 
           <Modal isOpen={this.state.modal} toggle={this.toggle} className="modify-function-modal">
-            <Form onSubmit={this.onSubmit}>
+            <Form onSubmit={this.handleSubmit}>
               <ModalHeader toggle={this.toggle}>
                 {!this.state.isEnableEdit ? 'Create' : 'Edit' } harmonic function
               </ModalHeader>
@@ -137,15 +136,43 @@ export default class GraphicControlView extends React.Component<IProps, IState> 
 
   // ===== PRESENTER ACTIONS
 
-  // ===== VIEW MANAGEMENT
-
-  private toggle() {
+  public toggle() {
     this.setState({
       modal: !this.state.modal
     });
   }
 
-  private onSubmit(e: any) {
+  public showAddForm() {
+    this.setState({ isEnableEdit: false });
+    this.toggle();
+  }
+
+  public showEditForm(selectedHarmonicData: any) {
+    this.setState({
+      isEnableEdit: true, selectedHarmonicData
+    });
+    this.toggle();
+  }
+
+  public updateHarmonicList(harmonicList: any) {
+    this.props.updateHarmonicList(harmonicList);
+  }
+
+  public hideAddForm() {
+    this.toggle();
+  }
+
+  public hideEditForm() {
+    this.toggle();
+  }
+
+  public showError(errMsg: string) {
+    alert(errMsg);
+  }
+
+  // ===== VIEW MANAGEMENT
+
+  private handleSubmit(e: any) {
 
     if (e) {
       e.preventDefault();
@@ -157,44 +184,34 @@ export default class GraphicControlView extends React.Component<IProps, IState> 
       newFunction[elem.name] =  elem.value;
     });
 
-    this.toggle();
-
-    if (this.props.harmonicViewModel.isFunctionValid(newFunction)) {
-      this.props.harmonicViewModel.setNewHarmonicFunction(newFunction);
-      if (this.state.isEnableEdit) {
-        this.props.harmonicViewModel.deleteHarmonicFuncByIndex(newFunction);
-      }
+    if (this.state.isEnableEdit) {
+      this.presenter.editHarmonicFunc(this.state.selectedHarmonicIndex, newFunction);
     } else {
-      alert('Invalid params');
+      this.presenter.addHarmonicFunc(newFunction);
     }
   }
 
-  private selectHarmonic(e: any) {
+  private handleSelectHarmonic(e: any) {
     this.setState({
       isEnableDelete: true,
       isEnableEdit: true,
-      selectedHarmonic: e.target.value
+      selectedHarmonicIndex: Number(e.target.value)
     });
   }
 
-  private addHarmonicFunction() {
-    this.setState({ isEnableEdit: false });
-    this.toggle();
+  private handleAddHarmonicFunction() {
+    this.presenter.showAddForm();
   }
 
-  private deleteHarmonicFunction() {
-    if (this.state.selectedHarmonic !== null) {
-      this.props.harmonicViewModel.deleteHarmonicFuncByIndex(Number(this.state.selectedHarmonic));
+  private handleDeleteHarmonicFunction() {
+    if (this.state.selectedHarmonicIndex !== null) {
+      this.presenter.deleteHarmonicFuncByIndex(this.state.selectedHarmonicIndex);
     }
   }
 
-  private editHarmonicFunction() {
-    if (this.state.selectedHarmonic !== null) {
-      this.setState({
-        isEnableEdit: true,
-        selectedHarmonicData: this.props.harmonicViewModel.selectByIndex(this.state.selectedHarmonic)
-      });
-      this.toggle();
+  private handleEditHarmonicFunction() {
+    if (this.state.selectedHarmonicIndex !== null) {
+      this.presenter.showEditForm(this.state.selectedHarmonicIndex);
     }
   }
 }

@@ -1,6 +1,6 @@
 import * as React from 'react';
 
-import HarmonicFuncGraphContainer from './HarmonicFuncGraph';
+import HarmonicGraph from './HarmonicGraph';
 
 class Editor extends React.Component<any, any> {
 
@@ -10,7 +10,7 @@ class Editor extends React.Component<any, any> {
 
   public render() {
     return (
-      <HarmonicFuncGraphContainer/>
+      <HarmonicGraph/>
     )
   }
 }
