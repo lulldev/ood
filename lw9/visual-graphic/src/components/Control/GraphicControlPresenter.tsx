@@ -1,6 +1,7 @@
 import { HarmonicModel } from '../../core/HarmonicModel';
+import { IPresenter } from '../../core/Presenter';
 
-export default class GraphicControlPresenter {
+export default class GraphicControlPresenter implements IPresenter {
 
   private view: any;
   private model: any = new HarmonicModel();
