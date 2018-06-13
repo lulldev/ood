@@ -8,11 +8,15 @@ import { HarmonicFuncType } from '../core/HarmonicModel';
 import GraphicControlView from './Control/GraphicControlView';
 import GraphicView from './Graphic/GraphicView';
 
+interface IProps {
+  harmonicList: HarmonicFuncType[];
+}
+
 interface IState {
   harmonicList: HarmonicFuncType[];
 }
 
-class HarmonicGraph extends React.Component<any, IState> {
+class HarmonicGraph extends React.Component<IProps, IState> {
 
   constructor(props: any) {
     super(props);
@@ -26,6 +30,10 @@ class HarmonicGraph extends React.Component<any, IState> {
 
   public updateHarmonicList(harmonicList: HarmonicFuncType[]) {
     this.setState({harmonicList});
+  }
+
+  public componentWillMount() {
+    this.setState({harmonicList: this.props.harmonicList});
   }
 
   public render() {
