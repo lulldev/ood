@@ -30,6 +30,7 @@ export default class GraphicControlView extends React.Component<IProps, IState> 
   private presenter: any = new GraphicControlPresenter();
 
   constructor(props: any) {
+
     super(props);
 
     this.presenter.setView(this);
@@ -168,6 +169,10 @@ export default class GraphicControlView extends React.Component<IProps, IState> 
 
   public showError(errMsg: string) {
     alert(errMsg);
+  }
+
+  public componentDidUpdate() {
+    this.presenter.setModelData({ harmonicList: this.props.harmonicList });
   }
 
   // ===== VIEW MANAGEMENT

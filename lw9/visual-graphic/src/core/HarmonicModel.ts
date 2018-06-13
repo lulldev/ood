@@ -9,6 +9,10 @@ export class HarmonicModel {
 
   private harmonicFunctionsStore: HarmonicFuncType[] = [];
 
+  public setFuncStore(funcStore: HarmonicFuncType[]) {
+    this.harmonicFunctionsStore = funcStore;
+  }
+
   public getAllFunctions(): HarmonicFuncType[] {
     return this.harmonicFunctionsStore;
   }
@@ -25,23 +29,33 @@ export class HarmonicModel {
     return this.getAllFunctions()[index];
   }
 
-  public isFunctionValid(newFuncObj: any): boolean {
-    console.log(newFuncObj);
-    return (newFuncObj.hasOwnProperty('function') &&
-      (newFuncObj.function === 'sin' || newFuncObj.function === 'cos')) &&
-      (newFuncObj.hasOwnProperty('amplitude') && !isNaN(Number(newFuncObj.amplitude))) &&
-      (newFuncObj.hasOwnProperty('frequency') && !isNaN(Number(newFuncObj.frequency))) &&
-      (newFuncObj.hasOwnProperty('phase') && !isNaN(Number(newFuncObj.phase)));
-  }
-
   public getStringFuncArr(): any {
     return this.getAllFunctions().map((func: any) => {
-      const amplitudeString: string = func.amplitude !== 0 ? func.amplitude + '*' : '';
-      const frequencyString: string = func.frequency !== 0 ? '*' + func.frequency : '';
-      const phaseString: string = func.phase !== 0 ? '+' + func.phase : '';
+      const amplitudeString: string = Number(func.amplitude) !== 0 ? func.amplitude + '*' : '';
+      const frequencyString: string = Number(func.frequency) !== 0 ? '*' + func.frequency : '';
+      const phaseString: string = Number(func.phase) !== 0 ? '+' + func.phase : '';
       return `${amplitudeString}${func.function}(x${frequencyString}${phaseString})`;
     });
   }
-}
 
-export const model = new HarmonicModel();
+  public getBuildFuncs(): any[] {
+    return this.getAllFunctions().map((func: any) => {
+      const harmonicType: any = func.function === 'sin' ? Math.sin : Math.cos;
+      const amplitude = Number(func.amplitude) !== 0 ? func.amplitude : 1;
+      const frequency = Number(func.frequency) !== 0 ? func.frequency : 1;
+      const phase = Number(func.phase) !== 0 ? func.phase : 0;
+
+      return (x: any): any => {
+        return amplitude * harmonicType(frequency * x + phase);
+      };
+    });
+  }
+
+  public getHarmonicSum(x: number): number {
+    let harmonicSum = 0;
+    this.getBuildFuncs().forEach((func) => {
+      harmonicSum += func(x);
+    });
+    return harmonicSum;
+  }
+}
