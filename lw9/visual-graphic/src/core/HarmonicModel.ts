@@ -41,9 +41,9 @@ export class HarmonicModel {
   public getBuildFuncs(): any[] {
     return this.getAllFunctions().map((func: any) => {
       const harmonicType: any = func.function === 'sin' ? Math.sin : Math.cos;
-      const amplitude = Number(func.amplitude) !== 0 ? func.amplitude : 1;
-      const frequency = Number(func.frequency) !== 0 ? func.frequency : 1;
-      const phase = Number(func.phase) !== 0 ? func.phase : 0;
+      const amplitude = Number(func.amplitude) !== 0 ? Number(func.amplitude) : 1;
+      const frequency = Number(func.frequency) !== 0 ? Number(func.frequency) : 1;
+      const phase = Number(func.phase) !== 0 ? Number(func.phase) : 0;
 
       return (x: any): any => {
         return amplitude * harmonicType(frequency * x + phase);
