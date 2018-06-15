@@ -1,31 +1,42 @@
 import { ICanvas } from './ICanvas';
+import {Point} from '../standart/Point';
+import {Color} from '../standart/Color';
 
 export class Canvas implements ICanvas {
 
-  public MoveTo(x: number, y: number): void {
-    console.log(`Move to: [${x}:${y}]`);
-  }
-
-  public DrawLine(from: number, to: number): void {
-    console.log(`Draw line: from ${from} to ${to}`);
+  public DrawLine(from: Point, to: Point): void {
+    console.log(`<DrawLine fromX="${from.x}" fromY="${from.y}" toX="${to.x}" toY="${to.y}" />`);
   }
 
   public DrawRectangle(x: number, y: number, width: number, height: number): void {
     console.log(`Draw rectangle: x = ${x}, y = ${y}, width = ${width}, height = ${height}`);
   }
 
-  public DrawEllipse(left: number, top: number,
-                     verticalRadius: number, horizontalRadius: number): void {
-    console.log(`Draw ellipse: center = [${left};${top}], ` + `v = ${verticalRadius}, h = ${horizontalRadius}`);
+  public FillPolygon(points: Point[]) {
+    console.log('<FillPolygon>\n');
+    points.forEach((point: Point) => {
+      console.log(`<Point x="${point.x}" y="${point.y}" />`);
+    });
+    console.log('</FillPolygon>\n');
   }
 
-  // public DrawTriangle(x1: number, y1: number,
-  //                     x2: number, y2: number,
-  //                     x3: number, y3: number): void {
-  //   console.log(`Draw triangle`);
-  //   this.MoveTo(x1, y1);
-  //   this.DrawLine(x2, y2);
-  //   this.DrawLine(x3, y3);
-  //   this.DrawLine(x1, y1);
-  // }
+  public DrawEllipse(center: Point, horizontalRadius: number, verticalRadius: number) {
+    console.log(`<DrawEllipse centerX="${center.x}" centerY="${center.y}" a="${horizontalRadius}" b="${verticalRadius}" />`);
+  }
+
+  public FillEllipse(center: Point, horizontalRadius: number, verticalRadius: number) {
+    console.log(`<FillEllipse centerX="${center.x}" centerY="${center.y}" a="${horizontalRadius}" b="${verticalRadius}" />`);
+  }
+
+  public SetFillColor(fillColor: Color) {
+    console.log(`<SetFillColor value="${fillColor.toString()}"/>\n`);
+  }
+
+  public SetOutlineColor(outlineColor: Color) {
+    console.log(`<SetOutlineColor value="${outlineColor.toString()}"/>\n`);
+  }
+
+  public SetOutlineThickness(outlineThickness: number) {
+    console.log(`<SetOutlineThickness value="${outlineThickness}"/>\n`);
+  }
 }

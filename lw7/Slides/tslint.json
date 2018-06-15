@@ -21,6 +21,8 @@
     "no-redundant-jsdoc": false,
     "no-trailing-whitespace": false,
     "no-reserved-keywords": false,
+    "no-console": false,
+    "function-name": false,
     "ordered-imports": false,
     "trailing-comma": [ // https://palantir.github.io/tslint/rules/trailing-comma/
       true,

@@ -1,15 +1,16 @@
-import {Color} from "../standart/Color";
+import {Color} from '../standart/Color';
+import {Point} from '../standart/Point';
 
 export interface ICanvas {
 
-  DrawLine(from: number, to: number): void;
+  DrawLine(from: Point, to: Point): void;
 
-  DrawEllipse(left: number, top: number, verticalRadius: number, horizontalRadius: number): void;
-  FillEllipse(left: number, top: number, verticalRadius: number, horizontalRadius: number): void;
+  DrawEllipse(center: Point, verticalRadius: number, horizontalRadius: number): void;
+  FillEllipse(center: Point, verticalRadius: number, horizontalRadius: number): void;
 
-  FillPolygon(points: []): void;
+  FillPolygon(points: Point[]): void;
 
   SetFillColor(fillColor: Color);
   SetOutlineColor(outlineColor: Color);
-  SetOutlineThickness(outlineColor: Color);
+  SetOutlineThickness(outlineThickness: number);
 }

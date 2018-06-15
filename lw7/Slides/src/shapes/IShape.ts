@@ -1,5 +1,5 @@
 import {ICanvasDrawable} from '../canvas/ICanvasDrawable';
-import {Frame} from './Frame';
+import {Frame} from '../standart/Frame';
 import {IFillStyle} from '../style/IFillStyle';
 import {IOutlineStyle} from '../style/IOutlineStyle';
 import {ICompositShape} from './ICompositShape';
