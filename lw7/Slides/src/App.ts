@@ -1,11 +1,11 @@
 import { Canvas } from './slides/Canvas';
-import { Color } from './slides/Color';
+import { Color } from './standart/Color';
 import { Frame } from './slides/Frame';
 import { Ellipse, Rectangle, Triangle } from './slides/Shape';
 import { Slide } from './slides/Slide';
 
 const slide = new Slide(500, 400);
-const frame = new Frame();
+const frame = new Frame(5, 10, 100, 200);
 const canvas = new Canvas();
 
 frame.AddChildren(new Triangle(10, 20, 30, 20, 30, 10, Color.Red, Color.Undefined));

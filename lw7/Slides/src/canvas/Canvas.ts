@@ -1,10 +1,4 @@
-import { Color } from './Color';
-
-export interface ICanvas {
-  MoveTo(x: number, y: number): void;
-  DrawLine(from: number, to: number): void;
-  DrawEllipse(left: number, top: number, verticalRadius: number, horizontalRadius: number): void;
-}
+import { ICanvas } from './ICanvas';
 
 export class Canvas implements ICanvas {
 
