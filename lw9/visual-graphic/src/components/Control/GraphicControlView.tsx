@@ -10,10 +10,11 @@ import {
   ModalBody,
   ModalFooter
 } from 'reactstrap';
+import {HarmonicFuncType, HarmonicModel} from '../../core/HarmonicModel';
 import GraphicControlPresenter from './GraphicControlPresenter';
 
 interface IProps {
-  harmonicList: any;
+  harmonicList: HarmonicFuncType[];
   updateHarmonicList: any;
 }
 
@@ -21,18 +22,19 @@ interface IState {
   isEnableDelete: boolean;
   isEnableEdit: boolean;
   modal: boolean;
-  selectedHarmonicIndex: any;
+  selectedHarmonicIndex: number|null;
   selectedHarmonicData: any;
 }
 
 export default class GraphicControlView extends React.Component<IProps, IState> {
 
-  private presenter: any = new GraphicControlPresenter();
+  private presenter: any;
 
   constructor(props: any) {
 
     super(props);
 
+    this.presenter = new GraphicControlPresenter();
     this.presenter.setView(this);
 
     this.state = {

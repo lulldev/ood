@@ -18,6 +18,7 @@ interface IState {
 class Editor extends React.Component<any, IState> {
 
   constructor(props: any) {
+
     super(props);
     this.state = {
       currentDataSource: 0,

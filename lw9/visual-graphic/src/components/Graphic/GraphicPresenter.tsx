@@ -1,10 +1,14 @@
-import { HarmonicModel } from '../../core/HarmonicModel';
-import { IPresenter } from '../../core/Presenter';
+import * as React from 'react';
+import {HarmonicModel} from '../../core/HarmonicModel';
 
-export default class GraphicPresenter implements IPresenter {
+export default class GraphicPresenter {
 
   private view: any;
-  private model: HarmonicModel = new HarmonicModel();
+  private model: any;
+
+  constructor() {
+    this.model = new HarmonicModel();
+  }
 
   public setView(view: any) {
     this.view = view;

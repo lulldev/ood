@@ -1,21 +1,20 @@
 import * as React from 'react';
 import { Canvas } from './Canvas';
+import {HarmonicFuncType, HarmonicModel} from '../../core/HarmonicModel';
 import GraphicPresenter from './GraphicPresenter';
 
 interface IProps {
-  harmonicList: any
+  harmonicList: HarmonicFuncType[];
 }
 
 export default class GraphicView extends React.Component<IProps, any> {
 
-  private presenter: GraphicPresenter = new GraphicPresenter();
+  private presenter: any;
 
   constructor(props: any) {
-
     super(props);
-
+    this.presenter = new GraphicPresenter();
     this.presenter.setView(this);
-
     this.drawHarmonicGraph = this.drawHarmonicGraph.bind(this);
     this.draw = this.draw.bind(this);
     this.drawAxes = this.drawAxes.bind(this);
@@ -78,7 +77,7 @@ export default class GraphicView extends React.Component<IProps, any> {
 
   public draw() {
     const canvas: any = document.getElementById('canvas'); // todo
-    if (null == canvas || !canvas.getContext) {
+    if (!canvas || !canvas.getContext) {
       return;
     }
 
@@ -98,7 +97,7 @@ export default class GraphicView extends React.Component<IProps, any> {
   public componentWillUpdate() {
     this.presenter.setModelData({ harmonicList: this.props.harmonicList });
   }
-
+  
   public render() {
     this.presenter.drawGraph();
     return (

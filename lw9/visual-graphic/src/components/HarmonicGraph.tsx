@@ -4,9 +4,11 @@ import {
   Container,
   Row,
 } from 'reactstrap';
-import { HarmonicFuncType } from '../core/HarmonicModel';
+import {HarmonicFuncType} from '../core/HarmonicModel';
 import GraphicControlView from './Control/GraphicControlView';
 import GraphicView from './Graphic/GraphicView';
+import GraphicPresenter from './Graphic/GraphicPresenter';
+import GraphicControlPresenter from './Control/GraphicControlPresenter';
 
 interface IProps {
   harmonicList: HarmonicFuncType[];
@@ -41,7 +43,9 @@ class HarmonicGraph extends React.Component<IProps, IState> {
       <Container>
         <Row>
           <Col lg={7}>
-            <GraphicView harmonicList={this.state.harmonicList}/>
+            <GraphicView
+              harmonicList={this.state.harmonicList}
+            />
           </Col>
           <Col lg={5}>
             <GraphicControlView

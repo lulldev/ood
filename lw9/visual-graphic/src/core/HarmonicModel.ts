@@ -29,7 +29,7 @@ export class HarmonicModel {
     return this.getAllFunctions()[index];
   }
 
-  public getStringFuncArr(): any {
+  public getStringFuncArr(): string[] {
     return this.getAllFunctions().map((func: any) => {
       const amplitudeString: string = func.amplitude + '*';
       const frequencyString: string = '*' + func.frequency;
