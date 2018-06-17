@@ -1,47 +1,54 @@
-import {Shape, ShapeEdge} from "../slides/Shape";
-import {Canvas} from "../slides/Canvas";
-import {Color} from "../standart/Color";
+import {Point} from '../standart/Point';
+import {Frame} from '../standart/Frame';
+import {ShapeComponent} from './shape-component/ShapeComponent';
+import {ICanvas} from '../canvas/ICanvas';
 
-export class Ellipse extends Shape implements IGraphicCopmonent {
+export class Ellipse extends ShapeComponent {
 
-  private left: number;
-  private top: number;
-  private width: number;
-  private height: number;
+  private center: Point;
+  private horizontalRadius: number;
+  private verticalRadius: number;
 
-  constructor(left: number, top: number, width: number, height: number,
-              borderColor: Color, fillColor: Color) {
+  constructor(center: Point, horizontalRadius: number, verticalRadius: number) {
 
-    super(borderColor, fillColor);
+    super();
 
-    if (!this.IsValid(left, top, width, height)) {
-      throw new Error('Invalid ellipse params');
-    }
-
-    this.left = left;
-    this.top = top;
-    this.width = width;
-    this.height = height;
+    this.center = center;
+    this.horizontalRadius = horizontalRadius;
+    this.verticalRadius = verticalRadius;
   }
 
-  public GetCenter(): ShapeEdge {
-    return {x: this.left, y: this.top };
+  public GetCenter(): Point {
+    return this.center;
   }
 
   public GetHorizontalRadius(): number {
-    return this.width / 2;
+    return this.horizontalRadius;
   }
 
   public GetVerticalRadius(): number {
-    return this.height / 2;
+    return this.verticalRadius;
   }
 
-  public Draw(canvas: Canvas): void {
-    const center = this.GetCenter();
-    canvas.DrawEllipse(center.x, center.y, this.GetVerticalRadius(), this.GetHorizontalRadius());
+  public GetFrame(): Frame {
+    const leftTop: Point = { x: this.center.x - this.horizontalRadius, y: this.center.y - this.verticalRadius };
+
+    return { left: leftTop.x, top: leftTop.y, width: this.horizontalRadius * 2, height: this.verticalRadius * 2 };
   }
 
-  private IsValid(left: number, top: number, width: number, height: number): boolean {
-    return !!left && !!top && (!!width && width > 0) && (!!height && height > 0);
+  public SetFrame(frame: Frame) {
+    this.center.x = frame.left + frame.width / 2;
+    this.center.y = frame.top + frame.height / 2;
+    this.horizontalRadius = frame.width / 2;
+    this.verticalRadius = frame.height / 2;
+  }
+
+  protected Fill(canvas: ICanvas) {
+    canvas.FillEllipse(this.center, this.horizontalRadius, this.verticalRadius);
+  }
+
+  protected Stroke(canvas: ICanvas) {
+    canvas.DrawEllipse(this.center, this.horizontalRadius, this.verticalRadius);
+
   }
 }

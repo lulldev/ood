@@ -1,10 +1,7 @@
-import {Color} from '../standart/Color';
 import {Point} from '../standart/Point';
 import {Frame} from '../standart/Frame';
 import {ShapeComponent} from './shape-component/ShapeComponent';
-import {IOutlineStyle} from '../style/IOutlineStyle';
-import {IFillStyle} from '../style/IFillStyle';
-import {ICanvas} from "../canvas/ICanvas";
+import {ICanvas} from '../canvas/ICanvas';
 
 export class Triangle extends ShapeComponent {
 
@@ -75,5 +72,4 @@ export class Triangle extends ShapeComponent {
     canvas.DrawLine(this.vertex2, this.vertex3);
     canvas.DrawLine(this.vertex3, this.vertex1);
   }
-
 }

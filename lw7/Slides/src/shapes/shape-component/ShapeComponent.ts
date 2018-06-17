@@ -32,7 +32,9 @@ export abstract class ShapeComponent implements IShape {
     }
   }
 
-  public abstract GetComposit(): ICompositShape;
+  public GetComposit(): ICompositShape {
+    return null;
+  }
 
   public abstract GetFrame(): Frame;
 

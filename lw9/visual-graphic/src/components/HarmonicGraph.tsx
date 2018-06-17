@@ -7,8 +7,6 @@ import {
 import {HarmonicFuncType} from '../core/HarmonicModel';
 import GraphicControlView from './Control/GraphicControlView';
 import GraphicView from './Graphic/GraphicView';
-import GraphicPresenter from './Graphic/GraphicPresenter';
-import GraphicControlPresenter from './Control/GraphicControlPresenter';
 
 interface IProps {
   harmonicList: HarmonicFuncType[];

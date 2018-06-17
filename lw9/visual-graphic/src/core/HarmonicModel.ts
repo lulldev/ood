@@ -59,3 +59,5 @@ export class HarmonicModel {
     return harmonicSum;
   }
 }
+
+export const model = new HarmonicModel();

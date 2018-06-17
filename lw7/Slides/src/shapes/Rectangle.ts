@@ -1,44 +1,63 @@
-import {Shape, ShapeEdge} from "../slides/Shape";
-import {Canvas} from "../slides/Canvas";
-import {Color} from "../standart/Color";
+import {Point} from '../standart/Point';
+import {Frame} from '../standart/Frame';
+import {ShapeComponent} from './shape-component/ShapeComponent';
+import {ICanvas} from '../canvas/ICanvas';
 
-export class Rectangle extends Shape implements IGraphicCopmonent {
+export class Rectangle extends ShapeComponent {
 
-  private startX: number;
-  private startY: number;
+  private leftTop: Point;
   private width: number;
   private height: number;
 
-  constructor(startX: number, startY: number, width: number,
-              height: number, borderColor: Color, fillColor: Color) {
+  constructor(leftTop: Point, width: number, height: number) {
 
-    super(borderColor, fillColor);
+    super();
 
-    if (!this.IsValid(startX, startY, width, height)) {
-      throw new Error('Invalid rectangle params');
-    }
-
-    this.startX = startX;
-    this.startY = startY;
+    this.leftTop = leftTop;
     this.width = width;
     this.height = height;
   }
 
-  public GetLeftTop(): ShapeEdge {
-    return { x: this.startX, y: this.startY };
+  public GetLeftTop(): Point {
+    return this.leftTop;
   }
 
-  public GetRightBottom(): ShapeEdge {
-    return { x: this.startX + this.height, y: this.startY + this.width };
+  public GetWidth(): number {
+    return this.width;
   }
 
-  public Draw(canvas: Canvas): void {
-    console.log(canvas);
-    // canvas.DrawRectangle(this.startX, this.startY, this.width, this.height);
+  public GetHeight(): number {
+    return this.height;
   }
 
-  private IsValid(startX: number, startY: number, width: number, height: number): boolean {
-    return !!startX && !!startY && (!!width && width > 0) && (!!height && height > 0);
+  public GetFrame(): Frame {
+    return { left: this.leftTop.x, top: this.leftTop.y, width: this.width, height: this.height };
+  }
+
+  public SetFrame(frame: Frame) {
+    this.leftTop = { x: frame.left, y: frame.top };
+    this.width = frame.width;
+    this.height = frame.height;
+  }
+
+  protected Fill(canvas: ICanvas) {
+    canvas.FillPolygon(this.PointsToBounding());
+  }
+
+  protected Stroke(canvas: ICanvas) {
+    const boundingPoints = this.PointsToBounding();
+    canvas.DrawLine(boundingPoints[0], boundingPoints[1]);
+    canvas.DrawLine(boundingPoints[1], boundingPoints[2]);
+    canvas.DrawLine(boundingPoints[2], boundingPoints[3]);
+    canvas.DrawLine(boundingPoints[3], boundingPoints[0]);
+  }
+
+  private PointsToBounding(): (Point)[] {
+    return [
+      { x: this.leftTop.x, y: this.leftTop.y },
+      { x: this.leftTop.x + this.width, y: this.leftTop.y },
+      { x: this.leftTop.x + this.width, y: this.leftTop.y + this.height },
+      { x: this.leftTop.x, y: this.leftTop.y + this.height }];
   }
 
 }
