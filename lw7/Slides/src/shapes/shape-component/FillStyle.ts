@@ -6,7 +6,7 @@ export class FillStyle implements IFillStyle {
   private enabled: boolean = true;
   private color: Color = Color.Black;
 
-  constructor(enabled: boolean, color: Color) {
+  constructor(enabled: boolean = true, color: Color = Color.Black) {
     this.enabled = enabled;
     this.color = color;
   }

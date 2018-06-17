@@ -6,10 +6,11 @@ import {ICompositShape} from './ICompositShape';
 import {IShapeCollection} from './IShapeCollection';
 import {Pair} from '../../standart/Pair';
 import {Frame} from '../../standart/Frame';
+import {ShapeCollection} from './ShapeCollection';
 
-export class ShapeComponent implements ICompositShape {
+export class CompositShape implements ICompositShape {
 
-  private shapes: IShapeCollection;
+  private shapes: IShapeCollection = new ShapeCollection();
   private outlineStyle: (IOutlineStyle|undefined);
   private fillStyle: (IFillStyle|undefined);
 

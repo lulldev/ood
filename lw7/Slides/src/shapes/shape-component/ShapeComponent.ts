@@ -4,17 +4,24 @@ import {OutlineStyle} from './OutlineStyle';
 import {ICanvas} from '../../canvas/ICanvas';
 import {Frame} from '../../standart/Frame';
 import {ICompositShape} from '../composit-shape/ICompositShape';
+import {IFillStyle} from '../../style/IFillStyle';
+import {IOutlineStyle} from '../../style/IOutlineStyle';
 
 export abstract class ShapeComponent implements IShape {
 
-  private fillStyle: FillStyle;
-  private outlineStyle: OutlineStyle;
+  private fillStyle: IFillStyle;
+  private outlineStyle: IOutlineStyle;
 
-  public GetFillStyle(): FillStyle {
+  constructor() {
+    this.fillStyle = new FillStyle();
+    this.outlineStyle = new OutlineStyle();
+  }
+
+  public GetFillStyle(): IFillStyle {
     return this.fillStyle;
   }
 
-  public GetOutlineStyle(): OutlineStyle {
+  public GetOutlineStyle(): IOutlineStyle {
     return this.outlineStyle;
   }
 

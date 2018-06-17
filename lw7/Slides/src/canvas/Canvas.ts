@@ -13,7 +13,7 @@ export class Canvas implements ICanvas {
   }
 
   public FillPolygon(points: Point[]) {
-    console.log('<FillPolygon>\n');
+    console.log('<FillPolygon>');
     points.forEach((point: Point) => {
       console.log(`<Point x="${point.x}" y="${point.y}" />`);
     });

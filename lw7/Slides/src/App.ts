@@ -1,16 +1,19 @@
-import { Canvas } from './slides/Canvas';
-import { Color } from './standart/Color';
-import { Frame } from './slides/Frame';
-import { Ellipse, Rectangle, Triangle } from './slides/Shape';
-import { Slide } from './slides/Slide';
+import {Slide} from './slides/Slide';
+import {Triangle} from './shapes/Triangle';
+// import {Rectangle} from './shapes/Rectangle';
+// import {Ellipse} from './shapes/Ellipse';
+import {CompositShape} from './shapes/composit-shape/CompositShape';
+// import {IFillStyle} from './style/IFillStyle';
+// import {IOutlineStyle} from './style/IOutlineStyle';
+// import {Color} from './standart/Color';
+import {Canvas} from './canvas/Canvas';
 
-const slide = new Slide(500, 400);
-const frame = new Frame(5, 10, 100, 200);
 const canvas = new Canvas();
+const slide = new Slide(500, 400);
+const triangle = new Triangle({x: 10, y: 10}, {x: 20, y: 20}, {x: 50, y: 30});
+const house = new CompositShape();
 
-frame.AddChildren(new Triangle(10, 20, 30, 20, 30, 10, Color.Red, Color.Undefined));
-frame.AddChildren(new Rectangle(10, 20, 30, 10, Color.Red, Color.Black));
-frame.AddChildren(new Ellipse(10, 20, 30, 20, Color.Red, Color.Black));
+house.Add(triangle);
 
-slide.AddChildren(frame);
+slide.GetShapes().Add(house);
 slide.Draw(canvas);

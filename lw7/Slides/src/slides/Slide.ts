@@ -1,12 +1,13 @@
 import {ICanvas} from '../canvas/ICanvas';
 import {ISlide} from './ISlide';
-import {IShapeCollection} from "../shapes/composit-shape/IShapeCollection";
+import {IShapeCollection} from '../shapes/composit-shape/IShapeCollection';
+import {ShapeCollection} from '../shapes/composit-shape/ShapeCollection';
 
 export class Slide implements ISlide {
 
   private width: number;
   private height: number;
-  private shapes: IShapeCollection;
+  private shapes: IShapeCollection = new ShapeCollection();
 
   constructor(width: number, height: number) {
     this.width = width;

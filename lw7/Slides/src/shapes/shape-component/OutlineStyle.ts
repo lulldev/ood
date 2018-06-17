@@ -7,7 +7,7 @@ export class OutlineStyle implements IOutlineStyle {
   private color: Color = Color.Black;
   private thickness: number = 1;
 
-  constructor(enabled: boolean, color: Color, thickness: number) {
+  constructor(enabled: boolean = true, color: Color = Color.Black, thickness: number = 1) {
     this.enabled = enabled;
     this.color = color;
     this.thickness = thickness;
