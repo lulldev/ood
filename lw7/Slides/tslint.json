@@ -27,6 +27,7 @@
     "no-any": false,
     "no-increment-decrement": false,
     "no-unnecessary-initializer": false,
+    "no-unnecessary-field-initialization": false,
     "one-line": false,
     "trailing-comma": [ // https://palantir.github.io/tslint/rules/trailing-comma/
       true,

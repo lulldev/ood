@@ -1,30 +1,33 @@
 import {ICanvas} from '../canvas/ICanvas';
 import {ISlide} from './ISlide';
-import {IGraphicComponent} from './ISlide';
+import {IShapeCollection} from "../shapes/composit-shape/IShapeCollection";
 
 export class Slide implements ISlide {
 
   private width: number;
   private height: number;
-  private childrenComponents: IGraphicCopmonent[] = [];
+  private shapes: IShapeCollection;
 
   constructor(width: number, height: number) {
     this.width = width;
     this.height = height;
   }
 
-  public AddChildren(children: IGraphicCopmonent): void {
-    // todo: check coord
-    this.childrenComponents.push(children);
+  public GetWidth(): number {
+    return this.width;
   }
 
-  public RemoveChildren(children: IGraphicCopmonent): void {
-    this.childrenComponents.filter((e: IGraphicCopmonent) => e !== children);
+  public GetHeight(): number {
+    return this.height;
+  }
+
+  public GetShapes(): IShapeCollection {
+    return this.shapes;
   }
 
   public Draw(canvas: ICanvas) {
-    this.childrenComponents.forEach((children: IGraphicCopmonent) => {
-      children.Draw(canvas);
-    });
+    for (let i = 0; i < this.shapes.GetShapesCount(); ++i) {
+      this.shapes.GetShape(i).Draw(canvas);
+    }
   }
 }
