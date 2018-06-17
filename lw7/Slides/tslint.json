@@ -24,6 +24,10 @@
     "no-console": false,
     "function-name": false,
     "ordered-imports": false,
+    "no-any": false,
+    "no-increment-decrement": false,
+    "no-unnecessary-initializer": false,
+    "one-line": false,
     "trailing-comma": [ // https://palantir.github.io/tslint/rules/trailing-comma/
       true,
       {

@@ -3,7 +3,7 @@ import {FillStyle} from './FillStyle';
 import {OutlineStyle} from './OutlineStyle';
 import {ICanvas} from '../../canvas/ICanvas';
 import {Frame} from '../../standart/Frame';
-import {ICompositShape} from '../ICompositShape';
+import {ICompositShape} from '../composit-shape/ICompositShape';
 
 export abstract class ShapeComponent implements IShape {
 

@@ -1,4 +1,5 @@
 import {Point} from '../standart/Point';
+import {Pair} from '../standart/Pair';
 import {Frame} from '../standart/Frame';
 import {ShapeComponent} from './shape-component/ShapeComponent';
 import {ICanvas} from '../canvas/ICanvas';
@@ -43,8 +44,7 @@ export class Triangle extends ShapeComponent {
   }
 
   public SetFrame(frame: Frame) {
-    type pair = {first: number; second: number };
-    const percentages: pair[] = [];
+    const percentages: Pair[] = [];
 
     const oldFrame = this.GetFrame();
 
