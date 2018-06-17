@@ -7,12 +7,14 @@ import {IShapeCollection} from './IShapeCollection';
 import {Pair} from '../../standart/Pair';
 import {Frame} from '../../standart/Frame';
 import {ShapeCollection} from './ShapeCollection';
+import {FillStyle} from '../shape-component/FillStyle';
+import {OutlineStyle} from '../shape-component/OutlineStyle';
 
 export class CompositShape implements ICompositShape {
 
   private shapes: IShapeCollection = new ShapeCollection();
-  private outlineStyle: (IOutlineStyle|undefined);
-  private fillStyle: (IFillStyle|undefined);
+  private outlineStyle: (IOutlineStyle|undefined) = new OutlineStyle();
+  private fillStyle: (IFillStyle|undefined) = new FillStyle();
 
   constructor() {
     this.fillStyle = undefined;

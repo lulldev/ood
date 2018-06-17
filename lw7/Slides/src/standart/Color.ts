@@ -6,10 +6,9 @@ export enum Color {
   Yellow = '#ffff00',
   Pink = '#ffc0cb',
   Black = '#000',
-  Undefined = '',
 }
 
-export const GetColorByName = (colorName: string): Color => {
+export const getColorByName = (colorName: string): Color => {
   return Object.keys(Color).indexOf(colorName) !== -1
     ? Color[colorName] : Color.Black;
 };
