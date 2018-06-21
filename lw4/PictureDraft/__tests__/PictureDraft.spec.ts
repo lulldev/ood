@@ -3,7 +3,7 @@ import {Designer} from '../src/picture-draft/Designer';
 import {Canvas} from "../src/picture-draft/Canvas";
 import {Color} from "../src/picture-draft/Color";
 import {PictureDraft} from "../src/picture-draft/PictureDraft";
-import {Ellipse, Rectangle, RegularPolygon, Triangle} from "../src/picture-draft/Shape";
+import {IShape, Ellipse, Rectangle, RegularPolygon, Triangle} from "../src/picture-draft/Shape";
 
 let outputLog: string[] = [];
 
@@ -54,10 +54,6 @@ describe('PictureDraft', () => {
       canvas.SetCanvasColor(Color.Blue);
       expect(canvas.GetCanvasColor()).toEqual(Color.Blue);
       expect(outputLog).toEqual(['Set canvas color #0000ff']);
-    });
-
-    it('Canvas return info', () => {
-      expect(canvas.GetCanvasInfo()).toEqual('Canvas color #0000ff');
     });
 
     it('Canvas can move to point', () => {
@@ -132,9 +128,9 @@ describe('PictureDraft', () => {
     });
 
     it('Project can add some shapes', () => {
-      project.AddShape(new Ellipse(10, 10, 100, 100));
+      project.AddShape({});
       expect(project.GetShapesCount()).toEqual(1);
-      project.AddShape(new Rectangle(10, 10, 100, 100));
+      project.AddShape({});
       expect(project.GetShapesCount()).toEqual(2);
     });
   });
@@ -225,17 +221,55 @@ describe('PictureDraft', () => {
     const client = new Client('Ivan');
     const designer = new Designer();
     const houseProject = new PictureDraft(client, designer);
+    const canvas = new Canvas(outputHookHelper);
 
     const clientDemands = {
       roofColor: Color.Blue,
       bodyColor: Color.White,
       houseWidth: 150,
-      houseHeight: 200
+      houseHeight: 200,
     };
 
-    // it('Client want draw house', () => {
-    //   expect(project.GetShapesCount()).toEqual(0);
-    // });
+    it('Designer build project and draw picture', () => {
 
+      outputLogClear();
+
+      const roofHeight = 30;
+
+      const roof: object = {
+        type: 'triangle',
+        x1: 10,
+        y1: 30,
+        x2: clientDemands.houseWidth,
+        y2: roofHeight,
+        x3: clientDemands.houseWidth / 2,
+        y3: 1,
+        color: clientDemands.roofColor,
+      };
+
+      const rectangle: object = {
+        type: 'rectangle',
+        centerX: 10,
+        centerY: 30,
+        width: clientDemands.houseWidth,
+        height: clientDemands.houseHeight - roofHeight,
+        color: clientDemands.bodyColor,
+      };
+
+      houseProject.AddShape(roof);
+      houseProject.AddShape(rectangle);
+
+      expect(houseProject.GetShapesCount()).toEqual(2);
+      houseProject.DrawPicture(canvas);
+      expect(outputLog).toEqual([
+        "Canvas color #fff",
+        "Draw triangle",
+        "Move to: [10:30]",
+        "Draw line: from 150 to 30",
+        "Draw line: from 75 to 1",
+        "Draw line: from 10 to 30",
+        "Draw rectangle: x = 10, y = 30, width = 150, height = 170",
+      ]);
+    });
   });
 });

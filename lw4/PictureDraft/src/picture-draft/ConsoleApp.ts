@@ -55,7 +55,7 @@ readlineSync.promptCLLoop({
         color,
       });
     }
-    catch(e) {
+    catch (e) {
       console.log(e.message);
     }
 
@@ -91,7 +91,7 @@ readlineSync.promptCLLoop({
         color,
       });
     }
-    catch(e) {
+    catch (e) {
       console.log(e.message);
     }
   },
@@ -107,11 +107,11 @@ readlineSync.promptCLLoop({
         color,
       });
     }
-    catch(e) {
+    catch (e) {
       console.log(e.message);
     }
   },
-  draw: () => pictureDraft.DrawPicture(new Canvas()),
+  draw: () => pictureDraft.DrawPicture(new Canvas(console.log)),
   help: () => helpView(),
   exit: () => { return true; },
 });

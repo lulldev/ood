@@ -1,6 +1,6 @@
 import { IPainter } from "./Painter";
 import { Canvas } from "./Canvas";
-import { Shape } from "./Shape";
+import { IShape } from "./Shape";
 import { Client } from "./Client";
 import { Designer } from "./Designer";
 
@@ -8,7 +8,7 @@ export class PictureDraft implements IPainter {
 
   private client: Client;
   private designer: Designer;
-  private shapesStore: Shape[];
+  private shapesStore: IShape[];
 
   constructor(client: Client, designer: Designer) {
     this.client = client;
@@ -17,7 +17,7 @@ export class PictureDraft implements IPainter {
   }
 
   public AddShape(shapeParams: object): void {
-    const newShape: Shape = this.designer.CreateDraft(shapeParams);
+    const newShape: IShape = this.designer.CreateDraft(shapeParams);
     this.shapesStore.push(newShape);
   }
 
@@ -26,8 +26,8 @@ export class PictureDraft implements IPainter {
   }
 
   public DrawPicture(canvas: Canvas): void {
-    console.log(canvas.GetCanvasInfo());
-    this.shapesStore.map((shape: Shape) => {
+    canvas.ShowCanvasInfo();
+    this.shapesStore.map((shape: IShape) => {
       shape.Draw(canvas);
     });
   }

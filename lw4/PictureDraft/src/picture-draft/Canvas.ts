@@ -1,6 +1,7 @@
 import { Color } from './Color';
 
 export interface ICanvas {
+  ShowCanvasInfo(): void;
   SetCanvasColor(color: Color): void;
   GetCanvasColor(): Color;
   MoveTo(x: number, y: number): void;
@@ -30,8 +31,8 @@ export class Canvas implements ICanvas {
     return this.color;
   }
 
-  public GetCanvasInfo(): string {
-    return `Canvas color ${this.GetCanvasColor()}`;
+  public ShowCanvasInfo(): void {
+    this.output(`Canvas color ${this.GetCanvasColor()}`);
   }
 
   public MoveTo(x: number, y: number): void {

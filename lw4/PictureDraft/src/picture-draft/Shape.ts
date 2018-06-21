@@ -3,7 +3,12 @@ import { Canvas } from './Canvas';
 
 export type ShapeEdge = { x: number; y: number };
 
-export abstract class Shape {
+export interface IShape {
+  GetColor(): Color;
+  Draw(canvas: Canvas);
+}
+
+export abstract class Shape implements IShape {
 
   protected color: Color;
 
