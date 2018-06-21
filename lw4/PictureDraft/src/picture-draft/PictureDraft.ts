@@ -25,7 +25,7 @@ export class PictureDraft implements IPainter {
     return this.shapesStore.length;
   }
 
-  DrawPicture(canvas: Canvas): void {
+  public DrawPicture(canvas: Canvas): void {
     console.log(canvas.GetCanvasInfo());
     this.shapesStore.map((shape) => {
       shape.Draw(canvas);

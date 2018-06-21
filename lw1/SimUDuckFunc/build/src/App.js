@@ -93,4 +93,18 @@ const playWithDuck = (duck) => {
 const mallardDuck = new MallardDuck();
 playWithDuck(mallardDuck);
 playWithDuck(mallardDuck);
+mallardDuck.SetFlyBehavior(flyWithRocketEngineBehavior());
+playWithDuck(mallardDuck);
+const redheadDuck = new RedheadDuck();
+playWithDuck(redheadDuck);
+const rubberDuck = new RubberDuck();
+playWithDuck(rubberDuck);
+const deckoyDuck = new DeckoyDuck();
+playWithDuck(deckoyDuck);
+const modelDuck = new ModelDuck();
+playWithDuck(modelDuck);
+modelDuck.SetFlyBehavior(flyWithWingsBehavior());
+playWithDuck(modelDuck);
+modelDuck.SetFlyBehavior(flyWithWingsBehavior());
+playWithDuck(modelDuck);
 //# sourceMappingURL=App.js.map

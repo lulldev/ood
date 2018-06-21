@@ -3,6 +3,9 @@ export class Client {
   private name: string;
 
   constructor(name: string) {
+    if (!name || name.length === 0) {
+      throw Error('Name must be no-empty string');
+    }
     this.name = name;
   }
 
@@ -10,4 +13,3 @@ export class Client {
     return this.name;
   }
 }
-

@@ -25,7 +25,7 @@ export class ShapeFactory implements IShapeFactory {
           shapeParams.centerY,
           shapeParams.width,
           shapeParams.height,
-          shapeColor
+          shapeColor,
         );
       }
       else if (shapeParams.type === 'triangle') {

@@ -133,23 +133,22 @@ const mallardDuck = new MallardDuck();
 playWithDuck(mallardDuck);
 playWithDuck(mallardDuck);
 
-// mallardDuck.SetFlyBehavior(MakeFlyWithRocketEngineBehavior());
-// PlayWithDuck(mallardDuck);
+mallardDuck.SetFlyBehavior(flyWithRocketEngineBehavior());
+playWithDuck(mallardDuck);
 
-// const redheadDuck = new RedheadDuck();
-// playWithDuck(redheadDuck);
-//
-// const rubberDuck = new RubberDuck();
-// playWithDuck(rubberDuck);
-//
-// const deckoyDuck = new DeckoyDuck();
-// playWithDuck(deckoyDuck);
-//
-// const modelDuck = new ModelDuck();
-// playWithDuck(modelDuck);
+const redheadDuck = new RedheadDuck();
+playWithDuck(redheadDuck);
 
-// Однако можно нацепить на неё крылья и она полетит, подсчитывая количество полётов
-// modelDuck.SetFlyBehavior(MakeFlyWithWingsBehavior());
-// PlayWithDuck(modelDuck);
-// modelDuck.SetFlyBehavior(MakeFlyWithRocketEngineBehavior());
-// PlayWithDuck(modelDuck);
+const rubberDuck = new RubberDuck();
+playWithDuck(rubberDuck);
+
+const deckoyDuck = new DeckoyDuck();
+playWithDuck(deckoyDuck);
+
+const modelDuck = new ModelDuck();
+playWithDuck(modelDuck);
+
+modelDuck.SetFlyBehavior(flyWithWingsBehavior());
+playWithDuck(modelDuck);
+modelDuck.SetFlyBehavior(flyWithWingsBehavior());
+playWithDuck(modelDuck);

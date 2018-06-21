@@ -7,19 +7,14 @@ import {IShapeCollection} from './IShapeCollection';
 import {Pair} from '../../standart/Pair';
 import {Frame} from '../../standart/Frame';
 import {ShapeCollection} from './ShapeCollection';
-import {FillStyle} from '../shape-component/FillStyle';
-import {OutlineStyle} from '../shape-component/OutlineStyle';
+import {CompositFillStyle} from './CompositFillStyle';
+import {CompositOutlineStyle} from './CompositOutlineStyle';
 
 export class CompositShape implements ICompositShape {
 
   private shapes: IShapeCollection = new ShapeCollection();
-  private outlineStyle: (IOutlineStyle|undefined) = new OutlineStyle();
-  private fillStyle: (IFillStyle|undefined) = new FillStyle();
-
-  constructor() {
-    this.fillStyle = undefined;
-    this.outlineStyle = undefined;
-  }
+  private outlineStyle: IOutlineStyle = new CompositOutlineStyle();
+  private fillStyle: CompositFillStyle = new CompositFillStyle();
 
   public Add(shape: IShape): void {
     this.shapes.Add(shape);
@@ -53,23 +48,6 @@ export class CompositShape implements ICompositShape {
 
   public GetOutlineStyle(): IOutlineStyle {
     return this.outlineStyle;
-  }
-
-  public SetFillStyle(fillStyle: IFillStyle): void {
-    this.fillStyle = fillStyle;
-    for (let i = 0; i < this.shapes.GetShapesCount(); i++) {
-      this.shapes.GetShape(i).GetFillStyle().SetColor(this.fillStyle.GetColor());
-      this.shapes.GetShape(i).GetFillStyle().Enable(this.fillStyle.IsEnabled());
-    }
-  }
-
-  public SetOutlineStyle(outlineStyle: IOutlineStyle): void {
-    this.outlineStyle = outlineStyle;
-    for (let i = 0; i < this.shapes.GetShapesCount(); i++) {
-      this.shapes.GetShape(i).GetOutlineStyle().SetColor(this.outlineStyle.GetColor());
-      this.shapes.GetShape(i).GetOutlineStyle().SetThickness(this.outlineStyle.GetThickness());
-      this.shapes.GetShape(i).GetOutlineStyle().Enable(this.outlineStyle.IsEnabled());
-    }
   }
 
   public SetFrame(frame: Frame) {

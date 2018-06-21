@@ -1,7 +1,6 @@
 import {Slide} from './slides/Slide';
 import {Triangle} from './shapes/Triangle';
 import {CompositShape} from './shapes/composit-shape/CompositShape';
-import {OutlineStyle} from './shapes/shape-component/OutlineStyle';
 import {Color} from './standart/Color';
 import {Canvas} from './canvas/Canvas';
 import {Rectangle} from './shapes/Rectangle';
@@ -24,7 +23,8 @@ const drawHouse = (width: number, height: number) => {
 
   const frame = house.GetFrame();
   house.SetFrame({left: 0, top: 0, width: 500, height: 400});
-  house.SetOutlineStyle(new OutlineStyle(true, Color.Blue));
+  house.GetOutlineStyle().SetThickness(5);
+  house.GetFillStyle().SetColor(Color.Green);
 
   slide.GetShapes().Add(house);
   slide.Draw(canvas);

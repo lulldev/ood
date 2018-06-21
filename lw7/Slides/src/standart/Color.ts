@@ -6,6 +6,7 @@ export enum Color {
   Yellow = '#ffff00',
   Pink = '#ffc0cb',
   Black = '#000',
+  Undefined = '#000'
 }
 
 export const getColorByName = (colorName: string): Color => {
