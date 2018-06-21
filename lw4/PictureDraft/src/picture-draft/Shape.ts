@@ -1,7 +1,7 @@
 import { Color } from './Color';
 import { Canvas } from './Canvas';
 
-export type ShapeEdge = { x: number, y: number };
+export type ShapeEdge = { x: number; y: number };
 
 export abstract class Shape {
 
@@ -29,8 +29,8 @@ export class Rectangle extends Shape {
 
     super(color);
 
-    if(!this.IsValid(startX, startY, width, height)) {
-      throw new Error(`Invalid rectangle params`);
+    if (!this.IsValid(startX, startY, width, height)) {
+      throw new Error('Invalid rectangle params');
     }
 
     this.startX = startX;
@@ -71,8 +71,8 @@ export class Triangle extends Shape {
 
     super(color);
 
-    if(!this.IsValid(x1, y1, x2, y2, x3, y3)) {
-      throw new Error(`Invalid triangle params`);
+    if (!this.IsValid(x1, y1, x2, y2, x3, y3)) {
+      throw new Error('Invalid triangle params');
     }
 
     this.x1 = x1;
@@ -118,7 +118,7 @@ export class Ellipse extends Shape {
     super(color);
 
     if(!this.IsValid(left, top, width, height)) {
-      throw new Error(`Invalid ellipse params`);
+      throw new Error('Invalid ellipse params');
     }
 
     this.left = left;
@@ -132,11 +132,11 @@ export class Ellipse extends Shape {
   }
 
   public GetHorizontalRadius(): number {
-    return this.width / 2
+    return this.width / 2;
   }
 
   public GetVerticalRadius(): number {
-    return this.height / 2
+    return this.height / 2;
   }
 
   public Draw(canvas: Canvas): void {
@@ -162,7 +162,7 @@ export class RegularPolygon extends Shape {
     super(color);
 
     if(!this.IsValid(centerX, centerY, numberOfSides, sideSize)) {
-      throw new Error(`Invalid regular-polygon params`);
+      throw new Error('Invalid regular-polygon params');
     }
 
     this.centerX = centerX;
@@ -188,4 +188,3 @@ export class RegularPolygon extends Shape {
     return !!centerX && !!centerY && (!!numberOfSides && numberOfSides > 0) && (!!sideSize && sideSize > 0);
   }
 }
-

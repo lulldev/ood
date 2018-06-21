@@ -14,14 +14,16 @@ export interface ICanvas {
 export class Canvas implements ICanvas {
 
   private color: Color;
+  private output: (param: string) => (void);
 
-  constructor() {
+  constructor(output: (param: string) => (void)) {
     this.color = Color.White;
+    this.output = output;
   }
 
   public SetCanvasColor(color: Color): void {
     this.color = color;
-    console.log(`set color ${this.color}`);
+    this.output(`Set canvas color ${this.color}`);
   }
 
   public GetCanvasColor(): Color {
@@ -33,32 +35,32 @@ export class Canvas implements ICanvas {
   }
 
   public MoveTo(x: number, y: number): void {
-    console.log(`Move to: [${x}:${y}]`);
+    this.output(`Move to: [${x}:${y}]`);
   }
 
   public DrawLine(from: number, to: number): void {
-    console.log(`Draw line: from ${from} to ${to}`);
+    this.output(`Draw line: from ${from} to ${to}`);
   }
 
   public DrawRectangle(x: number, y: number, width: number, height: number): void {
-    console.log(`Draw rectangle: x = ${x}, y = ${y}, width = ${width}, height = ${height}`);
+    this.output(`Draw rectangle: x = ${x}, y = ${y}, width = ${width}, height = ${height}`);
   }
 
   public DrawEllipse(left: number, top: number,
                      verticalRadius: number, horizontalRadius: number): void {
-    console.log(`Draw ellipse: center = [${left};${top}], ` + `v = ${verticalRadius}, h = ${horizontalRadius}`);
+    this.output(`Draw ellipse: center = [${left};${top}], ` + `v = ${verticalRadius}, h = ${horizontalRadius}`);
   }
 
   public DrawPolygon(centerX: number, centerY: number,
                      numberOfSides: number, sideSize: number): void {
-    console.log(`Draw polygon: center = [${centerX};${centerY}], ` +
+    this.output(`Draw polygon: center = [${centerX};${centerY}], ` +
       `sides count = ${numberOfSides}, side size = ${sideSize}`);
   }
 
   public DrawTriangle(x1: number, y1: number,
                       x2: number, y2: number,
                       x3: number, y3: number): void {
-    console.log(`Draw triangle`);
+    this.output('Draw triangle');
     this.MoveTo(x1, y1);
     this.DrawLine(x2, y2);
     this.DrawLine(x3, y3);
