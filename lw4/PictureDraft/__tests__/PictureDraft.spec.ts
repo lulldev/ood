@@ -2,6 +2,8 @@ import {Client} from '../src/picture-draft/Client';
 import {Designer} from '../src/picture-draft/Designer';
 import {Canvas} from "../src/picture-draft/Canvas";
 import {Color} from "../src/picture-draft/Color";
+import {PictureDraft} from "../src/picture-draft/PictureDraft";
+import {Ellipse, Rectangle, RegularPolygon, Triangle} from "../src/picture-draft/Shape";
 
 let outputLog: string[] = [];
 
@@ -120,4 +122,102 @@ describe('PictureDraft', () => {
 
   });
 
+  describe('Picture draft', () => {
+    const client = new Client('Ivan');
+    const designer = new Designer();
+    const project = new PictureDraft(client, designer);
+
+    it('Project contains 0 shapes after init', () => {
+      expect(project.GetShapesCount()).toEqual(0);
+    });
+
+    it('Project can add some shapes', () => {
+      project.AddShape(new Ellipse(10, 10, 100, 100));
+      expect(project.GetShapesCount()).toEqual(1);
+      project.AddShape(new Rectangle(10, 10, 100, 100));
+      expect(project.GetShapesCount()).toEqual(2);
+    });
+  });
+
+  describe('Shapes', () => {
+
+    describe('Rectangle', () => {
+
+      it('Invalid rectangle params must throw', () => {
+        const wrongCoord: any = '';
+        expect(() => new Rectangle(wrongCoord, 1, -20, -20))
+          .toThrow('Invalid rectangle params');
+      });
+
+      const rectangle = new Rectangle(10, 10, 200, 100);
+
+      it('Rectangle can return left top', () => {
+        expect(rectangle.GetLeftTop()).toEqual({x: 10, y: 10});
+      });
+
+      it('Rectangle can return right bottom', () => {
+        expect(rectangle.GetRightBottom()).toEqual({x: 110, y: 210});
+      });
+    });
+
+    describe('Triangle', () => {
+
+      it('Invalid triangle params must throw', () => {
+        const wrongCoord: any = '';
+        expect(() => new Triangle(wrongCoord, 2, wrongCoord, -20, 10, -20))
+          .toThrow('Invalid triangle params');
+      });
+
+      const triangle = new Triangle(10, 20, 30, 40, 50, 20);
+
+      it('Triangle can return vertex', () => {
+        expect(triangle.GetVertex1()).toEqual({x: 10, y: 20});
+        expect(triangle.GetVertex2()).toEqual({x: 30, y: 40});
+        expect(triangle.GetVertex3()).toEqual({x: 50, y: 20});
+      });
+    });
+
+    describe('Ellipse', () => {
+
+      it('Invalid ellipse params must throw', () => {
+        const wrongCoord: any = '';
+        expect(() => new Ellipse(wrongCoord, 1, -20, -20))
+          .toThrow('Invalid ellipse params');
+      });
+
+      const ellipse = new Ellipse(50, 50, 100, 150);
+
+      it('Ellipse can return center', () => {
+        expect(ellipse.GetCenter()).toEqual({x: 50, y: 50});
+      });
+
+      it('Ellipse can return horizontal radius', () => {
+        expect(ellipse.GetHorizontalRadius()).toEqual(50);
+      });
+
+      it('Ellipse can return vertical radius', () => {
+        expect(ellipse.GetVerticalRadius()).toEqual(75);
+      });
+    });
+
+    describe('Regular polygon', () => {
+
+      it('Invalid rectangle polygon params must throw', () => {
+        const wrongCoord: any = '';
+        expect(() => new RegularPolygon(wrongCoord, 1, -20, -20))
+          .toThrow('Invalid regular-polygon params');
+      });
+
+      const regularPolygon = new RegularPolygon(50, 50, 5, 20);
+
+      it('Regular-polygon can return vertex count', () => {
+        expect(regularPolygon.GetVertexCount()).toEqual(5);
+      });
+
+      it('Regular-polygon can return center', () => {
+        expect(regularPolygon.GetCenter()).toEqual({x: 50, y: 50});
+      });
+    });
+
+  });
 });

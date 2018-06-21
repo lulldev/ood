@@ -25,7 +25,7 @@ export class Rectangle extends Shape {
   private width: number;
   private height: number;
 
-  constructor(startX: number, startY: number, width: number, height: number, color: Color) {
+  constructor(startX: number, startY: number, width: number, height: number, color: Color = Color.Black) {
 
     super(color);
 
@@ -67,7 +67,7 @@ export class Triangle extends Shape {
   private y3: number;
 
   constructor(x1: number, y1: number, x2: number,
-              y2: number, x3: number, y3: number, color: Color) {
+              y2: number, x3: number, y3: number, color: Color = Color.Black) {
 
     super(color);
 
@@ -113,7 +113,7 @@ export class Ellipse extends Shape {
   private height: number;
 
   constructor(left: number, top: number,
-              width: number, height: number, color: Color) {
+              width: number, height: number, color: Color = Color.Black) {
 
     super(color);
 
@@ -157,11 +157,11 @@ export class RegularPolygon extends Shape {
   private sideSize: number;
 
   constructor(centerX: number, centerY: number, numberOfSides: number,
-              sideSize: number,  color: Color) {
+              sideSize: number,  color: Color = Color.Black) {
 
     super(color);
 
-    if(!this.IsValid(centerX, centerY, numberOfSides, sideSize)) {
+    if (!this.IsValid(centerX, centerY, numberOfSides, sideSize)) {
       throw new Error('Invalid regular-polygon params');
     }
 
