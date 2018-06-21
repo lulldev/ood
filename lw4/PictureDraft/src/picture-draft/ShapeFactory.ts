@@ -61,7 +61,7 @@ export class ShapeFactory implements IShapeFactory {
         return null;
       }
     }
-    catch(e) {
+    catch (e) {
       throw new Error(`Invalid shape params for create: ${e.message}`);
     }
   }

@@ -218,6 +218,24 @@ describe('PictureDraft', () => {
         expect(regularPolygon.GetCenter()).toEqual({x: 50, y: 50});
       });
     });
+  });
+
+  describe('Picture draft House development', () => {
+
+    const client = new Client('Ivan');
+    const designer = new Designer();
+    const houseProject = new PictureDraft(client, designer);
+
+    const clientDemands = {
+      roofColor: Color.Blue,
+      bodyColor: Color.White,
+      houseWidth: 150,
+      houseHeight: 200
+    };
+
+    // it('Client want draw house', () => {
+    //   expect(project.GetShapesCount()).toEqual(0);
+    // });
 
   });
 });
