@@ -3,7 +3,9 @@ import {Designer} from '../src/picture-draft/Designer';
 import {Canvas} from "../src/picture-draft/Canvas";
 import {Color} from "../src/picture-draft/Color";
 import {PictureDraft} from "../src/picture-draft/PictureDraft";
-import {IShape, Ellipse, Rectangle, RegularPolygon, Triangle} from "../src/picture-draft/Shape";
+import {Ellipse, Rectangle, RegularPolygon, Triangle} from "../src/picture-draft/Shape";
+import {ShapeFactory} from "../src/picture-draft/ShapeFactory";
+import {Painter} from "../src/picture-draft/Painter";
 
 let outputLog: string[] = [];
 
@@ -35,9 +37,36 @@ describe('PictureDraft', () => {
   });
 
   describe('Designer', () => {
+    const shapeFactory = new ShapeFactory();
+    const designer = new Designer(shapeFactory);
 
-    it('Designer init without arguments', () => {
-      expect(() => new Designer()).not.toThrow();
+    it('Invalid add by designer must throw', () => {
+      expect(() => designer.AddShape({type: 'triangle', x: 1, y: 1})).toThrow('Invalid triangle params');
+    });
+
+    it('Valid shape by designer not throw', () => {
+      expect(() => designer.AddShape(
+        {type: 'rectangle', centerX: 10, centerY: 10, width: 30, height: 100 }))
+        .not.toThrow('Invalid triangle params');
+    });
+  });
+
+  describe('Painter', () => {
+    const shapeFactory = new ShapeFactory();
+    const designer = new Designer(shapeFactory);
+    const painter = new Painter();
+    const canvas = new Canvas(outputHookHelper);
+
+    it('Painter can draw draft', () => {
+      outputLogClear();
+      designer.AddShape({type: 'rectangle', centerX: 10, centerY: 10, width: 200, height: 200});
+      const draft = designer.CreateDraft();
+      painter.DrawPicture(canvas, draft);
+
+      expect(outputLog).toEqual([
+        'Canvas color #fff',
+        'Draw rectangle: x = 10, y = 10, width = 200, height = 200',
+      ]);
     });
   });
 
@@ -51,6 +80,7 @@ describe('PictureDraft', () => {
     });
 
     it('Canvas can set color', () => {
+      outputLogClear();
       canvas.SetCanvasColor(Color.Blue);
       expect(canvas.GetCanvasColor()).toEqual(Color.Blue);
       expect(outputLog).toEqual(['Set canvas color #0000ff']);
@@ -118,30 +148,13 @@ describe('PictureDraft', () => {
 
   });
 
-  describe('Picture draft', () => {
-    const client = new Client('Ivan');
-    const designer = new Designer();
-    const project = new PictureDraft(client, designer);
-
-    it('Project contains 0 shapes after init', () => {
-      expect(project.GetShapesCount()).toEqual(0);
-    });
-
-    it('Project can add some shapes', () => {
-      project.AddShape({});
-      expect(project.GetShapesCount()).toEqual(1);
-      project.AddShape({});
-      expect(project.GetShapesCount()).toEqual(2);
-    });
-  });
-
   describe('Shapes', () => {
 
     describe('Rectangle', () => {
 
       it('Invalid rectangle params must throw', () => {
         const wrongCoord: any = '';
-        expect(() => new Rectangle(wrongCoord, 1, -20, -20))
+        expect(() => new Rectangle(wrongCoord, 0, -20, -20))
           .toThrow('Invalid rectangle params');
       });
 
@@ -219,8 +232,9 @@ describe('PictureDraft', () => {
   describe('Picture draft House development', () => {
 
     const client = new Client('Ivan');
-    const designer = new Designer();
-    const houseProject = new PictureDraft(client, designer);
+    const shapeFactory = new ShapeFactory();
+    const designer = new Designer(shapeFactory);
+    const painter = new Painter();
     const canvas = new Canvas(outputHookHelper);
 
     const clientDemands = {
@@ -230,7 +244,7 @@ describe('PictureDraft', () => {
       houseHeight: 200,
     };
 
-    it('Designer build project and draw picture', () => {
+    it('Designer build project and painter draw picture', () => {
 
       outputLogClear();
 
@@ -256,11 +270,12 @@ describe('PictureDraft', () => {
         color: clientDemands.bodyColor,
       };
 
-      houseProject.AddShape(roof);
-      houseProject.AddShape(rectangle);
+      designer.AddShape(roof);
+      designer.AddShape(rectangle);
 
-      expect(houseProject.GetShapesCount()).toEqual(2);
-      houseProject.DrawPicture(canvas);
+      const draft = designer.CreateDraft();
+
+      painter.DrawPicture(canvas, draft);
       expect(outputLog).toEqual([
         "Canvas color #fff",
         "Draw triangle",

@@ -1,3 +1,5 @@
+import {ShapeFactory} from "./ShapeFactory";
+
 const readlineSync = require('readline-sync');
 
 import { Client } from "./Client";
@@ -5,6 +7,7 @@ import { Designer } from "./Designer";
 import { PictureDraft } from "./PictureDraft";
 import { Color } from "./Color";
 import { Canvas } from "./Canvas";
+import {Painter} from "./Painter";
 
 const commandLineArgs = require('command-line-args');
 
@@ -23,8 +26,8 @@ if (!startupOptions.hasOwnProperty('clientName') || !startupOptions.hasOwnProper
 }
 
 const client: Client = new Client(startupOptions.clientName);
-const designer: Designer = new Designer();
-const pictureDraft: PictureDraft = new PictureDraft(client, designer);
+const shapeFactory = new ShapeFactory();
+const designer: Designer = new Designer(shapeFactory);
 
 const helpView = () => {
   console.log('Доступные параметры фигур для добавления фигур:');
@@ -46,7 +49,7 @@ helpView();
 readlineSync.promptCLLoop({
   rectangle: (centerX: number, centerY: number, width: number, height: number, color: string) => {
     try {
-      pictureDraft.AddShape({
+      designer.AddShape({
         type: 'rectangle',
         centerX,
         centerY,
@@ -64,7 +67,7 @@ readlineSync.promptCLLoop({
              color: string) => {
 
     try {
-      pictureDraft.AddShape({
+      designer.AddShape({
         type: 'triangle',
         x1,
         y1,
@@ -75,14 +78,14 @@ readlineSync.promptCLLoop({
         color,
       });
     }
-    catch(e) {
+    catch (e) {
       console.log(e.message);
     }
   },
   ellipse: (left: number, top: number, width: number,
             height: number, color: string) => {
     try {
-      pictureDraft.AddShape({
+      designer.AddShape({
         type: 'ellipse',
         left,
         top,
@@ -98,7 +101,7 @@ readlineSync.promptCLLoop({
   regular_polygon: (centerX: number, centerY: number, numberOfSides: number,
                     sideSize: number, color: string) => {
     try {
-      pictureDraft.AddShape({
+      designer.AddShape({
         type: 'regular_polygon',
         centerX,
         centerY,
@@ -111,7 +114,10 @@ readlineSync.promptCLLoop({
       console.log(e.message);
     }
   },
-  draw: () => pictureDraft.DrawPicture(new Canvas(console.log)),
+  draw: () => {
+    const painter = new Painter();
+    painter.DrawPicture(new Canvas(console.log), designer.CreateDraft());
+  },
   help: () => helpView(),
   exit: () => { return true; },
 });

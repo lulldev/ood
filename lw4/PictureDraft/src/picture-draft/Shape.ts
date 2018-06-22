@@ -1,11 +1,11 @@
 import { Color } from './Color';
-import { Canvas } from './Canvas';
+import {Canvas, ICanvas} from './Canvas';
 
 export type ShapeEdge = { x: number; y: number };
 
 export interface IShape {
   GetColor(): Color;
-  Draw(canvas: Canvas);
+  Draw(canvas: ICanvas);
 }
 
 export abstract class Shape implements IShape {
@@ -20,7 +20,7 @@ export abstract class Shape implements IShape {
     return this.color;
   }
 
-  public abstract Draw(canvas: Canvas): void;
+  public abstract Draw(canvas: ICanvas): void;
 }
 
 export class Rectangle extends Shape {
@@ -52,7 +52,7 @@ export class Rectangle extends Shape {
     return { x: this.startX + this.height, y: this.startY + this.width };
   }
 
-  public Draw(canvas: Canvas): void {
+  public Draw(canvas: ICanvas): void {
     canvas.DrawRectangle(this.startX, this.startY, this.width, this.height);
   }
 
@@ -122,7 +122,7 @@ export class Ellipse extends Shape {
 
     super(color);
 
-    if(!this.IsValid(left, top, width, height)) {
+    if (!this.IsValid(left, top, width, height)) {
       throw new Error('Invalid ellipse params');
     }
 
@@ -144,7 +144,7 @@ export class Ellipse extends Shape {
     return this.height / 2;
   }
 
-  public Draw(canvas: Canvas): void {
+  public Draw(canvas: ICanvas): void {
     const center = this.GetCenter();
     canvas.DrawEllipse(center.x, center.y, this.GetVerticalRadius(), this.GetHorizontalRadius());
   }
@@ -184,7 +184,7 @@ export class RegularPolygon extends Shape {
     return { x: this.centerX, y: this.centerY };
   }
 
-  public Draw(canvas: Canvas): void {
+  public Draw(canvas: ICanvas): void {
     const center = this.GetCenter();
     canvas.DrawPolygon(center.x, center.y, this.numberOfSides, this.sideSize);
   }

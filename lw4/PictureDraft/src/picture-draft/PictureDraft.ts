@@ -1,34 +1,30 @@
 import { IPainter } from "./Painter";
-import { Canvas } from "./Canvas";
+import { ICanvas, Canvas } from "./Canvas";
 import { IShape } from "./Shape";
-import { Client } from "./Client";
-import { Designer } from "./Designer";
 
-export class PictureDraft implements IPainter {
+export interface IPictureDraft {
+  GetShapesCount(): number;
+  GetShape(index: number): IShape;
+}
 
-  private client: Client;
-  private designer: Designer;
+export class PictureDraft implements IPictureDraft {
+
   private shapesStore: IShape[];
 
-  constructor(client: Client, designer: Designer) {
-    this.client = client;
-    this.designer = designer;
+  constructor() {
     this.shapesStore = [];
   }
 
-  public AddShape(shapeParams: object): void {
-    const newShape: IShape = this.designer.CreateDraft(shapeParams);
-    this.shapesStore.push(newShape);
+  public AddShape(shape: IShape): void {
+    this.shapesStore.push(shape);
   }
 
   public GetShapesCount(): number {
     return this.shapesStore.length;
   }
 
-  public DrawPicture(canvas: Canvas): void {
-    canvas.ShowCanvasInfo();
-    this.shapesStore.map((shape: IShape) => {
-      shape.Draw(canvas);
-    });
+  public GetShape(index: number): IShape {
+    return this.shapesStore[index];
   }
+
 }
