@@ -1,9 +1,10 @@
 import {Menu} from './menu/Menu';
+import {IDocument} from "./document/IDocument";
 
 export class Editor {
 
-  private document: any; // todo
-  private menu: Menu = new Menu(); // todo: interface
+  private document: IDocument;
+  private menu: Menu = new Menu();
   private standartOutput: any;
 
   constructor(standartOutput: any) {
