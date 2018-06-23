@@ -1,54 +1,38 @@
-class Menu {
+const readlineSync = require('readline-sync');
 
-  private shortcut: string;
-  private description: string;
-  private command: any;
-  private items: any[];
+export type Command = (...args: any[]) => void;
 
-  public AddItem(shortcut: string, description: string, command: any) {
-    this.items.push({shortcut, description, command});
+export type MenuCommand = {
+  name: string;
+  description: string;
+  command: Command;
+};
+
+export class Menu {
+
+  private menuCommands: MenuCommand[] = [];
+
+  public AddItem(name: string, description: string, command: Command) {
+    this.menuCommands.push({name, description, command});
   }
 
   public Run() {
-    // ShowInstructions();
+    this.ShowHelp();
 
-    // string command;
-    // while ((cout << ">")
-    // && getline(cin, command)
-    // && ExecuteCommand(command))
-    // {
-    // }
+    const promptCommands = {};
+    this.menuCommands.forEach((menuCommand: MenuCommand) => {
+      promptCommands[menuCommand.name] = menuCommand.command;
+    });
+
+    readlineSync.promptCLLoop(promptCommands);
   }
 
-  public ShowInstructions() {
-    // cout << "Commands list:\n";
-    // for (auto & item : m_items)
-    // {
-    //   cout << "  " << item.shortcut << ": " << item.description << "\n";
-    // }
+  public ShowHelp(): void {
+    console.log('show help');
   }
 
-  public Exit() {
-
+  public Exit(): void {
+    process.exit(0);
   }
 
-  private ExecuteCommand(command: any): boolean {
-    // istringstream iss(command);
-    // string name;
-    // iss >> name;
-    //
-    // m_exit = false;
-    // auto it = boost::find_if(m_items, [&](const Item & item) {
-    //   return item.shortcut == name;
-    // });
-    // if (it != m_items.end())
-    // {
-    //   it->command(iss);
-    // }
-    // else
-    // {
-    //   cout << "Unknown command\n";
-    // }
-    // return !m_exit;
-  }
 }

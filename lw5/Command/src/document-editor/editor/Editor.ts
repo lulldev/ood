@@ -1,31 +1,34 @@
-class Editor {
+import {Menu} from '../menu/Menu';
+
+export class Editor {
 
   private document: any; // todo
-  private menu: any; // todo
+  private menu: Menu = new Menu(); // todo: interface
 
   constructor() {
-    // this.menu.AddItem("help", "Help", [this](istream&) { m_menu.ShowInstructions(); });
-    // this.menu.AddItem("exit", "Exit", [this](istream&) { m_menu.Exit(); });
-    this.AddMenuItem("setTitle", "Change title. Args: <new title>", &CEditor::SetTitle);
-    this.AddMenuItem("insertParagraph", "Add paragraph at position. Args: <position>|end <text>", &CEditor::AddParagraph);
-    this.AddMenuItem("insertImage", "Add image at positions. Args: <position>|end <width> <height> <path>", &CEditor::AddImage);
-    this.AddMenuItem("deleteItem", "Delete item at position. Args: <position>", &CEditor::DeleteItem);
-    this.AddMenuItem("replaceText", "Replace text at position. Args: <position> <text>", &CEditor::ReplaceText);
-    this.AddMenuItem("resizeImage", "Resize image at position. Args: <position> <width> <height>", &CEditor::ResizeImage);
-    this.AddMenuItem("save", "Save html document to path. Args: <path>", &CEditor::Save);
-    this.AddMenuItem("list", "Show document", &CEditor::List);
-    this.AddMenuItem("undo", "Undo command", &CEditor::Undo);
-    this.AddMenuItem("redo", "Redo undone command", &CEditor::Redo);
+    this.menu.AddItem("help", "Help", () => { this.menu.ShowHelp(); });
+    this.menu.AddItem("exit", "Exit", () => { this.menu.Exit(); });
+    // this.AddMenuItem("setTitle", "Change title. Args: <new title>", &CEditor::SetTitle);
+    // this.AddMenuItem("insertParagraph", "Add paragraph at position. Args: <position>|end <text>", &CEditor::AddParagraph);
+    // this.AddMenuItem("insertImage", "Add image at positions. Args: <position>|end <width> <height> <path>", &CEditor::AddImage);
+    // this.AddMenuItem("deleteItem", "Delete item at position. Args: <position>", &CEditor::DeleteItem);
+    // this.AddMenuItem("replaceText", "Replace text at position. Args: <position> <text>", &CEditor::ReplaceText);
+    // this.AddMenuItem("resizeImage", "Resize image at position. Args: <position> <width> <height>", &CEditor::ResizeImage);
+    // this.AddMenuItem("save", "Save html document to path. Args: <path>", &CEditor::Save);
+    // this.AddMenuItem("list", "Show document", &CEditor::List);
+    // this.AddMenuItem("undo", "Undo command", &CEditor::Undo);
+    // this.AddMenuItem("redo", "Redo undone command", &CEditor::Redo);
   }
 
   public Init(): void {
-    // this.menu.Run();
+    this.menu.Run();
   }
 
-  private AddMenuItem(shortcut: string, description: string, handler: any): void {
-    this.menu.AddItem(shortcut, description, bind(handler, this, _1));
-  }
+  // private AddMenuItem(shortcut: string, description: string, handler: any): void {
+  //   this.menu.AddItem(shortcut, description, bind(handler, this, _1));
+  // }
 
+  /*
   private SetTitle(title: string) {
     this.menu.SetTitle(ReadLine(in));
   }
@@ -164,4 +167,6 @@ class Editor {
       cout << "Can't redo" << endl;
     }
   }
+
+  */
 }
