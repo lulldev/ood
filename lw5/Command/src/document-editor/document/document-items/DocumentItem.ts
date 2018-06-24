@@ -1,4 +1,4 @@
-export class BaseDocumentItem {
+export class DocumentItem {
 
   // todo types
   private parahraph: any;

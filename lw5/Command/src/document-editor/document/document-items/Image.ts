@@ -1,7 +1,7 @@
 import {History} from "../../command/History";
 import {IImage} from "./IImage";
 
-export class CImage implements IImage {
+export class Image implements IImage {
 
   private path: string;
   private width: number;

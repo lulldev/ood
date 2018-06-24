@@ -1,6 +1,6 @@
 import {Command} from "../../command/Command";
 
-class ChangeStringCommand extends Command {
+export class ChangeStringCommand extends Command {
 
   private newValue: string;
   private target: string;

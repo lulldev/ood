@@ -1,6 +1,6 @@
 import {Command} from "../../command/Command";
 
-class DeleteItemCommand extends Command {
+export class DeleteItemCommand extends Command {
 
   private items: any[] = []; // todo std::vector<DocumentItemPtr> &
   private item: any; // todo DocumentItemPtr

@@ -1,9 +1,10 @@
 import {Menu} from './menu/Menu';
 import {IDocument} from "./document/IDocument";
+import {Document} from "./document/Document";
 
 export class Editor {
 
-  private document: IDocument;
+  private document: IDocument = new Document();
   private menu: Menu = new Menu();
   private standartOutput: any;
 
@@ -116,6 +117,7 @@ export class Editor {
 
   private ResizeImage(width: number, height: number, position?: number) {
     try {
+      console.log(width, height, position);
       /*
         size_t index = ReadUnsigned(in);
         unsigned width = ReadUnsigned(in);
@@ -128,7 +130,7 @@ export class Editor {
         }
         item.GetImage()->Resize(width, height);
       */
-      this.document.ResizeImage(width, height, position);
+      // this.document.ResizeImage(width, height, position);
     }
     catch (e) {
       this.standartOutput(e);

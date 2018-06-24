@@ -1,6 +1,6 @@
 import {Command} from "../../command/Command";
 
-class ResizeImageCommand extends Command {
+export class ResizeImageCommand extends Command {
 
   private width: number;
   private height: number;

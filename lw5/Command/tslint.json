@@ -28,6 +28,7 @@
     "no-increment-decrement": false,
     "no-unnecessary-initializer": false,
     "no-unnecessary-field-initialization": false,
+    "no-consecutive-blank-lines": false,
     "one-line": false,
     "quotemark": false,
     "newline-before-return": false,
