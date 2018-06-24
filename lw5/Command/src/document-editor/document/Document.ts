@@ -1,15 +1,13 @@
-import {Runtime} from "inspector";
-
 const fs = require('fs');
 
 import {IDocument} from "./IDocument";
 import {ChangeStringCommand} from "./document-commands/ChangeString";
 import {DeleteItemCommand} from "./document-commands/DeleteItem";
 import {InsertItemCommand} from "./document-commands/InsertItem";
-import {ResizeImageCommand} from "./document-commands/ResizeImage";
 import {Paragraph} from "./document-items/Paragraph";
 import {Image} from "./document-items/Image";
 import {DocumentItem} from "./document-items/DocumentItem";
+import {History} from "../command/History";
 
 export class Document implements IDocument {
 
@@ -18,18 +16,18 @@ export class Document implements IDocument {
   private static TMP_PATH: string = '/tmp/document';
 
   private title: string;
-  private history: any; // todo history
+  private history: any = new History(); // todo history
   private documentItems: any[]; // todo doc items
   private tempPath: string; // filesystem temp
   private copyImg: {wasPath: string; willPath: string};
 
   constructor() {
-    if (!fs.existsSync(Document.TMP_PATH)) {
-      fs.mkdirSync(Document.TMP_PATH);
-    }
-    if (!fs.existsSync(`${Document.TMP_PATH}/images`)) {
-      fs.mkdirSync(`${Document.TMP_PATH}/images`);
-    }
+    // if (!fs.existsSync(Document.TMP_PATH)) {
+    //   fs.mkdirSync(Document.TMP_PATH);
+    // }
+    // if (!fs.existsSync(`${Document.TMP_PATH}/images`)) {
+    //   fs.mkdirSync(`${Document.TMP_PATH}/images`);
+    // }
   }
 
   public SetTitle(title: string) {
@@ -84,14 +82,6 @@ export class Document implements IDocument {
     return image;
   }
 
-  // public ReplaceText(text: string, position?: number) {
-  //
-  // }
-  //
-  // public ResizeImage(width: number, height: number, position?: number) {
-  //
-  // }
-
   public DeleteItem(position: number) {
     if (this.documentItems.length === 0 || position > this.documentItems.length - 1) {
       throw new Error('Index out range');
@@ -108,10 +98,6 @@ export class Document implements IDocument {
 	    CHtmlConverter::Save(fs::path(path), *this);
     */
   }
-
-  // public List() {
-  //
-  // }
 
   public CanUndo(): boolean {
     return this.history.CanUndo();

@@ -16,60 +16,61 @@ export class Editor {
     this.menu.AddItem(
       "SetTitle",
       "Set document title",
-      this.SetTitle);
+      (title: string) => this.SetTitle(title),
+    );
 
     this.menu.AddItem(
       "InsertParagraph",
       "Add paragraph at position. Args: <position>|end <text>",
-      this.InsertParagraph,
+      (text: string, position?: number) => this.InsertParagraph(text, position),
     );
 
     this.menu.AddItem(
       "InsertImage",
       "Add image at positions. Args: <position>|end <width> <height> <path>",
-      this.InsertImage,
+      (src: string, width: number, height: number, position?: number) => this.InsertImage(src, width, height, position),
     );
 
     this.menu.AddItem(
       "ReplaceText",
       "Replace text at position. Args: <position> <text>",
-      this.ReplaceText,
+      (text: string, position?: number) => this.ReplaceText(text, position),
     );
 
     this.menu.AddItem(
       "ResizeImage",
       "Resize image at position. Args: <position> <width> <height>",
-      this.ResizeImage,
+      (width: number, height: number, position?: number) => this.ResizeImage(width, height, position),
     );
 
     this.menu.AddItem(
       "DeleteItem",
       "Delete item in document",
-      this.DeleteItem,
+      (position: number) => this.DeleteItem(position),
     );
 
     this.menu.AddItem(
       "Save",
       "Save html document to path. Args: <path>",
-      this.Save,
+      (path: string) => this.Save(path),
     );
 
     this.menu.AddItem(
       "List",
       "Show document",
-      this.Save,
+      () => this.List,
     );
 
     this.menu.AddItem(
       "Undo",
       "Undo command",
-      this.Undo,
+      () => this.Undo,
     );
 
     this.menu.AddItem(
       "Redo",
       "Redo command",
-      this.Redo,
+      () => this.Redo,
     );
   }
 
