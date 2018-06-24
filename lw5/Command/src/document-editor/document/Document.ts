@@ -17,17 +17,17 @@ export class Document implements IDocument {
 
   private title: string;
   private history: any = new History(); // todo history
-  private documentItems: any[]; // todo doc items
+  private documentItems: any[] = []; // todo doc items
   private tempPath: string; // filesystem temp
   private copyImg: {wasPath: string; willPath: string};
 
   constructor() {
-    // if (!fs.existsSync(Document.TMP_PATH)) {
-    //   fs.mkdirSync(Document.TMP_PATH);
-    // }
-    // if (!fs.existsSync(`${Document.TMP_PATH}/images`)) {
-    //   fs.mkdirSync(`${Document.TMP_PATH}/images`);
-    // }
+    if (!fs.existsSync(Document.TMP_PATH)) {
+      fs.mkdirSync(Document.TMP_PATH);
+    }
+    if (!fs.existsSync(`${Document.TMP_PATH}/images`)) {
+      fs.mkdirSync(`${Document.TMP_PATH}/images`);
+    }
   }
 
   public SetTitle(title: string) {

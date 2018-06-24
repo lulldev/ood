@@ -58,19 +58,19 @@ export class Editor {
     this.menu.AddItem(
       "List",
       "Show document",
-      () => this.List,
+      () => this.List(),
     );
 
     this.menu.AddItem(
       "Undo",
       "Undo command",
-      () => this.Undo,
+      () => this.Undo(),
     );
 
     this.menu.AddItem(
       "Redo",
       "Redo command",
-      () => this.Redo,
+      () => this.Redo(),
     );
   }
 
