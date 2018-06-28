@@ -48,6 +48,11 @@ export class Image implements IImage {
   public Resize(width: number, height: number) {
     const resizeImageCommand = new ResizeImageCommand(this.width, this.height, width, height);
     this.history.AddAndExecuteCommand(resizeImageCommand);
+    this.CommitChanges(this.history.GetLastChanges());
   }
 
+  private CommitChanges(changes: any) {
+    this.width = changes.hasOwnProperty('actualWidth') ? changes.actualWidth : this.width;
+    this.height = changes.hasOwnProperty('actualHeight') ? changes.actualHeight : this.height;
+  }
 }

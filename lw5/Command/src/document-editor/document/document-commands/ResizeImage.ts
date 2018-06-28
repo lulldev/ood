@@ -16,7 +16,7 @@ export class ResizeImageCommand extends Command {
   }
 
   public GetChanges(): object {
-    return { newWidth: this.width, newHeight: this.height};
+    return { actualWidth: this.width, actualHeight: this.height};
   }
 
   protected DoExecute() {
