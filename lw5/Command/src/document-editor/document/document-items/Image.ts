@@ -1,5 +1,6 @@
 import {History} from "../../command/History";
 import {IImage} from "./IImage";
+import {ResizeImageCommand} from "../document-commands/ResizeImage";
 
 export class Image implements IImage {
 
@@ -42,9 +43,8 @@ export class Image implements IImage {
   }
 
   public Resize(width: number, height: number) {
-    // m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(m_width, m_height, width, height));
-    // this.history.AddAndExecuteCommand()
-    console.log(width, height);
+    const resizeImageCommand = new ResizeImageCommand(this.width, this.height, width, height);
+    this.history.AddAndExecuteCommand(resizeImageCommand);
   }
 
 }

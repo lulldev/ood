@@ -1,5 +1,6 @@
 import {History} from "../../command/History";
 import {IParagraph} from "./IParagraph";
+import {ChangeStringCommand} from "../document-commands/ChangeString";
 
 export class Paragraph implements IParagraph {
 
@@ -17,8 +18,7 @@ export class Paragraph implements IParagraph {
   }
 
   public SetText(text: string) {
-    // m_history.AddAndExecuteCommand(std::make_unique<CResizeImageCommand>(m_width, m_height, width, height));
-    // this.history.AddAndExecuteCommand()
-    console.log(text);
+    const changeStringCommand = new ChangeStringCommand(this.text, text);
+    this.history.AddAndExecuteCommand(changeStringCommand);
   }
 }

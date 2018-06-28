@@ -1,6 +1,7 @@
 import {Menu} from './menu/Menu';
 import {IDocument} from "./document/IDocument";
 import {Document} from "./document/Document";
+import {DocumentItem} from "./document/document-items/DocumentItem";
 
 export class Editor {
 
@@ -87,7 +88,7 @@ export class Editor {
       this.document.InsertParagraph(text, position);
     }
     catch (e) {
-      this.standartOutput(e);
+      this.standartOutput(e.message);
     }
   }
 
@@ -96,23 +97,22 @@ export class Editor {
       this.document.InsertImage(src, width, height, position);
     }
     catch (e) {
-      this.standartOutput(e);
+      this.standartOutput(e.message);
     }
   }
 
-  private ReplaceText(text: string, position?: number) {
+  private ReplaceText(text: string, position: number) {
     try {
-      console.log(text, position);
-      // auto item = this.document.GetItem(index);
-      // if (!item.GetParagraph())
-      // {
-      //   throw invalid_argument("Can't replace text in non-text item");
-      // }
-      //
-      // item.GetParagraph()->SetText(text);
+      const item: DocumentItem = this.document.GetItem(position);
+      if (!item.GetParagraph()) {
+        throw new Error("Can't replace text in non-text item");
+      }
+      console.log(item.GetParagraph());
+      item.GetParagraph().SetText(text);
+      console.log(text, item.GetParagraph());
     }
     catch (e) {
-      this.standartOutput(e);
+      this.standartOutput(e.message);
     }
   }
 
@@ -134,7 +134,7 @@ export class Editor {
       // this.document.ResizeImage(width, height, position);
     }
     catch (e) {
-      this.standartOutput(e);
+      this.standartOutput(e.message);
     }
   }
 
@@ -143,7 +143,7 @@ export class Editor {
       this.document.DeleteItem(position);
     }
     catch (e) {
-      this.standartOutput(e);
+      this.standartOutput(e.message);
     }
   }
 
@@ -152,7 +152,7 @@ export class Editor {
       this.document.Save(path);
     }
     catch (e) {
-      this.standartOutput(e);
+      this.standartOutput(e.message);
     }
   }
 

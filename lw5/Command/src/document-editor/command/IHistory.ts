@@ -6,5 +6,4 @@ export interface IHistory {
   CanRedo(): boolean;
   Redo();
   AddAndExecuteCommand(command: ICommand);
-  GetSize(): number;
 }
