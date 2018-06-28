@@ -1,3 +1,5 @@
+import {IHTMLConverter} from "./HTMLConverter/IHTMLConverter";
+
 const fs = require('fs');
 
 import {IDocument} from "./IDocument";
@@ -8,6 +10,7 @@ import {Paragraph} from "./document-items/Paragraph";
 import {Image} from "./document-items/Image";
 import {DocumentItem} from "./document-items/DocumentItem";
 import {History} from "../command/History";
+import {HTMLConverter} from "./HTMLConverter/HTMLConverter";
 
 export class Document implements IDocument {
 
@@ -15,11 +18,12 @@ export class Document implements IDocument {
   private static MAX_IMAGE_HEIGHT: number = 10000;
   private static TMP_PATH: string = '/tmp/document';
 
-  private title: string;
+  private title: string = 'Untitled';
   private history: any = new History(); // todo history
   private documentItems: any[] = []; // todo doc items
   private tempPath: string; // filesystem temp
-  private copyImg: {wasPath: string; willPath: string};
+  private copyImg: {wasPath: string; willPath: string} = {wasPath: '', willPath: ''};
+  private htmlConverter: IHTMLConverter = new HTMLConverter();
 
   constructor() {
     if (!fs.existsSync(Document.TMP_PATH)) {
@@ -92,11 +96,8 @@ export class Document implements IDocument {
   }
 
   public Save(path: string) {
-    console.log('save', path);
-    /*
-    	CopyImagesForFile(path);
-	    CHtmlConverter::Save(fs::path(path), *this);
-    */
+    this.CopyImagesForFile(path);
+    this.htmlConverter.Save(path, this);
   }
 
   public CanUndo(): boolean {
@@ -123,16 +124,16 @@ export class Document implements IDocument {
     return this.documentItems.length;
   }
 
-  public GetItem(index: number): any { // todo return CConstDocumentItem
+  public GetItem(index: number): DocumentItem {
     if (this.documentItems.length === 0 || index > this.documentItems.length - 1) {
       throw new Error('Index out range');
     }
     return this.documentItems[index];
   }
 
-  // private CopyImagesForFile(path: string) {
-  //
-  // }
+  private CopyImagesForFile(path: string) {
+    console.log('copy img to ', path);
+  }
 
   private CopyImage(path: string) {
     console.log('copy to ', path);

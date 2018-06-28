@@ -29,6 +29,8 @@
     "no-unnecessary-initializer": false,
     "no-unnecessary-field-initialization": false,
     "no-consecutive-blank-lines": false,
+    "no-var-requires": false,
+    "no-require-imports": false,
     "one-line": false,
     "quotemark": false,
     "newline-before-return": false,

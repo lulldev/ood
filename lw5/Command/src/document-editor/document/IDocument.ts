@@ -1,3 +1,5 @@
+import {DocumentItem} from "./document-items/DocumentItem";
+
 export interface IDocument {
   SetTitle(title: string);
   GetTitle(): string;
@@ -9,4 +11,6 @@ export interface IDocument {
   Undo();
   CanRedo(): boolean;
   Redo();
+  GetItemsCount(): number;
+  GetItem(index: number): DocumentItem;
 }
