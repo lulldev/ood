@@ -32,7 +32,7 @@ export class History implements IHistory {
       throw new Error("can't redo");
     }
 
-    const command = this.redoStack[this.redoStack.length];
+    const command = this.redoStack[this.redoStack.length - 1];
     this.redoStack.splice(this.undoStack.length - 1, 1);
     command.Execute();
     this.lastChanges = command.GetChanges();

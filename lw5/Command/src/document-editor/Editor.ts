@@ -157,19 +157,19 @@ export class Editor {
   }
 
   private Undo() {
-    if (this.document.CanUndo()) {
+    try {
       this.document.Undo();
     }
-    else {
+    catch (e) {
       this.standartOutput("Can't undo");
     }
   }
 
   private Redo() {
-    if (this.document.CanUndo()) {
+    try {
       this.document.Redo();
     }
-    else {
+    catch (e) {
       this.standartOutput("Can't redo");
     }
   }
