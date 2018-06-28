@@ -103,35 +103,20 @@ export class Editor {
 
   private ReplaceText(text: string, position: number) {
     try {
-      const item: DocumentItem = this.document.GetItem(position);
-      if (!item.GetParagraph()) {
-        throw new Error("Can't replace text in non-text item");
-      }
-      console.log(item.GetParagraph());
-      item.GetParagraph().SetText(text);
-      console.log(text, item.GetParagraph());
+      this.document.ReplaceText(text, position);
     }
     catch (e) {
       this.standartOutput(e.message);
     }
   }
 
-  private ResizeImage(width: number, height: number, position?: number) {
+  private ResizeImage(width: number, height: number, position: number) {
     try {
-      console.log(width, height, position);
-      /*
-        size_t index = ReadUnsigned(in);
-        unsigned width = ReadUnsigned(in);
-        unsigned height = ReadUnsigned(in);
-
-        auto item = this.document.GetItem(index);
-        if (!item.GetImage())
-        {
-          throw invalid_argument("Can't resize non-image");
-        }
-        item.GetImage()->Resize(width, height);
-      */
-      // this.document.ResizeImage(width, height, position);
+      const item = this.document.GetItem(position);
+      if (!item.GetImage()) {
+        throw new Error("Can't resize non-image");
+      }
+      item.GetImage().Resize(width, height);
     }
     catch (e) {
       this.standartOutput(e.message);
@@ -157,24 +142,18 @@ export class Editor {
   }
 
   private List() {
-    /*
-        cout << "-------------" << endl;
-    cout << this.document.GetTitle() << endl;
-    for (unsigned i = 0; i < m_document->GetItemsCount(); i++)
-    {
-      auto item = this.document.GetItem(i);
-      if (item.GetParagraph())
-      {
-        cout << i << ". Paragraph: " << item.GetParagraph()->GetText() << endl;
+    this.standartOutput(this.document.GetTitle());
+
+    for (let i = 0; i < this.document.GetItemsCount(); i++) {
+      const item = this.document.GetItem(i);
+      if (item.GetParagraph()) {
+        this.standartOutput(`${i}. Paragraph: ${item.GetParagraph().GetText()}`);
       }
-      else
-      {
-        auto image = item.GetImage();
-        cout << i << ". Image: " << image->GetWidth() << "x" << image->GetHeight() << " " << image->GetPath() << endl;
+      else {
+        const image = item.GetImage();
+        this.standartOutput(`${i}. Image: ${image.GetWidth()}:${image.GetHeight()} ${image.GetPath()}`);
       }
     }
-    cout << "-------------" << endl;
-     */
   }
 
   private Undo() {

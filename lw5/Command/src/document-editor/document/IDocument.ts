@@ -6,6 +6,7 @@ export interface IDocument {
   InsertParagraph(text: string, position?: number);
   InsertImage(src: string, width: number, height: number, position?: number);
   DeleteItem(position: number);
+  ReplaceText(text: string, position: number);
   Save(path: string);
   CanUndo(): boolean;
   Undo();

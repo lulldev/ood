@@ -3,8 +3,9 @@ import {ICommand} from "./ICommand";
 
 export class History implements IHistory {
 
-  private undoStack: any[] = [];
-  private redoStack: any[] = [];
+  private undoStack: ICommand[] = [];
+  private redoStack: ICommand[] = [];
+  private lastChanges: object;
 
   public CanUndo(): boolean {
     return this.undoStack.length !== 0;
@@ -18,6 +19,7 @@ export class History implements IHistory {
     const command = this.undoStack[this.undoStack.length - 1];
     this.undoStack.splice(this.undoStack.length - 1, 1);
     command.Unexecute();
+    this.lastChanges = command.GetChanges();
     this.redoStack.push(command);
   }
 
@@ -33,15 +35,21 @@ export class History implements IHistory {
     const command = this.redoStack[this.redoStack.length];
     this.redoStack.splice(this.undoStack.length - 1, 1);
     command.Execute();
+    this.lastChanges = command.GetChanges();
     this.undoStack.push(command);
   }
 
   public AddAndExecuteCommand(command: ICommand) {
     command.Execute();
+    this.lastChanges = command.GetChanges();
     if (this.undoStack.length === 10) {
       this.undoStack.splice(0, 1);
     }
     this.undoStack.push(command);
     this.redoStack = [];
+  }
+
+  public GetLastChanges(): object {
+    return this.lastChanges;
   }
 }

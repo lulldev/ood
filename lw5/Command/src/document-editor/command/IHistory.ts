@@ -6,4 +6,5 @@ export interface IHistory {
   CanRedo(): boolean;
   Redo();
   AddAndExecuteCommand(command: ICommand);
+  GetLastChanges(): object;
 }

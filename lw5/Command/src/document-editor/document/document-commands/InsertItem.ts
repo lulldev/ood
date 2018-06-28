@@ -13,6 +13,10 @@ export class InsertItemCommand extends Command {
     this.position = position;
   }
 
+  public GetChanges(): object {
+    return { item: this.item, newValue: this.position};
+  }
+
   protected DoExecute() {
 
     if (this.position < this.items.length || this.position > this.items.length) {

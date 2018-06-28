@@ -12,6 +12,10 @@ export class DeleteItemCommand extends Command {
     this.index = index;
   }
 
+  public GetChanges(): object {
+    return { position: this.index};
+  }
+
   protected DoExecute() {
 
     if (this.items.length === 0 || this.index > this.items.length) {

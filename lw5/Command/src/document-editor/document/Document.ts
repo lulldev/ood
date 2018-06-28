@@ -2,6 +2,7 @@ import {IHTMLConverter} from "./HTMLConverter/IHTMLConverter";
 
 const fs = require('fs');
 const fse = require('fs-extra');
+const randomstring = require('randomstring');
 
 import {IDocument} from "./IDocument";
 import {ChangeStringCommand} from "./document-commands/ChangeString";
@@ -18,12 +19,12 @@ export class Document implements IDocument {
 
   private static MAX_IMAGE_WIDTH: number = 10000;
   private static MAX_IMAGE_HEIGHT: number = 10000;
-  private static TMP_PATH: string = '/tmp/document';
+  private static TMP_PATH: string = `/tmp/${randomstring.generate(10)}`;
 
   private title: string = 'Untitled';
   private history: IHistory = new History();
   private documentItems: DocumentItem[] = [];
-  private copyImg: {wasPath: string; willPath: string}[] = [];
+  private copyImg: { wasPath: string; willPath: string }[] = [];
   private htmlConverter: IHTMLConverter = new HTMLConverter();
 
   constructor() {
@@ -36,8 +37,9 @@ export class Document implements IDocument {
   }
 
   public SetTitle(title: string) {
-    const changeStringCommand = new ChangeStringCommand(this.title, title);
+    const changeStringCommand = new ChangeStringCommand(this.title, title, 'title');
     this.history.AddAndExecuteCommand(changeStringCommand);
+    this.CommitChanges(this.history.GetLastChanges());
   }
 
   public GetTitle(): string {
@@ -56,11 +58,13 @@ export class Document implements IDocument {
 
     const insertCommand = new InsertItemCommand(this.documentItems, item, pos);
     this.history.AddAndExecuteCommand(insertCommand);
+
     return paragraph;
   }
 
   public InsertImage(src: string, width: number, height: number, position?: number) {
     const pos = position ? position : this.documentItems.length;
+
     if (pos > this.documentItems.length) {
       throw new Error("Index out range");
     }
@@ -68,14 +72,16 @@ export class Document implements IDocument {
     if (!fs.existsSync(src)) {
       throw new Error('File not exist');
     }
-    if (width < 1 || width > Document.MAX_IMAGE_WIDTH) {
+
+    if (!width || (width < 1 || width > Document.MAX_IMAGE_WIDTH)) {
       throw new Error('Invalid image width');
     }
-    if (height < 1 || width > Document.MAX_IMAGE_HEIGHT) {
+
+    if (!height || (height < 1 || width > Document.MAX_IMAGE_HEIGHT)) {
       throw new Error('Invalid image height');
     }
 
-    const iterEqual = this.copyImg.filter((copyImg: {wasPath: string; willPath: string}) => {
+    const iterEqual = this.copyImg.filter((copyImg: { wasPath: string; willPath: string }) => {
       return copyImg.wasPath === src;
     });
 
@@ -89,7 +95,22 @@ export class Document implements IDocument {
 
     const insertImage = new InsertItemCommand(this.documentItems, item, pos);
     this.history.AddAndExecuteCommand(insertImage);
+    this.CommitChanges(this.history.GetLastChanges());
+
     return image;
+  }
+
+  public ReplaceText(text: string, position: number) {
+    const item: DocumentItem = this.GetItem(position);
+
+    if (!text) {
+      throw new Error("Invalid text");
+    }
+
+    if (!item.GetParagraph()) {
+      throw new Error("Can't replace text in non-text item");
+    }
+    item.GetParagraph().SetText(text);
   }
 
   public DeleteItem(position: number) {
@@ -99,6 +120,7 @@ export class Document implements IDocument {
 
     const deleteItem = new DeleteItemCommand(this.documentItems, position);
     this.history.AddAndExecuteCommand(deleteItem);
+    this.CommitChanges(this.history.GetLastChanges());
   }
 
   public Save(path: string) {
@@ -112,6 +134,7 @@ export class Document implements IDocument {
 
   public Undo() {
     this.history.Undo();
+    this.CommitChanges(this.history.GetLastChanges());
   }
 
   public CanRedo(): boolean {
@@ -120,6 +143,7 @@ export class Document implements IDocument {
 
   public Redo() {
     this.history.Redo();
+    this.CommitChanges(this.history.GetLastChanges());
   }
 
   public GetItemsCount(): number {
@@ -158,7 +182,7 @@ export class Document implements IDocument {
   private CopyImage(path: string) {
     let pathToNewImage = path;
 
-    const iterEqual = this.copyImg.filter((copyImg: {wasPath: string; willPath: string}) => {
+    const iterEqual = this.copyImg.filter((copyImg: { wasPath: string; willPath: string }) => {
       const imagePath = copyImg.willPath;
       const parentPath = this.GetParentPath(imagePath);
       const imageName = this.GetFilenameFromPath(imagePath);
@@ -167,16 +191,6 @@ export class Document implements IDocument {
 
     const newName = this.GetFilenameFromPath(path);
     pathToNewImage = `${Document.TMP_PATH}/images/${newName}`;
-
-    // if (iterEqual[0] === this.copyImg[this.copyImg.length]) {
-    //   const newName = this.GetFilenameFromPath(path);
-    //   pathToNewImage = `${Document.TMP_PATH}/images/${newName}`;
-    // }
-    // else {
-    //   // todo rnd
-    //   const newName = this.GetFilenameFromPath(path);
-    //   pathToNewImage = `${Document.TMP_PATH}/images/${newName}`;
-    // }
 
     fse.copySync(path, pathToNewImage);
     this.copyImg.push({wasPath: path, willPath: pathToNewImage});
@@ -191,5 +205,9 @@ export class Document implements IDocument {
   private GetFilenameFromPath(filePath: string): string {
     const spl = filePath.split('/');
     return spl[spl.length - 1];
+  }
+
+  private CommitChanges(changes: any) {
+    this.title = (changes.field === 'title') ? changes.actual : this.title;
   }
 }

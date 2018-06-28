@@ -19,6 +19,7 @@ export abstract class Command implements ICommand {
     }
   }
 
+  public abstract GetChanges(): object;
   protected abstract DoExecute();
   protected abstract DoUnexecute();
 }

@@ -1,7 +1,10 @@
+const fs = require('fs');
+
 import {History} from "../../command/History";
 import {IImage} from "./IImage";
 import {ResizeImageCommand} from "../document-commands/ResizeImage";
 import {IHistory} from "../../command/IHistory";
+import {Document} from "../Document";
 
 export class Image implements IImage {
 
@@ -12,10 +15,9 @@ export class Image implements IImage {
 
   constructor(path: string, width: number, height: number, history: IHistory) {
 
-    // todo check path
-    // if (!exists(boost::filesystem::path(path))){
-    //   throw std::invalid_argument("Invalid file path or not accessible file");
-    // }
+    if (!fs.existsSync(path)){
+      throw new Error("Invalid file path or not accessible file");
+    }
 
     this.path = path;
     this.width = width;

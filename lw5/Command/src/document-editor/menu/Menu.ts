@@ -28,7 +28,9 @@ export class Menu {
   }
 
   public ShowHelp(): void {
-    console.log('show help');
+    this.menuCommands.forEach((menuCommand: MenuCommand) => {
+      console.log(`${menuCommand.name} - ${menuCommand.description}`);
+    });
   }
 
   public Exit(): void {

@@ -1,6 +1,5 @@
 export class DocumentItem {
 
-  // todo types
   private parahraph: any;
   private image: any;
 
@@ -9,11 +8,11 @@ export class DocumentItem {
     this.image = image;
   }
 
-  public GetImage(): any { //IImageConstPtr
+  public GetImage(): any {
     return this.image;
   }
 
-  public GetParagraph(): any { // IParagraphConstPtr
+  public GetParagraph(): any {
     return this.parahraph;
   }
 }

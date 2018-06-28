@@ -19,7 +19,12 @@ export class Paragraph implements IParagraph {
   }
 
   public SetText(text: string) {
-    const changeStringCommand = new ChangeStringCommand(this.text, text);
+    const changeStringCommand = new ChangeStringCommand(this.text, text, 'paragraph');
     this.history.AddAndExecuteCommand(changeStringCommand);
+    this.CommitChanges(this.history.GetLastChanges());
+  }
+
+  private CommitChanges(changes: any) {
+    this.text = (changes.field === 'paragraph') ? changes.actual : this.text;
   }
 }
