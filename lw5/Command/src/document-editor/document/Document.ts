@@ -12,6 +12,7 @@ import {Image} from "./document-items/Image";
 import {DocumentItem} from "./document-items/DocumentItem";
 import {History} from "../command/History";
 import {HTMLConverter} from "./HTMLConverter/HTMLConverter";
+import {IHistory} from "../command/IHistory";
 
 export class Document implements IDocument {
 
@@ -20,7 +21,7 @@ export class Document implements IDocument {
   private static TMP_PATH: string = '/tmp/document';
 
   private title: string = 'Untitled';
-  private history: any = new History(); // todo history
+  private history: IHistory = new History();
   private documentItems: DocumentItem[] = [];
   private copyImg: {wasPath: string; willPath: string}[] = [];
   private htmlConverter: IHTMLConverter = new HTMLConverter();

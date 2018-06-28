@@ -1,13 +1,14 @@
 import {History} from "../../command/History";
 import {IParagraph} from "./IParagraph";
 import {ChangeStringCommand} from "../document-commands/ChangeString";
+import {IHistory} from "../../command/IHistory";
 
 export class Paragraph implements IParagraph {
 
   private text: string;
-  private history: History;
+  private history: IHistory;
 
-  constructor(text: string, history: History) {
+  constructor(text: string, history: IHistory) {
 
     this.text = text;
     this.history = history;

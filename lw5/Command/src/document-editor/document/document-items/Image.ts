@@ -1,15 +1,16 @@
 import {History} from "../../command/History";
 import {IImage} from "./IImage";
 import {ResizeImageCommand} from "../document-commands/ResizeImage";
+import {IHistory} from "../../command/IHistory";
 
 export class Image implements IImage {
 
   private path: string;
   private width: number;
   private height: number;
-  private history: History;
+  private history: IHistory;
 
-  constructor(path: string, width: number, height: number, history: History) {
+  constructor(path: string, width: number, height: number, history: IHistory) {
 
     // todo check path
     // if (!exists(boost::filesystem::path(path))){
